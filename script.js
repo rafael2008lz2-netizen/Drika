@@ -176,3 +176,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+// ── Hide Elfsight Watermarks ───────────────────────────────────
+setInterval(() => {
+  // Hide standard links and toolbars
+  document.querySelectorAll('a[href*="elfsight.com"], .eapps-link, [class*="eapps-widget-toolbar"]').forEach(el => {
+    el.style.setProperty('display', 'none', 'important');
+    el.style.setProperty('opacity', '0', 'important');
+  });
+  
+  // Pierce shadow DOM if Elfsight uses it
+  document.querySelectorAll('[class*="elfsight-app"]').forEach(app => {
+    if (app.shadowRoot) {
+      const style = document.createElement('style');
+      style.innerHTML = 'a[href*="elfsight.com"], .eapps-link, [class*="eapps-widget-toolbar"] { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }';
+      // Append style only if it's not already there
+      if (!app.shadowRoot.querySelector('style[data-hide-elfsight]')) {
+        style.setAttribute('data-hide-elfsight', 'true');
+        app.shadowRoot.appendChild(style);
+      }
+      
+      app.shadowRoot.querySelectorAll('a[href*="elfsight.com"], .eapps-link, [class*="eapps-widget-toolbar"]').forEach(el => {
+        el.style.setProperty('display', 'none', 'important');
+      });
+    }
+  });
+}, 500);
