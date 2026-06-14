@@ -767,3 +767,14 @@ p{font-weight:300;color:var(--text-secondary)}
   .section{padding:var(--space-3xl) 0}
   .hero-scroll{display:none}
 }
+
+/* ============================================================
+   HIDE ELFSIGHT WATERMARK
+   ============================================================ */
+a[href*="elfsight.com"], 
+.eapps-link,
+[class*="elfsight-app"] > a {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
