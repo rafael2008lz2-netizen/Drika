@@ -4,11 +4,11 @@
    ============================================================ */
 
 :root {
-  --bg-primary: #050505; /* Deep premium black */
-  --bg-secondary: #050505; /* Unified to remove section seams */
-  --bg-card: #0F0F0F; /* Subtle elevation */
-  --bg-card-hover: #161616;
-  --bg-glass: rgba(15, 15, 15, 0.85);
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-card: #141414;
+  --bg-card-hover: #1A1A1A;
+  --bg-glass: rgba(20, 20, 20, 0.85);
 
   /* Gold replaced by White/Silver */
   --gold: #FFFFFF;
@@ -793,7 +793,7 @@ a[href*="elfsight.com"],
   left: 0;
   width: 100%;
   height: 50px;
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   z-index: 9999;
   pointer-events: auto;
 }
