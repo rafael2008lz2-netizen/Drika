@@ -773,8 +773,27 @@ p{font-weight:300;color:var(--text-secondary)}
    ============================================================ */
 a[href*="elfsight.com"], 
 .eapps-link,
-[class*="elfsight-app"] > a {
+[class*="elfsight-app"] > a,
+.eapps-widget-toolbar {
   display: none !important;
   opacity: 0 !important;
   pointer-events: none !important;
+}
+
+/* Tampa forçada para iframe (caso o Elfsight bloqueie o JS) */
+.insta-feed-widget {
+  position: relative;
+  padding-bottom: 20px; /* Espaço para não cortar as fotos */
+}
+
+.insta-feed-widget::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: var(--bg-primary);
+  z-index: 9999;
+  pointer-events: auto;
 }
