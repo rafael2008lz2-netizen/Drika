@@ -114,8 +114,8 @@ p{font-weight:300;color:var(--text-secondary)}
 }
 
 /* ── Scroll Animations ───────────────────────────────────────── */
-.fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
-.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in{opacity:0;transform:translateY(40px) scale(0.95);transition:opacity 1.2s var(--ease-out),transform 1.2s var(--ease-out);will-change:opacity,transform;}
+.fade-in.visible{opacity:1;transform:translateY(0) scale(1);}
 .stagger-children .fade-in:nth-child(1){transition-delay:0s}
 .stagger-children .fade-in:nth-child(2){transition-delay:.06s}
 .stagger-children .fade-in:nth-child(3){transition-delay:.12s}
@@ -847,8 +847,86 @@ a[href*="elfsight.com"],
   left: -5%;
   transform: translateY(-50%) rotate(-90deg);
 }
+}
 .bg-watermark.right {
   right: -5%;
   transform: translateY(-50%) rotate(90deg);
 }
 
+/* ── Global Particles ────────────────────────────────────────── */
+.global-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  animation: floatUp linear infinite;
+  bottom: -5vh;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* ── Infinite Marquee ────────────────────────────────────────── */
+.marquee-section {
+  width: 100%;
+  background: var(--bg-card);
+  padding: 1.5rem 0;
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid var(--gray-border);
+  border-bottom: 1px solid var(--gray-border);
+  z-index: 2;
+}
+.marquee-track {
+  display: flex;
+  width: fit-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  white-space: nowrap;
+}
+.marquee-content span {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Parallax Background Typography ──────────────────────────── */
+.parallax-text {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 12vw;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.02);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  top: 50%;
+  transform: translateY(-50%);
+  will-change: transform;
+}
+.parallax-text.left { left: -5%; }
+.parallax-text.right { right: -5%; }

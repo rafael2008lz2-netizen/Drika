@@ -44,6 +44,10 @@
   </script>
 </head>
 <body>
+  <!-- ==========================================
+       GLOBAL ANIMATED PARTICLES (FLOATING ELEMENTS)
+       ========================================== -->
+  <div class="global-particles" id="particles-container"></div>
 
   <!-- ==========================================
        NAVBAR
@@ -267,7 +271,8 @@
   <!-- ==========================================
        DOWNLOAD CATALOG (PDF)
        ========================================== -->
-  <section class="section download-section">
+  <section class="section download-section" id="apresentacao">
+    <div class="parallax-text right" data-speed="0.05">PORTFÓLIO</div>
     <div class="container download-content fade-in">
       <div class="download-icon">
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -282,9 +287,31 @@
   </section>
 
   <!-- ==========================================
+       INFINITE MARQUEE
+       ========================================== -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span>★ ACABAMENTO PREMIUM</span>
+        <span>★ 100% PERSONALIZADO</span>
+        <span>★ TECIDOS DE ALTO PADRÃO</span>
+        <span>★ EXCLUSIVIDADE</span>
+        <span>★ ATENDIMENTO HUMANIZADO</span>
+        <!-- Duplicated for seamless loop -->
+        <span aria-hidden="true">★ ACABAMENTO PREMIUM</span>
+        <span aria-hidden="true">★ 100% PERSONALIZADO</span>
+        <span aria-hidden="true">★ TECIDOS DE ALTO PADRÃO</span>
+        <span aria-hidden="true">★ EXCLUSIVIDADE</span>
+        <span aria-hidden="true">★ ATENDIMENTO HUMANIZADO</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
        DIFERENCIAIS
        ========================================== -->
   <section class="section diff-section" id="diferenciais">
+    <div class="parallax-text left" data-speed="-0.08">EXCLUSIVIDADE</div>
     <div class="container container--narrow">
       <div class="section-header fade-in">
         <span class="section-label">A Marca</span>
@@ -322,6 +349,7 @@
        DEPOIMENTOS
        ========================================== -->
   <section class="section testimonials-section" id="depoimentos">
+    <div class="parallax-text right" data-speed="0.1">QUALIDADE</div>
     <div class="container">
       <div class="section-header fade-in">
         <span class="section-label">Clientes</span>

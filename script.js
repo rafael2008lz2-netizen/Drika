@@ -175,6 +175,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ── Parallax Background Typography ────────────────────────────
+  const parallaxTexts = document.querySelectorAll('.parallax-text');
+  if (parallaxTexts.length > 0) {
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      parallaxTexts.forEach(text => {
+        const speed = text.getAttribute('data-speed') || 0.1;
+        const yPos = -(scrollY * speed);
+        // The texts already have translateY(-50%), we add the parallax offset
+        text.style.transform = `translateY(calc(-50% + ${yPos}px)) ${text.classList.contains('left') ? 'rotate(-90deg)' : text.classList.contains('right') ? 'rotate(90deg)' : ''}`;
+      });
+    }, { passive: true });
+  }
+
+  // ── Global Particles Generator ────────────────────────────────
+  const particlesContainer = document.getElementById('particles-container');
+  if (particlesContainer) {
+    const particleCount = 20; // Quantity of particles
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      // Random properties
+      const size = Math.random() * 4 + 2; // 2px to 6px
+      const posX = Math.random() * 100; // 0% to 100%
+      const delay = Math.random() * 15; // 0s to 15s
+      const duration = Math.random() * 20 + 15; // 15s to 35s
+      
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${posX}%`;
+      particle.style.animationDelay = `${delay}s`;
+      particle.style.animationDuration = `${duration}s`;
+      
+      particlesContainer.appendChild(particle);
+    }
+  }
+
 });
 
 // ── Hide Elfsight Watermarks ───────────────────────────────────
