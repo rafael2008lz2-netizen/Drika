@@ -192,32 +192,51 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Parallax Image Reveal (Premium Luxury) ──────────────────────
   const parallaxImages = document.querySelectorAll('.product-card-image img, .product-placeholder-inner');
   if (parallaxImages.length > 0) {
-    // Flag to ensure we don't trigger layout thrashing constantly
+    
+    // Envolve as imagens em uma div de parallax para não conflitar com o hover scale
+    const wrappers = [];
+    parallaxImages.forEach(img => {
+      // Ignora se já estiver encapsulado (evita duplicidade)
+      if (img.parentElement.classList.contains('parallax-img-wrapper')) return;
+      
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('parallax-img-wrapper');
+      wrapper.style.position = 'absolute';
+      wrapper.style.top = '0';
+      wrapper.style.left = '0';
+      wrapper.style.width = '100%';
+      wrapper.style.height = '100%';
+      wrapper.style.willChange = 'transform';
+      
+      img.parentNode.insertBefore(wrapper, img);
+      wrapper.appendChild(img);
+      wrappers.push(wrapper);
+    });
+
     let ticking = false;
     
     const updateParallax = () => {
       const windowCenter = window.innerHeight / 2;
       
-      parallaxImages.forEach(img => {
-        const container = img.closest('.product-card-image');
+      wrappers.forEach(wrapper => {
+        const container = wrapper.closest('.product-card-image');
         if (!container) return;
         
         const rect = container.getBoundingClientRect();
         
-        // Pula o cálculo se estiver totalmente fora da tela (otimização extrema de GPU)
         if (rect.bottom < 0 || rect.top > window.innerHeight) return;
         
         const elementCenter = rect.top + rect.height / 2;
         const diff = elementCenter - windowCenter;
         
-        const maxParallax = 15; // Mapeia para +/- 15%
+        const maxParallax = 20; // 20% translation (BEM VISÍVEL)
         let percent = -(diff / windowCenter) * maxParallax;
         
-        // Clamp the values to strictly stay within safe boundaries
         if (percent > maxParallax) percent = maxParallax;
         if (percent < -maxParallax) percent = -maxParallax;
         
-        img.style.setProperty('--parallax-y', `${percent}%`);
+        // A translação é aplicada no wrapper, preservando as propriedades da imagem original
+        wrapper.style.transform = `translateY(${percent}%)`;
       });
       ticking = false;
     };
@@ -229,8 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
     
-    // Dispara uma vez na inicialização
-    updateParallax();
+    // Dispara uma vez na inicialização após 100ms para garantir que o layout carregou
+    setTimeout(updateParallax, 100);
   }
 
   // ── Global Particles Generator ────────────────────────────────
