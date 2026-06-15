@@ -933,3 +933,41 @@ a[href*="elfsight.com"],
 }
 .parallax-text.left { left: -5%; }
 .parallax-text.right { right: -5%; }
+
+/* ── Scroll Tracker (The Golden Thread) ───────────────────────── */
+.scroll-tracker-container {
+  position: fixed;
+  top: 0;
+  right: 2vw;
+  width: 2px;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.scroll-tracker-thread {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.scroll-tracker-needle {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+  box-shadow: 0 0 15px var(--accent);
+  border-radius: 2px;
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .scroll-tracker-container {
+    display: none;
+  }
+}

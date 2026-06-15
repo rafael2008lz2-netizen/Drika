@@ -189,6 +189,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  // ── Scroll Tracker (Golden Thread) ────────────────────────────
+  const scrollNeedle = document.getElementById('scroll-needle');
+  if (scrollNeedle) {
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      // Evita divisão por zero em telas muito curtas
+      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) : 0;
+      
+      // Move a agulha ao longo da altura da tela (100vh)
+      // A altura da agulha é de 60px
+      const maxTravel = window.innerHeight - 60;
+      const yPos = scrollPercent * maxTravel;
+      
+      scrollNeedle.style.transform = `translateY(${yPos}px)`;
+    }, { passive: true });
+  }
+
   // ── Global Particles Generator ────────────────────────────────
   const particlesContainer = document.getElementById('particles-container');
   if (particlesContainer) {
