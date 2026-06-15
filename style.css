@@ -924,23 +924,29 @@ a[href*="elfsight.com"],
 
 /* ── Parallax Background Typography ──────────────────────────── */
 .parallax-text {
-  position: absolute;
-  font-family: var(--font-body);
-  font-size: 10vw;
-  font-weight: 600;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
-  letter-spacing: 0.1em;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 0;
-  user-select: none;
-  top: 50%;
-  transform: translateY(-50%);
-  will-change: transform;
+  display: none;
 }
-.parallax-text.left { left: -5%; }
-.parallax-text.right { right: -5%; }
+@media (min-width: 1024px) {
+  .parallax-text {
+    display: block;
+    position: absolute;
+    font-family: var(--font-body);
+    font-size: 10vw;
+    font-weight: 600;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+    top: 50%;
+    transform: translateY(-50%);
+    will-change: transform;
+  }
+  .parallax-text.left { left: -5%; }
+  .parallax-text.right { right: -5%; }
+}
 
 /* ── Premium Micro-Interactions ──────────────────────────────── */
 
