@@ -995,27 +995,3 @@ a[href*="elfsight.com"],
   overflow: hidden;
   will-change: transform;
 }
-
-.product-card-image::after {
-  content: '✦ DETALHES DO PRODUTO ✦\A \A Fio Premium Penteado\A Costura Francesa\A Alta Durabilidade';
-  white-space: pre-wrap;
-  position: absolute;
-  bottom: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.2) 100%);
-  color: #e0e0e0;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 2;
-  letter-spacing: 0.15em;
-  opacity: 0;
-  transition: opacity 0.5s var(--ease-out);
-  pointer-events: none;
-  z-index: 2;
-}
-.product-card:hover .product-card-image::after {
-  opacity: 1;
-}

@@ -239,18 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
         wrapper.style.transform = `translateY(${percent}%)`;
       });
 
-      // Parallax for Background Texts
-      if (window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches) {
-        const bgTexts = document.querySelectorAll('.parallax-bg-text');
-        bgTexts.forEach(text => {
-          const speed = parseFloat(text.getAttribute('data-speed')) || 0.1;
-          const rect = text.parentElement.getBoundingClientRect();
-          const elementCenter = rect.top + rect.height / 2;
-          const diff = elementCenter - windowCenter;
-          const y = diff * speed;
-          text.style.transform = `translateY(calc(-50% + ${y}px))`;
-        });
-      }
 
       ticking = false;
     };
