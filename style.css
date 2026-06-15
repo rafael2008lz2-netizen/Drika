@@ -104,13 +104,42 @@ p{font-weight:300;color:var(--text-secondary)}
 .section-subtitle{font-size:var(--text-base);color:var(--text-secondary);max-width:560px;margin:0 auto;font-weight:300}
 .gold-line{
   width:50px;height:2px;background:var(--gold-gradient);
-  margin:var(--space-sm) auto;border-radius:var(--radius-full);
+  margin:var(--space-md) auto;border-radius:var(--radius-full);
   position:relative;overflow:hidden;
 }
 .gold-line::after{
   content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);
   animation:shimmerLine 3s infinite;
+}
+
+/* ── Seamless Flow Glows ─────────────────────────────────────── */
+.section {
+  padding: var(--space-4xl) 0;
+  position: relative;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+.catalog-section::before {
+  content: ''; position: absolute; top: 30%; left: 50%;
+  transform: translate(-50%, -50%); width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+.diff-section::before {
+  content: ''; position: absolute; top: 50%; left: 20%;
+  transform: translate(-50%, -50%); width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+.testimonials-section::before {
+  content: ''; position: absolute; top: 50%; right: 0%;
+  transform: translate(30%, -50%); width: 900px; height: 900px;
+  background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
 }
 
 /* ── Scroll Animations ───────────────────────────────────────── */
@@ -294,7 +323,7 @@ p{font-weight:300;color:var(--text-secondary)}
 /* ============================================================
    PRODUCT CATALOG
    ============================================================ */
-.catalog-section{background:var(--bg-secondary)}
+.catalog-section{}
 
 /* Filters */
 .catalog-filters{
@@ -424,7 +453,7 @@ p{font-weight:300;color:var(--text-secondary)}
 /* ============================================================
    DIFERENCIAIS
    ============================================================ */
-.diff-section{background:var(--bg-primary);overflow:hidden}
+.diff-section{overflow:hidden}
 .diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg)}
 .diff-card{
   background:var(--bg-card);border:1px solid var(--gray-border);
@@ -452,7 +481,7 @@ p{font-weight:300;color:var(--text-secondary)}
 /* ============================================================
    TESTIMONIALS
    ============================================================ */
-.testimonials-section{background:var(--bg-secondary);overflow:hidden}
+.testimonials-section{overflow:hidden}
 .testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg)}
 .testimonial-card{
   background:var(--bg-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
@@ -477,7 +506,7 @@ p{font-weight:300;color:var(--text-secondary)}
 /* ============================================================
    SIZE CHART
    ============================================================ */
-.sizes-section{background:var(--bg-primary)}
+.sizes-section{}
 .size-table-wrapper{overflow-x:auto;border-radius:var(--radius-lg);border:1px solid var(--gray-border);background:var(--bg-card)}
 .size-table{width:100%;border-collapse:collapse;font-size:var(--text-sm)}
 .size-table thead{background:linear-gradient(135deg,rgba(200,169,110,.08),rgba(200,169,110,.03))}
@@ -497,7 +526,7 @@ p{font-weight:300;color:var(--text-secondary)}
 /* ============================================================
    INSTAGRAM
    ============================================================ */
-.insta-section{background:var(--bg-secondary);overflow:hidden}
+.insta-section{overflow:hidden}
 .insta-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-xl);flex-wrap:wrap;gap:var(--space-md)}
 .insta-profile{display:flex;align-items:center;gap:var(--space-md)}
 .insta-profile-pic{
@@ -539,10 +568,10 @@ p{font-weight:300;color:var(--text-secondary)}
 /* ============================================================
    CATALOG DOWNLOAD
    ============================================================ */
-.download-section{background:var(--bg-primary);text-align:center;padding:var(--space-3xl) 0;overflow:hidden}
+.download-section{text-align:center;padding:var(--space-3xl) 0;overflow:hidden}
 .download-section::before{
   content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:400px;height:400px;background:radial-gradient(circle,rgba(200,169,110,.04) 0%,transparent 70%);pointer-events:none;
+  width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,.025) 0%,transparent 70%);pointer-events:none;
 }
 .download-content{position:relative;z-index:1}
 .download-icon{
@@ -571,7 +600,7 @@ p{font-weight:300;color:var(--text-secondary)}
 /* ============================================================
    CONTACT
    ============================================================ */
-.contact-section{background:var(--bg-secondary)}
+.contact-section{}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2xl);align-items:start}
 .contact-info{display:flex;flex-direction:column;gap:var(--space-md)}
 .contact-item{
@@ -656,7 +685,7 @@ p{font-weight:300;color:var(--text-secondary)}
 /* ============================================================
    FOOTER
    ============================================================ */
-.site-footer{background:var(--bg-primary);padding:var(--space-3xl) 0 var(--space-lg);border-top:1px solid var(--gray-border)}
+.site-footer{background:var(--bg-primary);padding:var(--space-3xl) 0 var(--space-lg);}
 .footer-content{display:grid;grid-template-columns:2fr 1fr 1fr;gap:var(--space-2xl);margin-bottom:var(--space-2xl)}
 .footer-brand p{font-size:var(--text-sm);color:var(--text-muted);max-width:280px;line-height:1.7;margin-top:var(--space-sm)}
 .footer-links h4,.footer-social h4{
@@ -801,7 +830,7 @@ a[href*="elfsight.com"],
   left: 0;
   width: 100%;
   height: 50px;
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
   z-index: 9999;
   pointer-events: auto;
 }
@@ -889,12 +918,9 @@ a[href*="elfsight.com"],
 /* ── Infinite Marquee ────────────────────────────────────────── */
 .marquee-section {
   width: 100%;
-  background: var(--bg-card);
   padding: 1.5rem 0;
   overflow: hidden;
   position: relative;
-  border-top: 1px solid var(--gray-border);
-  border-bottom: 1px solid var(--gray-border);
   z-index: 2;
 }
 .marquee-track {
