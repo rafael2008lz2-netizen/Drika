@@ -295,12 +295,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+
+        // Reset elements just in case
+        anime.set('.modal-content, .modal-image-container, .modal-title, .modal-price-box, .modal-meta, .modal-desc-box, .modal-actions', {
+          opacity: 0,
+          translateY: 20
+        });
+        anime.set('.modal-content', { translateY: 60, scale: 0.95 });
+
+        // AnimeJS Intro Timeline
+        const tl = anime.timeline({
+          easing: 'easeOutExpo',
+        });
+        
+        tl.add({
+          targets: modal,
+          opacity: [0, 1],
+          duration: 300,
+        })
+        .add({
+          targets: '.modal-content',
+          opacity: [0, 1],
+          translateY: [60, 0],
+          scale: [0.95, 1],
+          duration: 800,
+          easing: 'spring(1, 80, 10, 0)'
+        }, '-=200')
+        .add({
+          targets: ['.modal-image-container', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'],
+          translateY: [20, 0],
+          opacity: [0, 1],
+          delay: anime.stagger(50),
+          duration: 600,
+          easing: 'easeOutCubic'
+        }, '-=600');
       });
     });
 
     const closeModal = () => {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
+      anime({
+        targets: modal,
+        opacity: [1, 0],
+        duration: 300,
+        easing: 'easeInCubic',
+        complete: () => {
+          modal.classList.remove('active');
+          document.body.style.overflow = '';
+          anime.set('.modal-content, .modal-image-container, .modal-title, .modal-price-box, .modal-meta, .modal-desc-box, .modal-actions', { clearProps: 'all' });
+        }
+      });
     };
 
     modalClose.addEventListener('click', closeModal);
