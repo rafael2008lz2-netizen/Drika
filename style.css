@@ -878,6 +878,25 @@ a[href*="elfsight.com"],
   100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
 }
 
+/* ── Announcement Bar ────────────────────────────────────────── */
+.announcement-bar {
+  width: 100%;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--gray-border);
+  overflow: hidden;
+  padding: 0.4rem 0;
+  position: relative;
+  z-index: 100;
+}
+.announcement-bar .marquee-content span {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
 /* ── Infinite Marquee ────────────────────────────────────────── */
 .marquee-section {
   width: 100%;
@@ -893,6 +912,10 @@ a[href*="elfsight.com"],
   display: flex;
   width: fit-content;
   animation: marquee-scroll 30s linear infinite;
+  will-change: transform;
+}
+.marquee-track.slow {
+  animation-duration: 60s;
 }
 .marquee-content {
   display: flex;
