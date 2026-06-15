@@ -276,6 +276,77 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // ── Custom Silk Cursor ────────────────────────────────────────
+  const cursor = document.getElementById('custom-cursor');
+  if (cursor && window.matchMedia("(pointer: fine)").matches) {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let cursorX = mouseX;
+    let cursorY = mouseY;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    
+    const animateCursor = () => {
+      cursorX += (mouseX - cursorX) * 0.15;
+      cursorY += (mouseY - cursorY) * 0.15;
+      cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+      requestAnimationFrame(animateCursor);
+    };
+    requestAnimationFrame(animateCursor);
+
+    document.querySelectorAll('a, button, .filter-btn, .product-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+  }
+
+  // ── Ripple Effect on Click ────────────────────────────────────
+  document.addEventListener('click', function(e) {
+    const target = e.target.closest('.product-cta, .filter-btn');
+    if (!target) return;
+    
+    const circle = document.createElement('span');
+    const diameter = Math.max(target.clientWidth, target.clientHeight);
+    const radius = diameter / 2;
+
+    const rect = target.getBoundingClientRect();
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${e.clientX - rect.left - radius}px`;
+    circle.style.top = `${e.clientY - rect.top - radius}px`;
+    circle.classList.add('ripple');
+
+    const existingRipple = target.querySelector('.ripple');
+    if (existingRipple) {
+      existingRipple.remove();
+    }
+
+    target.appendChild(circle);
+  });
+
+  // ── Magnetic Buttons ──────────────────────────────────────────
+  if (window.matchMedia("(pointer: fine)").matches) {
+    const magnets = document.querySelectorAll('.filter-btn, .whatsapp-float');
+    magnets.forEach(magnet => {
+      magnet.addEventListener('mousemove', (e) => {
+        const rect = magnet.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        const maxMove = 15;
+        const moveX = (x / (rect.width/2)) * maxMove;
+        const moveY = (y / (rect.height/2)) * maxMove;
+        
+        magnet.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+      });
+      magnet.addEventListener('mouseleave', () => {
+        magnet.style.transform = `translate3d(0, 0, 0)`;
+      });
+    });
+  }
+
 });
 
 // ── Hide Elfsight Watermarks ───────────────────────────────────

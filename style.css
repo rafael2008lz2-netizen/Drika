@@ -941,3 +941,76 @@ a[href*="elfsight.com"],
 }
 .parallax-text.left { left: -5%; }
 .parallax-text.right { right: -5%; }
+
+/* ── Premium Micro-Interactions ──────────────────────────────── */
+@media (pointer: fine) {
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out), background 0.3s var(--ease-out);
+    will-change: transform;
+  }
+  .custom-cursor.hover {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--gold);
+    backdrop-filter: blur(2px);
+  }
+  body, a, button, .filter-btn, .product-card {
+    cursor: none !important;
+  }
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-anim 0.8s var(--ease-out);
+  background-color: rgba(255, 255, 255, 0.15);
+  pointer-events: none;
+}
+@keyframes ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.product-cta, .filter-btn {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.product-card-image::after {
+  content: '✦ DETALHES DO PRODUTO ✦\A \A Fio Premium Penteado\A Costura Francesa\A Alta Durabilidade';
+  white-space: pre-wrap;
+  position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.2) 100%);
+  color: #e0e0e0;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 2;
+  letter-spacing: 0.15em;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  pointer-events: none;
+  z-index: 2;
+}
+.product-card:hover .product-card-image::after {
+  opacity: 1;
+}
