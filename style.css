@@ -818,7 +818,7 @@ a[href*="elfsight.com"],
 .ambient-orb.orb-2 {
   width: 350px;
   height: 350px;
-  background: #C41E3A; /* Brand red glow */
+  background: #ffffff; /* Usando cor da paleta original */
   bottom: 20%;
   right: -150px;
   animation-duration: 25s;
