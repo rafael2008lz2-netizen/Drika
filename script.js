@@ -296,52 +296,60 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
 
+        // Clear any running animations to prevent overlapping states
+        const animTargets = [modal, '.modal-content', '.modal-image-container', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
+        anime.remove(animTargets);
+
         // Reset elements just in case
         anime.set('.modal-content, .modal-image-container, .modal-title, .modal-price-box, .modal-meta, .modal-desc-box, .modal-actions', {
           opacity: 0,
           translateY: 20
         });
-        anime.set('.modal-content', { translateY: 60, scale: 0.95 });
+        anime.set('.modal-content', { translateY: 40, scale: 0.95 });
+        anime.set(modal, { opacity: 0 });
 
         // AnimeJS Intro Timeline
-        const tl = anime.timeline({
-          easing: 'easeOutExpo',
+        window.modalTimeline = anime.timeline({
+          easing: 'easeOutQuad',
         });
         
-        tl.add({
+        window.modalTimeline.add({
           targets: modal,
           opacity: [0, 1],
-          duration: 300,
+          duration: 200,
         })
         .add({
           targets: '.modal-content',
           opacity: [0, 1],
-          translateY: [60, 0],
+          translateY: [40, 0],
           scale: [0.95, 1],
-          duration: 800,
-          easing: 'spring(1, 80, 10, 0)'
-        }, '-=200')
+          duration: 400,
+          easing: 'easeOutCubic'
+        }, '-=100')
         .add({
           targets: ['.modal-image-container', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'],
           translateY: [20, 0],
           opacity: [0, 1],
-          delay: anime.stagger(50),
-          duration: 600,
+          delay: anime.stagger(40),
+          duration: 400,
           easing: 'easeOutCubic'
-        }, '-=600');
+        }, '-=300');
       });
     });
 
     const closeModal = () => {
+      const animTargets = [modal, '.modal-content', '.modal-image-container', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
+      anime.remove(animTargets);
+
       anime({
         targets: modal,
         opacity: [1, 0],
-        duration: 300,
-        easing: 'easeInCubic',
+        duration: 250,
+        easing: 'easeOutQuad',
         complete: () => {
           modal.classList.remove('active');
           document.body.style.overflow = '';
-          anime.set('.modal-content, .modal-image-container, .modal-title, .modal-price-box, .modal-meta, .modal-desc-box, .modal-actions', { clearProps: 'all' });
+          anime.set(animTargets, { clearProps: 'all' });
         }
       });
     };
