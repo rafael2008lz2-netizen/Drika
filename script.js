@@ -258,6 +258,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Product Modal Logic ──────────────────────────────────────────
+  const modal = document.getElementById('productModal');
+  const modalClose = document.getElementById('modalClose');
+  const modalImage = document.getElementById('modalImage');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalCta = document.getElementById('modalCta');
+
+  if (modal) {
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Prevent modal if CTA is clicked directly
+        if (e.target.closest('.product-cta')) return;
+
+        const img = card.querySelector('.product-card-image img').src;
+        const name = card.querySelector('.product-card-name').textContent;
+        const desc = card.querySelector('.product-card-desc').textContent;
+        const ctaHref = card.querySelector('.product-cta').href;
+
+        modalImage.src = img;
+        modalTitle.textContent = name;
+        modalDesc.textContent = desc;
+        modalCta.href = ctaHref;
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
 });
 
 // ── Hide Elfsight Watermarks ───────────────────────────────────

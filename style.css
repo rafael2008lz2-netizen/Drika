@@ -420,8 +420,7 @@ p{font-weight:300;color:var(--text-secondary)}
   color:var(--white);margin-bottom:4px;line-height:1.3;
 }
 .product-card-desc{
-  font-size:var(--text-sm);color:var(--text-muted);line-height:1.5;
-  margin-bottom:var(--space-md);flex:1;
+  display:none;
 }
 
 /* Price */
@@ -787,27 +786,7 @@ p{font-weight:300;color:var(--text-secondary)}
   .hero-brand-letter{font-size:4rem}
   .hero-cta-group{flex-direction:column;align-items:center}
   .btn-primary,.btn-secondary{width:100%;justify-content:center}
-  .product-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 16px;
-    padding-bottom: 24px;
-    margin-left: calc(var(--space-md) * -1);
-    margin-right: calc(var(--space-md) * -1);
-    padding-left: var(--space-md);
-    padding-right: var(--space-md);
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Hide scrollbar for cleaner look */
-  }
-  .product-grid::-webkit-scrollbar {
-    display: none;
-  }
-  .product-grid > .product-card {
-    flex: 0 0 calc(45vw);
-    min-width: 160px;
-    scroll-snap-align: start;
-  }
+  .product-grid{grid-template-columns:1fr;gap:var(--space-lg)}
   .product-card-content{padding:var(--space-sm) var(--space-md) var(--space-md)}
   .product-card-name{font-size:var(--text-sm)}
   .product-price{font-size:var(--text-lg)}
@@ -882,6 +861,145 @@ a[href*="elfsight.com"],
   right: -150px;
   animation-duration: 25s;
   animation-direction: alternate-reverse;
+}
+@keyframes drawStroke {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Modal */
+.product-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+  padding: var(--space-md);
+}
+.product-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform var(--transition-normal);
+}
+.product-modal.active .modal-content {
+  transform: translateY(0);
+}
+.modal-close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background var(--transition-fast);
+}
+.modal-close:hover {
+  background: rgba(0,0,0,0.8);
+}
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow-y: auto;
+}
+.modal-image-container {
+  width: 100%;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 50vh;
+  object-fit: contain;
+}
+.modal-info {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.modal-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  color: var(--white);
+}
+.modal-desc {
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+.modal-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--accent);
+  color: var(--white);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: 100px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  justify-content: center;
+}
+.modal-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+}
+
+@media(min-width: 768px) {
+  .modal-body {
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    height: 100%;
+  }
+  .modal-content {
+    height: 80vh;
+  }
+  .modal-image-container {
+    height: 100%;
+  }
+  .modal-image {
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+  }
+  .modal-info {
+    overflow-y: auto;
+  }
 }
 @keyframes orb-float {
   0% { transform: translate(0, 0) scale(1); }
