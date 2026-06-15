@@ -186,6 +186,53 @@ document.addEventListener('DOMContentLoaded', () => {
         // The texts already have translateY(-50%), we add the parallax offset
         text.style.transform = `translateY(calc(-50% + ${yPos}px)) ${text.classList.contains('left') ? 'rotate(-90deg)' : text.classList.contains('right') ? 'rotate(90deg)' : ''}`;
       });
+    }, { passive: true });
+  }
+
+  // ── Parallax Image Reveal (Premium Luxury) ──────────────────────
+  const parallaxImages = document.querySelectorAll('.product-card-image img, .product-placeholder-inner');
+  if (parallaxImages.length > 0) {
+    // Flag to ensure we don't trigger layout thrashing constantly
+    let ticking = false;
+    
+    const updateParallax = () => {
+      const windowCenter = window.innerHeight / 2;
+      
+      parallaxImages.forEach(img => {
+        const container = img.closest('.product-card-image');
+        if (!container) return;
+        
+        const rect = container.getBoundingClientRect();
+        
+        // Pula o cálculo se estiver totalmente fora da tela (otimização extrema de GPU)
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+        
+        const elementCenter = rect.top + rect.height / 2;
+        const diff = elementCenter - windowCenter;
+        
+        const maxParallax = 15; // Mapeia para +/- 15%
+        let percent = -(diff / windowCenter) * maxParallax;
+        
+        // Clamp the values to strictly stay within safe boundaries
+        if (percent > maxParallax) percent = maxParallax;
+        if (percent < -maxParallax) percent = -maxParallax;
+        
+        img.style.setProperty('--parallax-y', `${percent}%`);
+      });
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+    
+    // Dispara uma vez na inicialização
+    updateParallax();
+  }
+
   // ── Global Particles Generator ────────────────────────────────
   const particlesContainer = document.getElementById('particles-container');
   if (particlesContainer) {
