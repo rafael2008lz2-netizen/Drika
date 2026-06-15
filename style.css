@@ -948,36 +948,107 @@ a[href*="elfsight.com"],
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background: #fff;
+  color: #333;
 }
 .modal-title {
   font-family: var(--font-display);
   font-size: var(--text-2xl);
-  font-weight: 700;
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
+  color: #333;
+}
+.modal-price-box {
+  background: #fafafa;
+  padding: var(--space-md);
   margin-bottom: var(--space-md);
-  color: var(--white);
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+.modal-price-currency {
+  font-size: 1.2rem;
+  color: #ee4d2d;
+  font-weight: 500;
+  margin-top: 4px;
+}
+.modal-price-value {
+  font-size: 2.5rem;
+  color: #ee4d2d;
+  font-weight: 500;
+  line-height: 1;
+}
+.modal-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  font-size: 0.9rem;
+}
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+.meta-label {
+  color: #757575;
+  width: 80px;
+}
+.meta-value {
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.text-success {
+  color: #00bfa5;
+}
+.modal-desc-box {
+  border-top: 1px solid #eee;
+  padding-top: var(--space-md);
+  margin-bottom: var(--space-xl);
 }
 .modal-desc {
   font-size: var(--text-base);
-  color: var(--text-muted);
+  color: #555;
   line-height: 1.6;
-  margin-bottom: var(--space-xl);
 }
-.modal-cta {
+.modal-actions {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: auto;
+}
+.modal-btn-outline {
+  flex: 1;
+  background: rgba(238, 77, 45, 0.1);
+  color: #ee4d2d;
+  border: 1px solid #ee4d2d;
+  padding: var(--space-md);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.modal-btn-outline:hover {
+  background: rgba(238, 77, 45, 0.2);
+}
+.modal-cta-shopee {
+  flex: 1;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  background: var(--accent);
-  color: var(--white);
-  padding: var(--space-md) var(--space-xl);
-  border-radius: 100px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all var(--transition-normal);
   justify-content: center;
+  background: #ee4d2d;
+  color: #fff;
+  padding: var(--space-md);
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
 }
-.modal-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+.modal-cta-shopee:hover {
+  opacity: 0.9;
 }
 
 @media(min-width: 768px) {

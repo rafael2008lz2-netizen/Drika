@@ -263,8 +263,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalClose = document.getElementById('modalClose');
   const modalImage = document.getElementById('modalImage');
   const modalTitle = document.getElementById('modalTitle');
+  const modalPrice = document.getElementById('modalPrice');
   const modalDesc = document.getElementById('modalDesc');
   const modalCta = document.getElementById('modalCta');
+  const modalCancel = document.getElementById('modalCancel');
 
   if (modal) {
     document.querySelectorAll('.product-card').forEach(card => {
@@ -274,12 +276,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const img = card.querySelector('.product-card-image img').src;
         const name = card.querySelector('.product-card-name').textContent;
-        const desc = card.querySelector('.product-card-desc').textContent;
+        
+        // Handle price correctly, removing 'R$' if present to keep format clean
+        let priceText = card.querySelector('.product-price').textContent.trim();
+        if (priceText.startsWith('R$')) priceText = priceText.replace('R$', '').trim();
+        
+        let descText = "";
+        const descEl = card.querySelector('.product-card-desc');
+        if (descEl) descText = descEl.textContent;
+        
         const ctaHref = card.querySelector('.product-cta').href;
 
         modalImage.src = img;
         modalTitle.textContent = name;
-        modalDesc.textContent = desc;
+        if(modalPrice) modalPrice.textContent = priceText;
+        modalDesc.textContent = descText;
         modalCta.href = ctaHref;
 
         modal.classList.add('active');
@@ -287,22 +298,23 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    modalClose.addEventListener('click', () => {
+    const closeModal = () => {
       modal.classList.remove('active');
       document.body.style.overflow = '';
-    });
+    };
+
+    modalClose.addEventListener('click', closeModal);
+    if(modalCancel) modalCancel.addEventListener('click', closeModal);
 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
+        closeModal();
       }
     });
     
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
+        closeModal();
       }
     });
   }
