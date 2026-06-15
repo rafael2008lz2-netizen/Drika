@@ -276,33 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ── Custom Silk Cursor ────────────────────────────────────────
-  const cursor = document.getElementById('custom-cursor');
-  if (cursor && window.matchMedia("(pointer: fine)").matches) {
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let cursorX = mouseX;
-    let cursorY = mouseY;
-    
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-    
-    const animateCursor = () => {
-      cursorX += (mouseX - cursorX) * 0.15;
-      cursorY += (mouseY - cursorY) * 0.15;
-      cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-      requestAnimationFrame(animateCursor);
-    };
-    requestAnimationFrame(animateCursor);
-
-    document.querySelectorAll('a, button, .filter-btn, .product-card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-  }
-
   // ── Ripple Effect on Click ────────────────────────────────────
   document.addEventListener('click', function(e) {
     const target = e.target.closest('.product-cta, .filter-btn');

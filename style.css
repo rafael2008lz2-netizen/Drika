@@ -943,32 +943,6 @@ a[href*="elfsight.com"],
 .parallax-text.right { right: -5%; }
 
 /* ── Premium Micro-Interactions ──────────────────────────────── */
-@media (pointer: fine) {
-  .custom-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 6px;
-    height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out), background 0.3s var(--ease-out);
-    will-change: transform;
-  }
-  .custom-cursor.hover {
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--gold);
-    backdrop-filter: blur(2px);
-  }
-  body, a, button, .filter-btn, .product-card {
-    cursor: none !important;
-  }
-}
 
 .ripple {
   position: absolute;
