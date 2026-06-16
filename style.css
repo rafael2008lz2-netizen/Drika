@@ -930,7 +930,7 @@ a[href*="elfsight.com"],
 }
 .modal-image-container {
   width: 100%;
-  background: var(--bg-primary);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
