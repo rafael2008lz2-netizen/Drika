@@ -938,9 +938,9 @@ a[href*="elfsight.com"],
 .modal-image {
   width: 100%;
   height: auto;
-  max-height: 50vh;
-  object-fit: contain;
-  padding: 30px;
+  max-height: 65vh;
+  object-fit: cover;
+  object-position: center center;
 }
 .modal-info {
   padding: var(--space-xl);
@@ -1071,8 +1071,8 @@ a[href*="elfsight.com"],
   .modal-image {
     height: 100%;
     max-height: none;
-    object-fit: contain;
-    padding: 30px;
+    object-fit: cover;
+    object-position: center center;
   }
   .modal-info {
     overflow-y: auto;
