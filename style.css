@@ -371,7 +371,7 @@ p{font-weight:300;color:var(--text-secondary)}
   left:0 !important;
   width:100% !important;
   height:100% !important;
-  object-fit:contain !important;
+  object-fit:cover !important;
   transform: none !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -786,12 +786,11 @@ p{font-weight:300;color:var(--text-secondary)}
   .hero-brand-letter{font-size:4rem}
   .hero-cta-group{flex-direction:column;align-items:center}
   .btn-primary,.btn-secondary{width:100%;justify-content:center}
-  .product-grid{grid-template-columns:repeat(2, 1fr);gap:var(--space-sm)}
-  .product-card-content{padding:var(--space-sm)}
-  .product-card-name{font-size:var(--text-xs)}
-  .product-price{font-size:var(--text-base)}
-  .product-price-row{flex-direction:column;align-items:flex-start;gap:4px;margin-bottom:var(--space-sm)}
-  .product-cta{padding:6px;font-size:10px}
+  .product-grid{grid-template-columns:1fr;gap:var(--space-lg)}
+  .product-card-content{padding:var(--space-sm) var(--space-md) var(--space-md)}
+  .product-card-name{font-size:var(--text-sm)}
+  .product-price{font-size:var(--text-lg)}
+  .product-cta{padding:8px;font-size:12px}
   .catalog-filters{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}
   .catalog-filters::-webkit-scrollbar{display:none}
   .filter-btn{padding:8px 16px;font-size:12px;flex-shrink:0}
