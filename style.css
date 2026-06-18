@@ -941,6 +941,8 @@ a[href*="elfsight.com"],
   max-height: 65vh;
   object-fit: contain;
   object-position: center;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, black 70%, transparent 100%);
 }
 .modal-info {
   padding: var(--space-xl);
