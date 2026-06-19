@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=13">
 
   <!-- SEO Local Business Schema -->
   <script type="application/ld+json">
@@ -75,20 +75,25 @@
   </nav>
 
   <!-- ==========================================
-       HERO
+       HERO — 3D Interactive Premium Background
        ========================================== -->
   <header class="hero-section" id="home">
-    <div class="hero-bg"></div>
+    <!-- Dark gradient background base -->
+    <div class="hero-bg-gradient"></div>
+    
+    <!-- THREE.JS 3D Canvas is injected here by hero-3d.js -->
+    
+    <!-- Gradient Overlay for text readability -->
     <div class="hero-overlay"></div>
-    <div id="ambient-bg" class="ambient-bg">
-      <!-- Ambient Orbs -->
-      <div class="ambient-orb orb-1"></div>
-      <div class="ambient-orb orb-2"></div>
-      <div class="ambient-orb orb-3"></div>
-      <div class="ambient-orb orb-4"></div>
-    </div>
 
+    <!-- Hero Content -->
     <div class="container hero-content">
+
+      <!-- Premium Badge -->
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Ateliê Premium em Ribeirão Preto
+      </div>
 
       <h1 class="hero-title">Uniformes com<br><span class="gold-text">Acabamento Premium</span></h1>
       <p class="hero-subtitle">Bordados de alta precisão e personalização completa para empresas, escolas, profissionais de saúde e academias em Ribeirão Preto.</p>
@@ -102,8 +107,11 @@
       </div>
     </div>
 
+    <!-- Scroll Indicator -->
     <div class="hero-scroll">
-      <div class="hero-scroll-line"></div>
+      <div class="hero-scroll-mouse">
+        <div class="hero-scroll-wheel"></div>
+      </div>
       <span class="hero-scroll-text">Scroll</span>
     </div>
   </header>
@@ -592,7 +600,9 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="ambient.js?v=3"></script>
+  <script src="hero-3d.js?v=1"></script>
   <script src="script.js?v=4"></script>
 </body>
 </html>
