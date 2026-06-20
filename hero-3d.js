@@ -318,29 +318,29 @@
     camera.position.y = autoMouse.y * 0.3;
     camera.lookAt(0, 0, 0);
 
-    // ── Stickman Pathing (Tag / Pega-pega) ──
-    stickmanPathTime += 0.05; // Fast run speed
+    // ── Stickman Pathing (Tag / Pega-pega slow) ──
+    stickmanPathTime += 0.008; // Normal slow walk speed
     
-    // Stickman 1 runs on a chaotic curve
-    let s1X = Math.sin(stickmanPathTime * 0.7) * 15 + Math.cos(stickmanPathTime * 0.3) * 5;
-    let s1Y = Math.cos(stickmanPathTime * 0.5) * 8 + Math.sin(stickmanPathTime * 0.4) * 4;
+    // Stickman 1 walks on a wide, slow curve
+    let s1X = Math.sin(stickmanPathTime * 0.7) * 20 + Math.cos(stickmanPathTime * 0.3) * 10;
+    let s1Y = Math.cos(stickmanPathTime * 0.5) * 12 + Math.sin(stickmanPathTime * 0.4) * 6;
     
-    // Stickman 2 chases with a small delay
-    let t2 = stickmanPathTime - 0.5;
-    let s2X = Math.sin(t2 * 0.7) * 15 + Math.cos(t2 * 0.3) * 5;
-    let s2Y = Math.cos(t2 * 0.5) * 8 + Math.sin(t2 * 0.4) * 4;
+    // Stickman 2 follows closely behind
+    let t2 = stickmanPathTime - 0.2; // smaller delay because they move slower
+    let s2X = Math.sin(t2 * 0.7) * 20 + Math.cos(t2 * 0.3) * 10;
+    let s2Y = Math.cos(t2 * 0.5) * 12 + Math.sin(t2 * 0.4) * 6;
     
     // Rotations (facing direction based on velocity)
-    let dx1 = 0.7 * 15 * Math.cos(stickmanPathTime * 0.7) - 0.3 * 5 * Math.sin(stickmanPathTime * 0.3);
-    let dy1 = -0.5 * 8 * Math.sin(stickmanPathTime * 0.5) + 0.4 * 4 * Math.cos(stickmanPathTime * 0.4);
+    let dx1 = 0.7 * 20 * Math.cos(stickmanPathTime * 0.7) - 0.3 * 10 * Math.sin(stickmanPathTime * 0.3);
+    let dy1 = -0.5 * 12 * Math.sin(stickmanPathTime * 0.5) + 0.4 * 6 * Math.cos(stickmanPathTime * 0.4);
     stickman1.rotation.z = Math.atan2(dy1, dx1);
     
-    let dx2 = 0.7 * 15 * Math.cos(t2 * 0.7) - 0.3 * 5 * Math.sin(t2 * 0.3);
-    let dy2 = -0.5 * 8 * Math.sin(t2 * 0.5) + 0.4 * 4 * Math.cos(t2 * 0.4);
+    let dx2 = 0.7 * 20 * Math.cos(t2 * 0.7) - 0.3 * 10 * Math.sin(t2 * 0.3);
+    let dy2 = -0.5 * 12 * Math.sin(t2 * 0.5) + 0.4 * 6 * Math.cos(t2 * 0.4);
     stickman2.rotation.z = Math.atan2(dy2, dx2);
 
-    stickman1.updateAnimation(time, 40); // Run fast
-    stickman2.updateAnimation(time, 40);
+    stickman1.updateAnimation(time, 10); // Walk normal speed
+    stickman2.updateAnimation(time, 10);
     
     // Get Z height for stickmen
     function getWaveZ(x, y, t) {
