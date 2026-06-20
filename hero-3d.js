@@ -97,7 +97,7 @@
   // ═══════════════════════════════════════════════════════════════
   // 3. PARTICLE FIELD — Floating stars/dust
   // ═══════════════════════════════════════════════════════════════
-  const particleCount = 400;
+  const particleCount = 150;
   const particlePositions = new Float32Array(particleCount * 3);
   const particleSizes = new Float32Array(particleCount);
   const particlePhases = new Float32Array(particleCount);
@@ -228,9 +228,9 @@
     for (let i = 0; i < fabricPos.count; i++) {
       const x = fabricPos.getX(i);
       const y = fabricPos.getY(i);
-      const wave1 = Math.sin(x * 0.5 + time * 2) * 0.3;
-      const wave2 = Math.sin(y * 0.8 + time * 1.5) * 0.2;
-      const wave3 = Math.sin((x + y) * 0.3 + time * 3) * 0.15;
+      const wave1 = Math.sin(x * 0.5 + time * 0.8) * 0.3;
+      const wave2 = Math.sin(y * 0.8 + time * 0.6) * 0.2;
+      const wave3 = Math.sin((x + y) * 0.3 + time * 1.2) * 0.15;
       
       fabricPos.setZ(i, wave1 + wave2 + wave3);
     }
@@ -245,19 +245,19 @@
     const pPos = particleGeometry.attributes.position;
     for (let i = 0; i < particleCount; i++) {
       let y = pPos.getY(i);
-      y += 0.003;
+      y += 0.0015;
       if (y > 6) y = -6;
       pPos.setY(i, y);
 
       // Subtle horizontal drift
       let x = pPos.getX(i);
-      x += Math.sin(time + particlePhases[i]) * 0.002;
+      x += Math.sin(time + particlePhases[i]) * 0.001;
       pPos.setX(i, x);
     }
     pPos.needsUpdate = true;
 
     // Rotate particle field slowly
-    particles.rotation.y = time * 0.05;
+    particles.rotation.y = time * 0.025;
 
     // ── Animate Lights smoothly ──
     pointLight1.position.x = -3 + autoMouse.x * 4;
