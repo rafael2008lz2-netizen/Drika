@@ -37,18 +37,18 @@
   const autoMouse = { x: 0, y: 0 };
 
   // ═══════════════════════════════════════════════════════════════
-  // LIGHTING — Dynamic
+  // LIGHTING — Dynamic (Grayscale)
   // ═══════════════════════════════════════════════════════════════
-  const ambientLight = new THREE.AmbientLight(0x222233, 0.5);
+  const ambientLight = new THREE.AmbientLight(0x222222, 0.5);
   scene.add(ambientLight);
 
   // Main directional — warm white
-  const dirLight = new THREE.DirectionalLight(0xffeedd, 0.8);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
   dirLight.position.set(5, 5, 5);
   scene.add(dirLight);
 
   // Accent point lights that follow mouse
-  const pointLight1 = new THREE.PointLight(0x8888ff, 1.5, 15);
+  const pointLight1 = new THREE.PointLight(0xaaaaaa, 1.5, 15);
   pointLight1.position.set(-3, 2, 3);
   scene.add(pointLight1);
 
@@ -56,16 +56,16 @@
   pointLight2.position.set(3, -1, 4);
   scene.add(pointLight2);
 
-  const pointLight3 = new THREE.PointLight(0xaaaaff, 0.8, 12);
+  const pointLight3 = new THREE.PointLight(0x888888, 0.8, 12);
   pointLight3.position.set(0, 3, 2);
   scene.add(pointLight3);
 
   // ═══════════════════════════════════════════════════════════════
   // 1. UNDULATING FABRIC / WAVE MESH
   // ═══════════════════════════════════════════════════════════════
-  const fabricGeometry = new THREE.PlaneGeometry(16, 10, 80, 50);
+  const fabricGeometry = new THREE.PlaneGeometry(40, 30, 100, 80);
   const fabricMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0x111122,
+    color: 0x111111,
     metalness: 0.7,
     roughness: 0.3,
     clearcoat: 0.4,
@@ -77,12 +77,12 @@
   });
   const fabric = new THREE.Mesh(fabricGeometry, fabricMaterial);
   fabric.rotation.x = -Math.PI * 0.35;
-  fabric.position.set(0, -1.5, -2);
+  fabric.position.set(0, -2, -4);
   scene.add(fabric);
 
   // Wireframe overlay for the fabric
   const wireframeMaterial = new THREE.MeshBasicMaterial({
-    color: 0x4444aa,
+    color: 0x555555,
     wireframe: true,
     transparent: true,
     opacity: 0.08,
@@ -131,7 +131,7 @@
   // ═══════════════════════════════════════════════════════════════
   const lineCount = 30;
   const lineMaterial = new THREE.LineBasicMaterial({
-    color: 0x6666aa,
+    color: 0x777777,
     transparent: true,
     opacity: 0.06,
     blending: THREE.AdditiveBlending,
@@ -164,7 +164,7 @@
   const glowSpriteMap = createGlowTexture();
   const glowMaterial = new THREE.SpriteMaterial({
     map: glowSpriteMap,
-    color: 0x6666cc,
+    color: 0x666666,
     transparent: true,
     opacity: 0.3,
     blending: THREE.AdditiveBlending,
@@ -177,7 +177,7 @@
   // Smaller accent glow
   const glowMaterial2 = new THREE.SpriteMaterial({
     map: glowSpriteMap,
-    color: 0x9999ff,
+    color: 0x888888,
     transparent: true,
     opacity: 0.15,
     blending: THREE.AdditiveBlending,
@@ -195,8 +195,8 @@
     const ctx = canvas.getContext('2d');
     const gradient = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
     gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    gradient.addColorStop(0.3, 'rgba(150, 150, 255, 0.5)');
-    gradient.addColorStop(0.7, 'rgba(100, 100, 200, 0.1)');
+    gradient.addColorStop(0.3, 'rgba(150, 150, 150, 0.5)');
+    gradient.addColorStop(0.7, 'rgba(100, 100, 100, 0.1)');
     gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, size, size);
