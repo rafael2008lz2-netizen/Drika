@@ -11,7 +11,7 @@
   // SETUP THREE.JS SCENE
   // ═══════════════════════════════════════════════════════════════
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x0a0a0a, 0.035);
+  scene.fog = new THREE.FogExp2(0x0a0a0a, 0.015);
 
   const camera = new THREE.PerspectiveCamera(60, hero.clientWidth / hero.clientHeight, 0.1, 100);
   camera.position.set(0, 0, 5);
@@ -166,7 +166,7 @@
     map: glowSpriteMap,
     color: 0x666666,
     transparent: true,
-    opacity: 0.3,
+    opacity: 0.1,
     blending: THREE.AdditiveBlending,
   });
   const glow = new THREE.Sprite(glowMaterial);
@@ -179,7 +179,7 @@
     map: glowSpriteMap,
     color: 0x888888,
     transparent: true,
-    opacity: 0.15,
+    opacity: 0.05,
     blending: THREE.AdditiveBlending,
   });
   const glow2 = new THREE.Sprite(glowMaterial2);
