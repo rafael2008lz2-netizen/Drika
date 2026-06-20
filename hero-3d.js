@@ -100,107 +100,52 @@
   scene.add(fabricWireframe);
 
   // ═══════════════════════════════════════════════════════════════
-  // 2. FLOATING 3D GEOMETRIC SHAPES
+  // 2. GOLDEN THREADS — Elegant flowing embroidery lines
   // ═══════════════════════════════════════════════════════════════
-  const shapes = [];
-  const shapeMaterials = [
-    new THREE.MeshPhysicalMaterial({
-      color: 0xccccdd,
-      metalness: 0.9,
-      roughness: 0.1,
-      clearcoat: 1.0,
-      transparent: true,
-      opacity: 0.35,
-    }),
-    new THREE.MeshPhysicalMaterial({
-      color: 0x8888bb,
-      metalness: 0.8,
-      roughness: 0.2,
-      clearcoat: 0.8,
-      transparent: true,
-      opacity: 0.25,
-    }),
-    new THREE.MeshPhysicalMaterial({
-      color: 0xaaaacc,
-      metalness: 0.85,
-      roughness: 0.15,
-      clearcoat: 0.6,
-      transparent: true,
-      opacity: 0.3,
-    }),
-    new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      metalness: 0.95,
-      roughness: 0.05,
-      clearcoat: 1.0,
-      transparent: true,
-      opacity: 0.2,
-    }),
+  const threads = [];
+  const threadGroup = new THREE.Group();
+  scene.add(threadGroup);
+
+  const threadMaterials = [
+    new THREE.MeshPhysicalMaterial({ color: 0xffd700, metalness: 1.0, roughness: 0.2, clearcoat: 1.0, transparent: true, opacity: 0.8 }), // Gold
+    new THREE.MeshPhysicalMaterial({ color: 0xcccccc, metalness: 0.9, roughness: 0.3, clearcoat: 0.8, transparent: true, opacity: 0.6 }), // Silver
+    new THREE.MeshPhysicalMaterial({ color: 0xffaa00, metalness: 0.8, roughness: 0.2, clearcoat: 0.5, transparent: true, opacity: 0.7 })  // Copper
   ];
 
-  const geometries = [
-    new THREE.IcosahedronGeometry(0.4, 0),     // diamond shape
-    new THREE.OctahedronGeometry(0.35, 0),      // octahedron
-    new THREE.TorusGeometry(0.3, 0.08, 8, 24),  // ring
-    new THREE.TetrahedronGeometry(0.35, 0),      // pyramid
-    new THREE.DodecahedronGeometry(0.3, 0),      // 12-sided
-    new THREE.TorusKnotGeometry(0.25, 0.08, 48, 8, 2, 3), // knot
-    new THREE.ConeGeometry(0.25, 0.5, 6),       // hexagonal cone
-    new THREE.BoxGeometry(0.35, 0.35, 0.35),     // cube
-  ];
+  function createThread(index) {
+    const pointsCount = 10;
+    const points = [];
+    const baseY = (Math.random() - 0.5) * 6;
+    const baseZ = -1 - Math.random() * 3;
+    
+    // Create random curvy path
+    for(let j=0; j<pointsCount; j++) {
+      const x = -8 + (j / (pointsCount-1)) * 16;
+      const y = baseY + Math.sin(x * 0.5 + Math.random()) * 2;
+      const z = baseZ + Math.cos(x * 0.3) * 1.5;
+      points.push(new THREE.Vector3(x, y, z));
+    }
 
-  function createFloatingShape(i) {
-    const geo = geometries[i % geometries.length];
-    const mat = shapeMaterials[i % shapeMaterials.length].clone();
-    const mesh = new THREE.Mesh(geo, mat);
-
-    // Wireframe edges
-    const edges = new THREE.EdgesGeometry(geo);
-    const edgeMat = new THREE.LineBasicMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0.12,
-    });
-    const edgeLines = new THREE.LineSegments(edges, edgeMat);
-    mesh.add(edgeLines);
-
-    // Random spread position
-    const angle = (i / 14) * Math.PI * 2 + Math.random() * 0.5;
-    const radius = 2 + Math.random() * 4;
-    mesh.position.set(
-      Math.cos(angle) * radius,
-      (Math.random() - 0.5) * 4,
-      (Math.random() - 0.5) * 5 - 1
-    );
-
-    mesh.rotation.set(
-      Math.random() * Math.PI,
-      Math.random() * Math.PI,
-      Math.random() * Math.PI
-    );
-
-    const data = {
+    const curve = new THREE.CatmullRomCurve3(points);
+    const geometry = new THREE.TubeGeometry(curve, 64, 0.015, 8, false);
+    const material = threadMaterials[index % threadMaterials.length];
+    const mesh = new THREE.Mesh(geometry, material);
+    
+    threadGroup.add(mesh);
+    
+    threads.push({
       mesh: mesh,
-      basePos: mesh.position.clone(),
-      rotSpeed: {
-        x: (Math.random() - 0.5) * 0.01,
-        y: (Math.random() - 0.5) * 0.015,
-        z: (Math.random() - 0.5) * 0.008,
-      },
-      floatSpeed: 0.3 + Math.random() * 0.7,
-      floatAmplitude: 0.15 + Math.random() * 0.4,
-      phase: Math.random() * Math.PI * 2,
-      scale: 0.5 + Math.random() * 1.2,
-    };
-
-    mesh.scale.setScalar(data.scale);
-    scene.add(mesh);
-    shapes.push(data);
+      curve: curve,
+      points: points,
+      baseY: baseY,
+      speed: 0.5 + Math.random() * 1.5,
+      offset: Math.random() * Math.PI * 2
+    });
   }
 
-  // Create 14 floating shapes
-  for (let i = 0; i < 14; i++) {
-    createFloatingShape(i);
+  // Create 8 flowing threads
+  for (let i = 0; i < 8; i++) {
+    createThread(i);
   }
 
   // ═══════════════════════════════════════════════════════════════
@@ -356,33 +301,26 @@
     fabricWireframe.geometry.attributes.position.copy(fabricPos);
     fabricWireframe.geometry.attributes.position.needsUpdate = true;
 
-    // ── Animate Floating Shapes ──
-    for (let i = 0; i < shapes.length; i++) {
-      const s = shapes[i];
-      const m = s.mesh;
-
-      // Rotate
-      m.rotation.x += s.rotSpeed.x;
-      m.rotation.y += s.rotSpeed.y;
-      m.rotation.z += s.rotSpeed.z;
-
-      // Float up/down
-      m.position.y = s.basePos.y + Math.sin(time * s.floatSpeed + s.phase) * s.floatAmplitude;
-      m.position.x = s.basePos.x + Math.sin(time * s.floatSpeed * 0.7 + s.phase + 1) * s.floatAmplitude * 0.5;
-
-      // Mouse repulsion
-      const dx = m.position.x - mouse.x * 3;
-      const dy = m.position.y - mouse.y * 2;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 2.5) {
-        const force = (1 - dist / 2.5) * 0.3;
-        m.position.x += (dx / dist) * force;
-        m.position.y += (dy / dist) * force;
+    // ── Animate Golden Threads ──
+    for (let i = 0; i < threads.length; i++) {
+      const t = threads[i];
+      for (let j = 0; j < t.points.length; j++) {
+        const p = t.points[j];
+        // Make the points undulate like thread in the wind
+        p.y = t.baseY + Math.sin(time * t.speed + p.x * 0.5 + t.offset) * 1.5;
+        
+        // Mouse interaction: push threads away gently
+        const dx = p.x - mouse.x * 5;
+        const dy = p.y - mouse.y * 3;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 3) {
+           p.y += (dy/dist) * (3-dist) * 0.05;
+        }
       }
-
-      // Pulse opacity based on proximity to camera
-      const camDist = m.position.distanceTo(camera.position);
-      m.material.opacity = Math.max(0.1, Math.min(0.4, 0.5 - camDist * 0.03));
+      // Update geometry
+      t.curve.points = t.points;
+      t.mesh.geometry.dispose(); // avoid memory leak
+      t.mesh.geometry = new THREE.TubeGeometry(t.curve, 64, 0.015, 8, false);
     }
 
     // ── Animate Particles ──
