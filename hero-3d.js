@@ -285,7 +285,9 @@
   }
 
   const stickman1 = createStickman(0xffffff, true);
+  stickman1.scale.set(0.3, 0.3, 0.3);
   const stickman2 = createStickman(0xdddddd, false);
+  stickman2.scale.set(0.3, 0.3, 0.3);
   scene.add(stickman1, stickman2);
 
   // Array to hold active stitches
@@ -316,26 +318,29 @@
     camera.position.y = autoMouse.y * 0.3;
     camera.lookAt(0, 0, 0);
 
-    // ── Stickman Pathing ──
-    stickmanPathTime += 0.02; // Walk speed
-    let s1X = -35 + (stickmanPathTime % 70); // Wraps around from -35 to 35
-    let s2X = s1X - 4; // Distance between them
+    // ── Stickman Pathing (Tag / Pega-pega) ──
+    stickmanPathTime += 0.05; // Fast run speed
     
-    // Add some meandering Y movement
-    let s1Y = Math.sin(s1X * 0.2) * 3;
-    let s2Y = Math.sin(s2X * 0.2) * 3;
+    // Stickman 1 runs on a chaotic curve
+    let s1X = Math.sin(stickmanPathTime * 0.7) * 15 + Math.cos(stickmanPathTime * 0.3) * 5;
+    let s1Y = Math.cos(stickmanPathTime * 0.5) * 8 + Math.sin(stickmanPathTime * 0.4) * 4;
     
-    // Rotations (facing direction)
-    const dx1 = 1; 
-    const dy1 = Math.cos(s1X * 0.2) * 0.2 * 3;
+    // Stickman 2 chases with a small delay
+    let t2 = stickmanPathTime - 0.5;
+    let s2X = Math.sin(t2 * 0.7) * 15 + Math.cos(t2 * 0.3) * 5;
+    let s2Y = Math.cos(t2 * 0.5) * 8 + Math.sin(t2 * 0.4) * 4;
+    
+    // Rotations (facing direction based on velocity)
+    let dx1 = 0.7 * 15 * Math.cos(stickmanPathTime * 0.7) - 0.3 * 5 * Math.sin(stickmanPathTime * 0.3);
+    let dy1 = -0.5 * 8 * Math.sin(stickmanPathTime * 0.5) + 0.4 * 4 * Math.cos(stickmanPathTime * 0.4);
     stickman1.rotation.z = Math.atan2(dy1, dx1);
     
-    const dx2 = 1;
-    const dy2 = Math.cos(s2X * 0.2) * 0.2 * 3;
+    let dx2 = 0.7 * 15 * Math.cos(t2 * 0.7) - 0.3 * 5 * Math.sin(t2 * 0.3);
+    let dy2 = -0.5 * 8 * Math.sin(t2 * 0.5) + 0.4 * 4 * Math.cos(t2 * 0.4);
     stickman2.rotation.z = Math.atan2(dy2, dx2);
 
-    stickman1.updateAnimation(time, 15);
-    stickman2.updateAnimation(time, 15);
+    stickman1.updateAnimation(time, 40); // Run fast
+    stickman2.updateAnimation(time, 40);
     
     // Get Z height for stickmen
     function getWaveZ(x, y, t) {
@@ -363,19 +368,17 @@
       let cutOffset = 0;
       
       // Calculate tear gap
-      if (s2X > -34 && s1X < 34) { // only apply if both are on screen
-        const vx = x - s2X;
-        const vy = y - s2Y;
-        const t = Math.max(0, Math.min(1, (vx * tearDx + vy * tearDy) / tearLenSq));
-        
-        const projX = s2X + t * tearDx;
-        const projY = s2Y + t * tearDy;
-        const dist = Math.sqrt((x - projX)**2 + (y - projY)**2);
-        
-        if (dist < 0.6) {
-           const endTaper = Math.sin(t * Math.PI); // Smooth fade at start and end of tear
-           cutOffset = -3 * endTaper * (1 - dist/0.6); // Deep plunge for black tear
-        }
+      const vx = x - s2X;
+      const vy = y - s2Y;
+      const t = Math.max(0, Math.min(1, (vx * tearDx + vy * tearDy) / tearLenSq));
+      
+      const projX = s2X + t * tearDx;
+      const projY = s2Y + t * tearDy;
+      const dist = Math.sqrt((x - projX)**2 + (y - projY)**2);
+      
+      if (dist < 0.6) {
+         const endTaper = Math.sin(t * Math.PI); // Smooth fade at start and end of tear
+         cutOffset = -3 * endTaper * (1 - dist/0.6); // Deep plunge for black tear
       }
       
       fabricPos.setZ(i, baseZ + cutOffset);
@@ -385,7 +388,7 @@
 
     // ── Manage Stitches ──
     // Drop a stitch behind stickman2
-    if (s2X > -30 && s2X < 34 && time - lastStitchTime > 0.4) {
+    if (time - lastStitchTime > 0.1) {
       const stitch = new THREE.Mesh(stitchGeometry, stitchMaterial.clone());
       stitch.position.set(s2X, s2Y, getWaveZ(s2X, s2Y, time) + 0.1);
       stitch.rotation.z = stickman2.rotation.z + Math.PI/2; // Crosses the tear
@@ -402,12 +405,12 @@
     for (let i = stitches.length - 1; i >= 0; i--) {
       const st = stitches[i];
       const age = time - st.userData.spawnTime;
-      if (age > 4) { // Fade out after 4 seconds
+      if (age > 2) { // Fade out fast
         scene.remove(st);
         st.material.dispose();
         stitches.splice(i, 1);
-      } else if (age > 2) {
-        st.material.opacity = 1 - ((age - 2) / 2);
+      } else if (age > 1) {
+        st.material.opacity = 1 - (age - 1);
       }
     }
 
