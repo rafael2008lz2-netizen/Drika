@@ -63,7 +63,7 @@
   // ═══════════════════════════════════════════════════════════════
   // 1. UNDULATING FABRIC / WAVE MESH
   // ═══════════════════════════════════════════════════════════════
-  const fabricGeometry = new THREE.PlaneGeometry(40, 30, 100, 80);
+  const fabricGeometry = new THREE.PlaneGeometry(120, 60, 200, 100);
   const fabricMaterial = new THREE.MeshPhysicalMaterial({
     color: 0x111111,
     metalness: 0.7,
