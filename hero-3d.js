@@ -205,6 +205,99 @@
   }
 
   // ═══════════════════════════════════════════════════════════════
+  // 6. STICKMEN (CUTTER & SEWER)
+  // ═══════════════════════════════════════════════════════════════
+  function createStickman(color, isCutter) {
+    const group = new THREE.Group();
+    const mat = new THREE.MeshStandardMaterial({ color: color, roughness: 0.5 });
+    
+    // Head
+    const headGeo = new THREE.SphereGeometry(0.3, 16, 16);
+    const head = new THREE.Mesh(headGeo, mat);
+    head.position.z = 1.8;
+    group.add(head);
+    
+    // Body
+    const bodyGeo = new THREE.CylinderGeometry(0.1, 0.1, 1.2);
+    const body = new THREE.Mesh(bodyGeo, mat);
+    body.rotation.x = Math.PI / 2;
+    body.position.z = 1.0;
+    group.add(body);
+    
+    // Limbs
+    const limbGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.8);
+    limbGeo.translate(0, -0.4, 0); // Pivot at the top
+    
+    const armL = new THREE.Mesh(limbGeo, mat);
+    armL.position.set(-0.25, 0, 1.4);
+    const armR = new THREE.Mesh(limbGeo, mat);
+    armR.position.set(0.25, 0, 1.4);
+    group.add(armL, armR);
+    
+    const legL = new THREE.Mesh(limbGeo, mat);
+    legL.position.set(-0.15, 0, 0.8);
+    const legR = new THREE.Mesh(limbGeo, mat);
+    legR.position.set(0.15, 0, 0.8);
+    group.add(legL, legR);
+    
+    if (isCutter) {
+      // Scissors
+      const scisMat = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.8 });
+      const bladeGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.8);
+      bladeGeo.translate(0, -0.2, 0);
+      const blade1 = new THREE.Mesh(bladeGeo, scisMat);
+      blade1.rotation.z = 0.2;
+      const blade2 = new THREE.Mesh(bladeGeo, scisMat);
+      blade2.rotation.z = -0.2;
+      const scissors = new THREE.Group();
+      scissors.add(blade1, blade2);
+      scissors.position.set(0, -0.7, 0);
+      armR.add(scissors);
+      group.scissors = scissors;
+    } else {
+      // Needle
+      const needleMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.9 });
+      const needleGeo = new THREE.ConeGeometry(0.03, 0.5);
+      needleGeo.translate(0, -0.25, 0);
+      const needle = new THREE.Mesh(needleGeo, needleMat);
+      needle.position.set(0, -0.7, 0);
+      armR.add(needle);
+      group.needle = needle;
+    }
+    
+    group.updateAnimation = function(t, speed) {
+      const cycle = t * speed;
+      legL.rotation.x = Math.sin(cycle) * 0.8;
+      legR.rotation.x = Math.sin(cycle + Math.PI) * 0.8;
+      
+      armL.rotation.x = Math.sin(cycle + Math.PI) * 0.6;
+      armR.rotation.x = Math.sin(cycle) * 0.6;
+      
+      if (isCutter && group.scissors) {
+         // Snip snip
+         const snip = Math.abs(Math.sin(cycle * 2)) * 0.3;
+         group.scissors.children[0].rotation.z = 0.1 + snip;
+         group.scissors.children[1].rotation.z = -0.1 - snip;
+      }
+    };
+    
+    return group;
+  }
+
+  const stickman1 = createStickman(0xffffff, true);
+  const stickman2 = createStickman(0xdddddd, false);
+  scene.add(stickman1, stickman2);
+
+  // Array to hold active stitches
+  const stitches = [];
+  const stitchMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 });
+  const stitchGeometry = new THREE.CylinderGeometry(0.03, 0.03, 0.6);
+  stitchGeometry.rotateY(Math.PI / 2); // align across the tear
+  
+  let lastStitchTime = 0;
+  let stickmanPathTime = 0;
+
+  // ═══════════════════════════════════════════════════════════════
   // ANIMATION LOOP
   // ═══════════════════════════════════════════════════════════════
   let time = 0;
@@ -223,19 +316,100 @@
     camera.position.y = autoMouse.y * 0.3;
     camera.lookAt(0, 0, 0);
 
-    // ── Animate Fabric Wave ──
+    // ── Stickman Pathing ──
+    stickmanPathTime += 0.02; // Walk speed
+    let s1X = -35 + (stickmanPathTime % 70); // Wraps around from -35 to 35
+    let s2X = s1X - 4; // Distance between them
+    
+    // Add some meandering Y movement
+    let s1Y = Math.sin(s1X * 0.2) * 3;
+    let s2Y = Math.sin(s2X * 0.2) * 3;
+    
+    // Rotations (facing direction)
+    const dx1 = 1; 
+    const dy1 = Math.cos(s1X * 0.2) * 0.2 * 3;
+    stickman1.rotation.z = Math.atan2(dy1, dx1);
+    
+    const dx2 = 1;
+    const dy2 = Math.cos(s2X * 0.2) * 0.2 * 3;
+    stickman2.rotation.z = Math.atan2(dy2, dx2);
+
+    stickman1.updateAnimation(time, 15);
+    stickman2.updateAnimation(time, 15);
+    
+    // Get Z height for stickmen
+    function getWaveZ(x, y, t) {
+      const w1 = Math.sin(x * 0.5 + t * 0.8) * 0.3;
+      const w2 = Math.sin(y * 0.8 + t * 0.6) * 0.2;
+      const w3 = Math.sin((x + y) * 0.3 + t * 1.2) * 0.15;
+      return w1 + w2 + w3;
+    }
+    
+    stickman1.position.set(s1X, s1Y, getWaveZ(s1X, s1Y, time));
+    stickman2.position.set(s2X, s2Y, getWaveZ(s2X, s2Y, time));
+
+    // ── Animate Fabric Wave & Tear ──
     const fabricPos = fabricGeometry.attributes.position;
+    
+    const tearDx = s1X - s2X;
+    const tearDy = s1Y - s2Y;
+    const tearLenSq = tearDx*tearDx + tearDy*tearDy;
+
     for (let i = 0; i < fabricPos.count; i++) {
       const x = fabricPos.getX(i);
       const y = fabricPos.getY(i);
-      const wave1 = Math.sin(x * 0.5 + time * 0.8) * 0.3;
-      const wave2 = Math.sin(y * 0.8 + time * 0.6) * 0.2;
-      const wave3 = Math.sin((x + y) * 0.3 + time * 1.2) * 0.15;
+      const baseZ = getWaveZ(x, y, time);
       
-      fabricPos.setZ(i, wave1 + wave2 + wave3);
+      let cutOffset = 0;
+      
+      // Calculate tear gap
+      if (s2X > -34 && s1X < 34) { // only apply if both are on screen
+        const vx = x - s2X;
+        const vy = y - s2Y;
+        const t = Math.max(0, Math.min(1, (vx * tearDx + vy * tearDy) / tearLenSq));
+        
+        const projX = s2X + t * tearDx;
+        const projY = s2Y + t * tearDy;
+        const dist = Math.sqrt((x - projX)**2 + (y - projY)**2);
+        
+        if (dist < 0.6) {
+           const endTaper = Math.sin(t * Math.PI); // Smooth fade at start and end of tear
+           cutOffset = -3 * endTaper * (1 - dist/0.6); // Deep plunge for black tear
+        }
+      }
+      
+      fabricPos.setZ(i, baseZ + cutOffset);
     }
     fabricPos.needsUpdate = true;
     fabricGeometry.computeVertexNormals();
+
+    // ── Manage Stitches ──
+    // Drop a stitch behind stickman2
+    if (s2X > -30 && s2X < 34 && time - lastStitchTime > 0.4) {
+      const stitch = new THREE.Mesh(stitchGeometry, stitchMaterial.clone());
+      stitch.position.set(s2X, s2Y, getWaveZ(s2X, s2Y, time) + 0.1);
+      stitch.rotation.z = stickman2.rotation.z + Math.PI/2; // Crosses the tear
+      // Randomize angle a bit for a hand-stitched look
+      stitch.rotation.x = (Math.random() - 0.5) * 0.5;
+      stitch.rotation.y = (Math.random() - 0.5) * 0.5;
+      stitch.userData = { spawnTime: time };
+      scene.add(stitch);
+      stitches.push(stitch);
+      lastStitchTime = time;
+    }
+    
+    // Fade and remove old stitches
+    for (let i = stitches.length - 1; i >= 0; i--) {
+      const st = stitches[i];
+      const age = time - st.userData.spawnTime;
+      if (age > 4) { // Fade out after 4 seconds
+        scene.remove(st);
+        st.material.dispose();
+        stitches.splice(i, 1);
+      } else if (age > 2) {
+        st.material.opacity = 1 - ((age - 2) / 2);
+      }
+    }
 
     // Sync wireframe
     fabricWireframe.geometry.attributes.position.copy(fabricPos);
