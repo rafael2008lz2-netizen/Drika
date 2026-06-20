@@ -285,15 +285,15 @@
   }
 
   const stickman1 = createStickman(0xffffff, true);
-  stickman1.scale.set(0.3, 0.3, 0.3);
+  stickman1.scale.set(0.1, 0.1, 0.1);
   const stickman2 = createStickman(0xdddddd, false);
-  stickman2.scale.set(0.3, 0.3, 0.3);
+  stickman2.scale.set(0.1, 0.1, 0.1);
   scene.add(stickman1, stickman2);
 
   // Array to hold active stitches
   const stitches = [];
   const stitchMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 });
-  const stitchGeometry = new THREE.CylinderGeometry(0.03, 0.03, 0.6);
+  const stitchGeometry = new THREE.CylinderGeometry(0.015, 0.015, 0.2); // Smaller stitches
   stitchGeometry.rotateY(Math.PI / 2); // align across the tear
   
   let lastStitchTime = 0;
@@ -318,15 +318,15 @@
     camera.position.y = autoMouse.y * 0.3;
     camera.lookAt(0, 0, 0);
 
-    // ── Stickman Pathing (Tag / Pega-pega slow) ──
-    stickmanPathTime += 0.008; // Normal slow walk speed
+    // ── Stickman Pathing (Very Slow & Small) ──
+    stickmanPathTime += 0.002; // Very slow walk speed
     
     // Stickman 1 walks on a wide, slow curve
     let s1X = Math.sin(stickmanPathTime * 0.7) * 20 + Math.cos(stickmanPathTime * 0.3) * 10;
     let s1Y = Math.cos(stickmanPathTime * 0.5) * 12 + Math.sin(stickmanPathTime * 0.4) * 6;
     
     // Stickman 2 follows closely behind
-    let t2 = stickmanPathTime - 0.2; // smaller delay because they move slower
+    let t2 = stickmanPathTime - 0.2; // stable physical distance
     let s2X = Math.sin(t2 * 0.7) * 20 + Math.cos(t2 * 0.3) * 10;
     let s2Y = Math.cos(t2 * 0.5) * 12 + Math.sin(t2 * 0.4) * 6;
     
@@ -339,8 +339,8 @@
     let dy2 = -0.5 * 12 * Math.sin(t2 * 0.5) + 0.4 * 6 * Math.cos(t2 * 0.4);
     stickman2.rotation.z = Math.atan2(dy2, dx2);
 
-    stickman1.updateAnimation(time, 10); // Walk normal speed
-    stickman2.updateAnimation(time, 10);
+    stickman1.updateAnimation(time, 4); // Very slow animation to match speed
+    stickman2.updateAnimation(time, 4);
     
     // Get Z height for stickmen
     function getWaveZ(x, y, t) {
@@ -358,7 +358,7 @@
     
     const tearDx = s1X - s2X;
     const tearDy = s1Y - s2Y;
-    const tearLenSq = tearDx*tearDx + tearDy*tearDy;
+    const tearLenSq = Math.max(0.0001, tearDx*tearDx + tearDy*tearDy); // prevent divide by zero
 
     for (let i = 0; i < fabricPos.count; i++) {
       const x = fabricPos.getX(i);
@@ -376,9 +376,9 @@
       const projY = s2Y + t * tearDy;
       const dist = Math.sqrt((x - projX)**2 + (y - projY)**2);
       
-      if (dist < 0.6) {
+      if (dist < 0.25) { // Narrower tear for small stickmen
          const endTaper = Math.sin(t * Math.PI); // Smooth fade at start and end of tear
-         cutOffset = -3 * endTaper * (1 - dist/0.6); // Deep plunge for black tear
+         cutOffset = -1.2 * endTaper * (1 - dist/0.25); // Shallower plunge
       }
       
       fabricPos.setZ(i, baseZ + cutOffset);
@@ -388,7 +388,7 @@
 
     // ── Manage Stitches ──
     // Drop a stitch behind stickman2
-    if (time - lastStitchTime > 0.1) {
+    if (time - lastStitchTime > 0.4) { // Slower stitch drop rate because they move slowly
       const stitch = new THREE.Mesh(stitchGeometry, stitchMaterial.clone());
       stitch.position.set(s2X, s2Y, getWaveZ(s2X, s2Y, time) + 0.1);
       stitch.rotation.z = stickman2.rotation.z + Math.PI/2; // Crosses the tear
