@@ -32,16 +32,9 @@
   }
 
   // ═══════════════════════════════════════════════════════════════
-  // MOUSE TRACKING
+  // NO MOUSE TRACKING
   // ═══════════════════════════════════════════════════════════════
-  const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
-
-  hero.style.pointerEvents = 'auto';
-  hero.addEventListener('mousemove', function (e) {
-    const rect = hero.getBoundingClientRect();
-    mouse.targetX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    mouse.targetY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-  });
+  const autoMouse = { x: 0, y: 0 };
 
   // ═══════════════════════════════════════════════════════════════
   // LIGHTING — Dynamic
@@ -99,54 +92,7 @@
   fabricWireframe.position.copy(fabric.position);
   scene.add(fabricWireframe);
 
-  // ═══════════════════════════════════════════════════════════════
-  // 2. GOLDEN THREADS — Elegant flowing embroidery lines
-  // ═══════════════════════════════════════════════════════════════
-  const threads = [];
-  const threadGroup = new THREE.Group();
-  scene.add(threadGroup);
 
-  const threadMaterials = [
-    new THREE.MeshPhysicalMaterial({ color: 0xffd700, metalness: 1.0, roughness: 0.2, clearcoat: 1.0, transparent: true, opacity: 0.8 }), // Gold
-    new THREE.MeshPhysicalMaterial({ color: 0xcccccc, metalness: 0.9, roughness: 0.3, clearcoat: 0.8, transparent: true, opacity: 0.6 }), // Silver
-    new THREE.MeshPhysicalMaterial({ color: 0xffaa00, metalness: 0.8, roughness: 0.2, clearcoat: 0.5, transparent: true, opacity: 0.7 })  // Copper
-  ];
-
-  function createThread(index) {
-    const pointsCount = 10;
-    const points = [];
-    const baseY = (Math.random() - 0.5) * 6;
-    const baseZ = -1 - Math.random() * 3;
-    
-    // Create random curvy path
-    for(let j=0; j<pointsCount; j++) {
-      const x = -8 + (j / (pointsCount-1)) * 16;
-      const y = baseY + Math.sin(x * 0.5 + Math.random()) * 2;
-      const z = baseZ + Math.cos(x * 0.3) * 1.5;
-      points.push(new THREE.Vector3(x, y, z));
-    }
-
-    const curve = new THREE.CatmullRomCurve3(points);
-    const geometry = new THREE.TubeGeometry(curve, 64, 0.015, 8, false);
-    const material = threadMaterials[index % threadMaterials.length];
-    const mesh = new THREE.Mesh(geometry, material);
-    
-    threadGroup.add(mesh);
-    
-    threads.push({
-      mesh: mesh,
-      curve: curve,
-      points: points,
-      baseY: baseY,
-      speed: 0.5 + Math.random() * 1.5,
-      offset: Math.random() * Math.PI * 2
-    });
-  }
-
-  // Create 8 flowing threads
-  for (let i = 0; i < 8; i++) {
-    createThread(i);
-  }
 
   // ═══════════════════════════════════════════════════════════════
   // 3. PARTICLE FIELD — Floating stars/dust
@@ -268,13 +214,13 @@
     animationId = requestAnimationFrame(animate);
     time += 0.005;
 
-    // Smooth mouse
-    mouse.x += (mouse.targetX - mouse.x) * 0.05;
-    mouse.y += (mouse.targetY - mouse.y) * 0.05;
+    // Automatic smooth movement without mouse
+    autoMouse.x = Math.sin(time * 0.5) * 0.5;
+    autoMouse.y = Math.cos(time * 0.3) * 0.5;
 
     // ── Camera subtle parallax ──
-    camera.position.x = mouse.x * 0.5;
-    camera.position.y = mouse.y * 0.3;
+    camera.position.x = autoMouse.x * 0.5;
+    camera.position.y = autoMouse.y * 0.3;
     camera.lookAt(0, 0, 0);
 
     // ── Animate Fabric Wave ──
@@ -286,13 +232,7 @@
       const wave2 = Math.sin(y * 0.8 + time * 1.5) * 0.2;
       const wave3 = Math.sin((x + y) * 0.3 + time * 3) * 0.15;
       
-      // Mouse ripple on fabric
-      const dx = (x / 8) - mouse.x;
-      const dy = (y / 5) - mouse.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const mouseWave = Math.sin(dist * 3 - time * 4) * Math.max(0, 0.4 - dist * 0.3);
-      
-      fabricPos.setZ(i, wave1 + wave2 + wave3 + mouseWave);
+      fabricPos.setZ(i, wave1 + wave2 + wave3);
     }
     fabricPos.needsUpdate = true;
     fabricGeometry.computeVertexNormals();
@@ -300,28 +240,6 @@
     // Sync wireframe
     fabricWireframe.geometry.attributes.position.copy(fabricPos);
     fabricWireframe.geometry.attributes.position.needsUpdate = true;
-
-    // ── Animate Golden Threads ──
-    for (let i = 0; i < threads.length; i++) {
-      const t = threads[i];
-      for (let j = 0; j < t.points.length; j++) {
-        const p = t.points[j];
-        // Make the points undulate like thread in the wind
-        p.y = t.baseY + Math.sin(time * t.speed + p.x * 0.5 + t.offset) * 1.5;
-        
-        // Mouse interaction: push threads away gently
-        const dx = p.x - mouse.x * 5;
-        const dy = p.y - mouse.y * 3;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 3) {
-           p.y += (dy/dist) * (3-dist) * 0.05;
-        }
-      }
-      // Update geometry
-      t.curve.points = t.points;
-      t.mesh.geometry.dispose(); // avoid memory leak
-      t.mesh.geometry = new THREE.TubeGeometry(t.curve, 64, 0.015, 8, false);
-    }
 
     // ── Animate Particles ──
     const pPos = particleGeometry.attributes.position;
@@ -341,21 +259,21 @@
     // Rotate particle field slowly
     particles.rotation.y = time * 0.05;
 
-    // ── Animate Lights following mouse ──
-    pointLight1.position.x = -3 + mouse.x * 4;
-    pointLight1.position.y = 2 + mouse.y * 2;
+    // ── Animate Lights smoothly ──
+    pointLight1.position.x = -3 + autoMouse.x * 4;
+    pointLight1.position.y = 2 + autoMouse.y * 2;
     pointLight1.intensity = 1.5 + Math.sin(time * 2) * 0.3;
 
-    pointLight2.position.x = 3 + mouse.x * 2;
-    pointLight2.position.y = -1 + mouse.y * 1.5;
+    pointLight2.position.x = 3 + autoMouse.x * 2;
+    pointLight2.position.y = -1 + autoMouse.y * 1.5;
 
     // Animate glows
-    glow.position.x = mouse.x * 1.5;
-    glow.position.y = mouse.y * 1.0;
+    glow.position.x = autoMouse.x * 1.5;
+    glow.position.y = autoMouse.y * 1.0;
     glow.material.opacity = 0.2 + Math.sin(time * 1.5) * 0.08;
 
-    glow2.position.x = 3 - mouse.x * 1.0;
-    glow2.position.y = 1 - mouse.y * 0.5;
+    glow2.position.x = 3 - autoMouse.x * 1.0;
+    glow2.position.y = 1 - autoMouse.y * 0.5;
 
     // ── Rotate constellation lines slowly ──
     lineGroup.rotation.y = time * 0.03;
