@@ -97,7 +97,7 @@
   // ═══════════════════════════════════════════════════════════════
   // 3. PARTICLE FIELD — Floating stars/dust
   // ═══════════════════════════════════════════════════════════════
-  const particleCount = 150;
+  const particleCount = 40;
   const particlePositions = new Float32Array(particleCount * 3);
   const particleSizes = new Float32Array(particleCount);
   const particlePhases = new Float32Array(particleCount);
