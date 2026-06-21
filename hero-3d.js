@@ -61,36 +61,8 @@
   scene.add(pointLight3);
 
   // ═══════════════════════════════════════════════════════════════
-  // 1. UNDULATING FABRIC / WAVE MESH
+  // 1. UNDULATING FABRIC / WAVE MESH (Removido conforme solicitado)
   // ═══════════════════════════════════════════════════════════════
-  const fabricGeometry = new THREE.PlaneGeometry(120, 60, 200, 100);
-  const fabricMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0x111111,
-    metalness: 0.7,
-    roughness: 0.3,
-    clearcoat: 0.4,
-    clearcoatRoughness: 0.2,
-    side: THREE.DoubleSide,
-    wireframe: false,
-    transparent: true,
-    opacity: 0.6,
-  });
-  const fabric = new THREE.Mesh(fabricGeometry, fabricMaterial);
-  fabric.rotation.x = -Math.PI * 0.35;
-  fabric.position.set(0, -2, -4);
-  scene.add(fabric);
-
-  // Wireframe overlay for the fabric
-  const wireframeMaterial = new THREE.MeshBasicMaterial({
-    color: 0x555555,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.08,
-  });
-  const fabricWireframe = new THREE.Mesh(fabricGeometry, wireframeMaterial);
-  fabricWireframe.rotation.copy(fabric.rotation);
-  fabricWireframe.position.copy(fabric.position);
-  scene.add(fabricWireframe);
 
 
 
@@ -223,23 +195,8 @@
     camera.position.y = autoMouse.y * 0.3;
     camera.lookAt(0, 0, 0);
 
-    // ── Animate Fabric Wave ──
-    const fabricPos = fabricGeometry.attributes.position;
-    for (let i = 0; i < fabricPos.count; i++) {
-      const x = fabricPos.getX(i);
-      const y = fabricPos.getY(i);
-      const wave1 = Math.sin(x * 0.5 + time * 0.8) * 0.3;
-      const wave2 = Math.sin(y * 0.8 + time * 0.6) * 0.2;
-      const wave3 = Math.sin((x + y) * 0.3 + time * 1.2) * 0.15;
-      
-      fabricPos.setZ(i, wave1 + wave2 + wave3);
-    }
-    fabricPos.needsUpdate = true;
-    fabricGeometry.computeVertexNormals();
+    // ── Animate Fabric Wave (Removido) ──
 
-    // Sync wireframe
-    fabricWireframe.geometry.attributes.position.copy(fabricPos);
-    fabricWireframe.geometry.attributes.position.needsUpdate = true;
 
     // ── Animate Particles ──
     const pPos = particleGeometry.attributes.position;
