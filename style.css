@@ -316,27 +316,50 @@ p{font-weight:300;color:var(--text-secondary)}
 
 /* ── Hero Title ──────────────────────────────────────────────── */
 .hero-title{
-  font-size:var(--text-5xl);color:var(--white);margin-bottom:var(--space-md);line-height:1.1;
-  animation: heroFadeUp 1.2s var(--ease-out) forwards;
-  animation-delay: 0.4s;
-  opacity: 0;
+  font-size:var(--text-5xl);
+  color:var(--white);
+  margin-bottom:var(--space-md);
+  line-height:1.1;
   text-shadow: 0 2px 40px rgba(0,0,0,0.5);
-}
-.hero-title .gold-text{
-  background: linear-gradient(135deg, #e0e0e0 0%, #ffffff 30%, #c0c0d0 60%, #ffffff 100%);
-  background-size: 300% auto;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  font-style:italic;
-  animation: heroFadeUp 1.2s var(--ease-out) forwards, goldWaveShimmer 6s ease-in-out infinite;
-  animation-delay: 0.4s, 2s;
+  
+  /* Shimmer Effect Base */
+  --shimmer-contrast: rgba(255, 255, 255, 0.6);
+  background-color: currentColor;
+  background-image: linear-gradient(to right, transparent 0%, var(--shimmer-contrast) 40%, var(--shimmer-contrast) 60%, transparent 100%);
+  background-repeat: no-repeat;
+  background-size: 50% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  animation: heroFadeUp 1.2s var(--ease-out) forwards, textShimmer 2.5s linear infinite;
+  animation-delay: 0.4s, 1.6s;
   opacity: 0;
 }
-@keyframes goldWaveShimmer {
-  0% { background-position: 0% center; }
-  50% { background-position: 100% center; }
-  100% { background-position: 0% center; }
+
+.hero-title .gold-text{
+  color: #d1d1d1; /* Silver base color to match their new branding */
+  --shimmer-contrast: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  
+  /* It inherits the background-clip, background-image from parent but we redefine it to have its own shimmer track */
+  background-color: currentColor;
+  background-image: linear-gradient(to right, transparent 0%, var(--shimmer-contrast) 40%, var(--shimmer-contrast) 60%, transparent 100%);
+  background-repeat: no-repeat;
+  background-size: 50% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* No need to re-fade, just shimmer */
+  animation: textShimmer 2.5s linear infinite;
+  animation-delay: 1.6s;
+  opacity: 1; /* parent controls opacity */
+}
+
+@keyframes textShimmer {
+  0% { background-position: 250% center; }
+  100% { background-position: -100% center; }
 }
 
 /* ── Hero Subtitle ───────────────────────────────────────────── */
