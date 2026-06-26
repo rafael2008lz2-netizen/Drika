@@ -27,6 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
       // Add custom styles for printing to ensure images and grid look right
       const styleNode = document.createElement('style');
       styleNode.textContent = `
+        * {
+          opacity: 1 !important;
+          transform: none !important;
+          animation: none !important;
+          transition: none !important;
+        }
         .product-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr) !important;
@@ -71,9 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
       printWrapper.appendChild(styleNode);
       printWrapper.appendChild(catalogSection);
 
-      // Append to body temporarily (hidden)
+      // Append to body temporarily (hidden via z-index and opacity so html2canvas can read it)
       printWrapper.style.position = 'absolute';
-      printWrapper.style.left = '-9999px';
+      printWrapper.style.top = '0';
+      printWrapper.style.left = '0';
+      printWrapper.style.zIndex = '-9999';
       document.body.appendChild(printWrapper);
 
       // html2pdf options
