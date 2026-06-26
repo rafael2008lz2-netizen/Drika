@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const downloadBtn = document.getElementById('downloadPdfBtn');
+  const downloadBtns = document.querySelectorAll('.download-pdf-trigger');
   
-  if (downloadBtn) {
+  downloadBtns.forEach(downloadBtn => {
     downloadBtn.addEventListener('click', function() {
       // Change button state to loading
       const originalText = downloadBtn.innerHTML;
@@ -100,5 +100,5 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Ocorreu um erro ao gerar o PDF. Tente novamente.");
       });
     });
-  }
+  });
 });
