@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Product Catalog Filters ──────────────────────────────────
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const productCards = document.querySelectorAll('.product-card');
+  const productCards = document.querySelectorAll('.product-grid .product-card');
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
