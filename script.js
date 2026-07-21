@@ -98,6 +98,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ── Product Search ─────────────────────────────────────────────
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      // To play nicely with categories, we check which category is active
+      const activeBtn = document.querySelector('.filter-btn.active');
+      const activeFilter = activeBtn ? activeBtn.getAttribute('data-filter') : 'todos';
+
+      productCards.forEach(card => {
+        const name = card.querySelector('.product-card-name').textContent.toLowerCase();
+        const category = card.getAttribute('data-category');
+        
+        const matchesSearch = name.includes(searchTerm);
+        const matchesCategory = (activeFilter === 'todos' || category === activeFilter);
+
+        if (matchesSearch && matchesCategory) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  }
+
   // ── 3D Tilt Effect (Testimonials) ────────────────────────────
   document.querySelectorAll('[data-tilt]').forEach(card => {
     card.addEventListener('mousemove', (e) => {
