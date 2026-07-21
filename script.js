@@ -345,10 +345,8 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             modalThumbnails.style.display = 'none';
           }
-        }
-        
         try {
-          if (!history.state || !history.state.modalOpen) {
+          if (window.location.hash !== '#produto') {
             history.pushState({ modalOpen: true }, "", "#produto");
           }
         } catch(e) {}
@@ -356,18 +354,23 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
 
-        // Clear any running animations to prevent overlapping states
+        // Clear any running animations
+        if (window.modalTimeline) {
+          window.modalTimeline.pause();
+        }
         const animTargets = [modal, '.modal-content', '.modal-gallery', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
         anime.remove(animTargets);
 
-        // Reset elements just in case
-        anime.set('.modal-content, .modal-gallery, .modal-title, .modal-price-box, .modal-meta, .modal-desc-box, .modal-actions', {
-          opacity: 0,
-          translateY: 20
+        // Force reset inline styles to prevent stuck states
+        animTargets.forEach(target => {
+          const els = typeof target === 'string' ? document.querySelectorAll(target) : [target];
+          els.forEach(el => { if(el) el.style = ''; });
         });
+
         const isMobile = window.innerWidth <= 640;
-        anime.set('.modal-content', { translateY: isMobile ? '100%' : 40, scale: isMobile ? 1 : 0.95 });
+        anime.set('.modal-content', { translateY: isMobile ? '100%' : 40, scale: isMobile ? 1 : 0.95, opacity: 0 });
         anime.set(modal, { opacity: 0 });
+        anime.set(['.modal-gallery', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'], { opacity: 0, translateY: 20 });
 
         // AnimeJS Intro Timeline
         window.modalTimeline = anime.timeline({
@@ -402,6 +405,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const animTargets = [modal, '.modal-content', '.modal-gallery', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
       const isMobile = window.innerWidth <= 640;
       
+      if (window.modalTimeline) {
+        window.modalTimeline.pause();
+      }
       anime.remove(animTargets);
 
       anime({
@@ -412,7 +418,10 @@ document.addEventListener('DOMContentLoaded', () => {
         complete: () => {
           modal.classList.remove('active');
           document.body.style.overflow = '';
-          anime.set(animTargets, { clearProps: 'all' });
+          animTargets.forEach(target => {
+            const els = typeof target === 'string' ? document.querySelectorAll(target) : [target];
+            els.forEach(el => { if(el) el.style = ''; });
+          });
         }
       });
       anime({
@@ -427,13 +436,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeModal = (e) => {
       if (e && e.preventDefault) e.preventDefault();
+      executeCloseModal();
       try {
-        if (history.state && history.state.modalOpen) {
-          history.back(); // dispara o popstate
-          return;
+        if (window.location.hash === '#produto') {
+          history.replaceState(null, null, ' ');
         }
       } catch(err) {}
-      executeCloseModal();
     };
 
     window.addEventListener('popstate', () => {
