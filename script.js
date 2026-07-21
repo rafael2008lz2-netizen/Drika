@@ -312,21 +312,50 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const ctaHref = card.querySelector('.product-cta').href;
 
-        modalImage.src = img;
+        let images = [];
+        const dataImages = card.getAttribute('data-images');
+        if (dataImages) {
+          images = dataImages.split(',').map(s => s.trim());
+        } else {
+          images = [img];
+        }
+
+        modalImage.src = images[0];
         modalTitle.textContent = name;
         if(modalPrice) modalPrice.textContent = priceText;
         modalDesc.textContent = descText;
         modalCta.href = ctaHref;
 
+        const modalThumbnails = document.getElementById('modalThumbnails');
+        if (modalThumbnails) {
+          modalThumbnails.innerHTML = '';
+          if (images.length > 1) {
+            images.forEach((src, idx) => {
+              const thumb = document.createElement('img');
+              thumb.src = src;
+              thumb.className = 'modal-thumbnail-img' + (idx === 0 ? ' active' : '');
+              thumb.addEventListener('click', () => {
+                modalImage.src = src;
+                modalThumbnails.querySelectorAll('.modal-thumbnail-img').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+              });
+              modalThumbnails.appendChild(thumb);
+            });
+            modalThumbnails.style.display = 'flex';
+          } else {
+            modalThumbnails.style.display = 'none';
+          }
+        }
+
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
 
         // Clear any running animations to prevent overlapping states
-        const animTargets = [modal, '.modal-content', '.modal-image-container', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
+        const animTargets = [modal, '.modal-content', '.modal-gallery', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
         anime.remove(animTargets);
 
         // Reset elements just in case
-        anime.set('.modal-content, .modal-image-container, .modal-title, .modal-price-box, .modal-meta, .modal-desc-box, .modal-actions', {
+        anime.set('.modal-content, .modal-gallery, .modal-title, .modal-price-box, .modal-meta, .modal-desc-box, .modal-actions', {
           opacity: 0,
           translateY: 20
         });
@@ -353,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
           easing: 'easeOutCubic'
         }, '-=100')
         .add({
-          targets: ['.modal-image-container', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'],
+          targets: ['.modal-gallery', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'],
           translateY: [20, 0],
           opacity: [0, 1],
           delay: anime.stagger(40),
@@ -364,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const closeModal = () => {
-      const animTargets = [modal, '.modal-content', '.modal-image-container', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
+      const animTargets = [modal, '.modal-content', '.modal-gallery', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
       const isMobile = window.innerWidth <= 640;
       
       anime.remove(animTargets);

@@ -1157,6 +1157,36 @@ a[href*="elfsight.com"],
   grid-template-columns: 1fr;
   overflow-y: auto;
 }
+.modal-gallery {
+  display: flex;
+  flex-direction: column;
+  background: #fff; /* Fundo branco pra imagem dar destaque (como na foto) */
+}
+.modal-thumbnails {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.modal-thumbnails::-webkit-scrollbar { display: none; }
+.modal-thumbnail-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border: 1px solid var(--gray-light);
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  background: #fff;
+}
+.modal-thumbnail-img:hover {
+  border-color: var(--gold-main);
+}
+.modal-thumbnail-img.active {
+  border: 2px solid var(--gold-main);
+}
 .modal-image-container {
   width: 100%;
   background: transparent;
@@ -1170,8 +1200,6 @@ a[href*="elfsight.com"],
   max-height: 65vh;
   object-fit: contain;
   object-position: center;
-  -webkit-mask-image: radial-gradient(ellipse at center, black 70%, transparent 100%);
-  mask-image: radial-gradient(ellipse at center, black 70%, transparent 100%);
 }
 .modal-info {
   padding: var(--space-xl);
@@ -1296,8 +1324,20 @@ a[href*="elfsight.com"],
   .modal-content {
     height: 80vh;
   }
+  .modal-gallery {
+    flex-direction: row-reverse; /* Miniaturas na esquerda, imagem na direita */
+    background: transparent;
+  }
+  .modal-thumbnails {
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 90px;
+    padding-left: 20px;
+  }
   .modal-image-container {
     height: 100%;
+    flex: 1;
   }
   .modal-image {
     height: 100%;
