@@ -538,11 +538,10 @@ p{font-weight:300;color:var(--text-secondary)}
   left:0 !important;
   width:100% !important;
   height:100% !important;
-  object-fit:contain !important;
-  padding:6px !important;
-  background:#fff !important;
+  object-fit:cover !important;
   transform: none !important;
   margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Placeholder (no image yet) */
