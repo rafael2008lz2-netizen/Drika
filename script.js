@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Force reset inline styles to prevent stuck states
         animTargets.forEach(target => {
           const els = typeof target === 'string' ? document.querySelectorAll(target) : [target];
-          els.forEach(el => { if(el) el.style = ''; });
+          els.forEach(el => { if(el) el.removeAttribute('style'); });
         });
 
         const isMobile = window.innerWidth <= 640;
@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
           document.body.style.overflow = '';
           animTargets.forEach(target => {
             const els = typeof target === 'string' ? document.querySelectorAll(target) : [target];
-            els.forEach(el => { if(el) el.style = ''; });
+            els.forEach(el => { if(el) el.removeAttribute('style'); });
           });
         }
       });
