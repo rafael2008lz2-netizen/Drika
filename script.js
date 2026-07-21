@@ -346,7 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
             modalThumbnails.style.display = 'none';
           }
         }
-
+        
+        history.pushState({ modalOpen: true }, "", "#produto");
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
 
@@ -392,7 +393,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    const closeModal = () => {
+    let isClosing = false;
+    const executeCloseModal = () => {
+      if(isClosing) return;
+      isClosing = true;
       const animTargets = [modal, '.modal-content', '.modal-gallery', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
       const isMobile = window.innerWidth <= 640;
       
@@ -406,7 +410,8 @@ document.addEventListener('DOMContentLoaded', () => {
         complete: () => {
           modal.classList.remove('active');
           document.body.style.overflow = '';
-          anime.set(animTargets, { clearProps: 'all' });
+          anime.set(animTargets, { clearProps: 'opacity, translateY, scale' });
+          isClosing = false;
         }
       });
       anime({
@@ -419,12 +424,27 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
+    const closeModal = (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      if (history.state && history.state.modalOpen) {
+        history.back(); // Isso dispara o popstate, que fechará o modal
+      } else {
+        executeCloseModal();
+      }
+    };
+
+    window.addEventListener('popstate', () => {
+      if (modal.classList.contains('active')) {
+        executeCloseModal();
+      }
+    });
+
     modalClose.addEventListener('click', closeModal);
     if(modalCancel) modalCancel.addEventListener('click', closeModal);
 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        closeModal();
+        closeModal(e);
       }
     });
     
