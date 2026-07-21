@@ -960,13 +960,59 @@ p{font-weight:300;color:var(--text-secondary)}
   .product-card-image{height:200px;}
   .container{padding:0 var(--space-md)}
   .hero-brand-letter{font-size:4rem}
-  .product-card-content{padding:var(--space-sm) var(--space-md) var(--space-md)}
+  .product-card-content{padding:var(--space-sm) var(--space-sm) var(--space-md)}
+  
+  /* Mobile App-like Filters */
+  .catalog-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: var(--space-sm);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+  .catalog-filters::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  
+  /* Touch target Search Bar */
+  .search-input {
+    padding: 16px 20px 16px 45px;
+    font-size: 16px; /* Avoids iOS auto-zoom */
+  }
+  
+  /* Mobile Bottom Sheet Modal */
+  .product-modal {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal-content {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    max-height: 85vh;
+    margin: 0;
+    width: 100%;
+    transform: translateY(100%);
+  }
+  .modal-close {
+    top: 16px;
+    right: 16px;
+    background: rgba(0,0,0,0.8);
+    width: 44px;
+    height: 44px;
+  }
   .product-card-name{font-size:var(--text-sm)}
   .product-price{font-size:var(--text-lg)}
   .product-cta{padding:8px;font-size:12px}
-  .catalog-filters{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}
-  .catalog-filters::-webkit-scrollbar{display:none}
-  .filter-btn{padding:8px 16px;font-size:12px;flex-shrink:0}
   .diff-grid{grid-template-columns:1fr}
   .testimonial-grid{grid-template-columns:1fr}
   .insta-grid{grid-template-columns:repeat(3,1fr)}

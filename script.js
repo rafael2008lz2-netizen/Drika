@@ -330,7 +330,8 @@ document.addEventListener('DOMContentLoaded', () => {
           opacity: 0,
           translateY: 20
         });
-        anime.set('.modal-content', { translateY: 40, scale: 0.95 });
+        const isMobile = window.innerWidth <= 640;
+        anime.set('.modal-content', { translateY: isMobile ? '100%' : 40, scale: isMobile ? 1 : 0.95 });
         anime.set(modal, { opacity: 0 });
 
         // AnimeJS Intro Timeline
@@ -346,8 +347,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .add({
           targets: '.modal-content',
           opacity: [0, 1],
-          translateY: [40, 0],
-          scale: [0.95, 1],
+          translateY: [isMobile ? '100%' : 40, 0],
+          scale: [isMobile ? 1 : 0.95, 1],
           duration: 400,
           easing: 'easeOutCubic'
         }, '-=100')
@@ -364,6 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeModal = () => {
       const animTargets = [modal, '.modal-content', '.modal-image-container', '.modal-title', '.modal-price-box', '.modal-meta', '.modal-desc-box', '.modal-actions'];
+      const isMobile = window.innerWidth <= 640;
+      
       anime.remove(animTargets);
 
       anime({
@@ -376,6 +379,14 @@ document.addEventListener('DOMContentLoaded', () => {
           document.body.style.overflow = '';
           anime.set(animTargets, { clearProps: 'all' });
         }
+      });
+      anime({
+        targets: '.modal-content',
+        translateY: isMobile ? '100%' : 40,
+        scale: isMobile ? 1 : 0.95,
+        opacity: 0,
+        duration: 250,
+        easing: 'easeOutQuad'
       });
     };
 

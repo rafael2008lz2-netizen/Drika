@@ -18,7 +18,8 @@
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(hero.clientWidth, hero.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const isMobile = window.innerWidth <= 640;
+  renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
   renderer.setClearColor(0x000000, 0);
   renderer.domElement.id = 'hero-3d-canvas';
   renderer.domElement.style.cssText = 'position:absolute;inset:0;z-index:1;pointer-events:none;';
@@ -69,7 +70,7 @@
   // ═══════════════════════════════════════════════════════════════
   // 3. PARTICLE FIELD — Floating stars/dust
   // ═══════════════════════════════════════════════════════════════
-  const particleCount = 40;
+  const particleCount = isMobile ? 20 : 40;
   const particlePositions = new Float32Array(particleCount * 3);
   const particleSizes = new Float32Array(particleCount);
   const particlePhases = new Float32Array(particleCount);
