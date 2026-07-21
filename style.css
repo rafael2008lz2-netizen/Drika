@@ -530,7 +530,7 @@ p{font-weight:300;color:var(--text-secondary)}
 
 /* Product Image Area */
 .product-card-image{
-  position:relative;aspect-ratio:1;overflow:hidden;background:transparent;
+  position:relative;aspect-ratio:1;overflow:hidden;background:#fff !important;
 }
 .product-card-image img{
   position:absolute !important;
@@ -1029,9 +1029,6 @@ p{font-weight:300;color:var(--text-secondary)}
     margin-top: 8px; 
     border-radius: 4px;
   }
-  .product-card-image img {
-    object-fit: cover !important; /* Preencher toda a area no mobile */
-  }
   .diff-grid{grid-template-columns:1fr}
   
   /* Swipeable Testimonials on mobile */
@@ -1355,15 +1352,15 @@ a[href*="elfsight.com"],
     height: 80vh;
   }
   .modal-gallery {
-    flex-direction: row-reverse; /* Miniaturas na esquerda, imagem na direita */
-    background: transparent;
+    flex-direction: row;
+    background: #fff;
   }
   .modal-thumbnails {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
     width: 90px;
-    padding-left: 20px;
+    padding: 12px;
   }
   .modal-image-container {
     height: 100%;
