@@ -538,7 +538,7 @@ p{font-weight:300;color:var(--text-secondary)}
   left:0 !important;
   width:100% !important;
   height:100% !important;
-  object-fit:contain !important;
+  object-fit:cover !important;
   transform: none !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -1200,7 +1200,7 @@ a[href*="elfsight.com"],
 .modal-thumbnail-img {
   width: 60px;
   height: 60px;
-  object-fit: contain;
+  object-fit: cover;
   border: 1px solid var(--gray-light);
   border-radius: 4px;
   cursor: pointer;
@@ -1225,7 +1225,7 @@ a[href*="elfsight.com"],
   width: 100%;
   height: auto;
   max-height: 65vh;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 .modal-info {
@@ -1369,7 +1369,7 @@ a[href*="elfsight.com"],
   .modal-image {
     height: 100%;
     max-height: none;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
   }
   .modal-info {
