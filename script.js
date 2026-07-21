@@ -345,6 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             modalThumbnails.style.display = 'none';
           }
+        }
         try {
           if (window.location.hash !== '#produto') {
             history.pushState({ modalOpen: true }, "", "#produto");
