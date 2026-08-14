@@ -539,9 +539,24 @@ p{font-weight:300;color:var(--text-secondary)}
   width:100% !important;
   height:100% !important;
   object-fit:cover !important;
-  transform: none !important;
   margin: 0 !important;
   padding: 0 !important;
+  transition: opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1), transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.product-card-image img.img-hover {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: 2;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover .product-card-image img.img-hover {
+    opacity: 1 !important;
+  }
+  .product-card:hover .product-card-image img.img-primary {
+    opacity: 0 !important;
+  }
 }
 
 /* Placeholder (no image yet) */

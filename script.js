@@ -98,6 +98,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ── Hover Image Swap (Secondary Image Preview) ───────────────
+  productCards.forEach(card => {
+    const rawDataImages = card.getAttribute('data-images');
+    if (!rawDataImages) return;
+    const imageList = rawDataImages.split(',').map(s => s.trim()).filter(Boolean);
+    if (imageList.length > 1) {
+      const container = card.querySelector('.product-card-image');
+      if (container) {
+        const primaryImg = container.querySelector('img');
+        if (primaryImg) {
+          primaryImg.classList.add('img-primary');
+          const hoverImg = document.createElement('img');
+          hoverImg.src = imageList[1];
+          hoverImg.alt = primaryImg.alt || '';
+          hoverImg.classList.add('img-hover');
+          if (primaryImg.getAttribute('style')) {
+            hoverImg.setAttribute('style', primaryImg.getAttribute('style'));
+          }
+          container.appendChild(hoverImg);
+        }
+      }
+    }
+  });
+
   // ── Product Search ─────────────────────────────────────────────
   const searchInput = document.getElementById('searchInput');
   if (searchInput) {
