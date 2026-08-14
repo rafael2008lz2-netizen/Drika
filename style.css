@@ -1355,7 +1355,7 @@ a[href*="elfsight.com"],
 .modal-desc-box {
   border-top: 1px solid var(--gray-border);
   padding-top: var(--space-md);
-  margin-bottom: 12px;
+  margin-bottom: var(--space-xl);
 }
 .modal-desc {
   font-size: var(--text-base);
@@ -1367,41 +1367,29 @@ a[href*="elfsight.com"],
   color: #25D366;
   font-weight: 700;
   font-size: 0.95rem;
-  margin-top: 10px;
-}
-.modal-trust-badges {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-top: 14px;
-  margin-bottom: 16px;
-}
-.trust-badge-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
+  margin-top: 8px;
 }
 .modal-actions {
   display: flex;
   gap: var(--space-md);
-  margin-top: 16px;
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  background: rgba(20, 20, 20, 0.98);
+  padding-top: 12px;
+  padding-bottom: 4px;
+  z-index: 5;
 }
 .modal-btn-outline {
   flex: 1;
   background: transparent;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 12px var(--space-md);
+  padding: var(--space-md);
   font-weight: 500;
   cursor: pointer;
-  border-radius: 6px;
-  font-size: 0.95rem;
+  border-radius: 4px;
+  font-size: 1rem;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .modal-btn-outline:hover {
@@ -1409,46 +1397,44 @@ a[href*="elfsight.com"],
   border-color: #fff;
 }
 .modal-cta-shopee {
-  flex: 1.2;
+  flex: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #128C7E, #25D366);
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
   color: #fff;
-  padding: 12px var(--space-md);
-  border-radius: 6px;
+  padding: var(--space-md);
+  border-radius: 4px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .modal-cta-shopee:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 15px 25px rgba(37, 211, 102, 0.3);
   opacity: 1;
 }
 
 @media(min-width: 768px) {
-  .modal-content {
-    height: fit-content;
-    max-height: 88vh;
-    align-self: center;
-  }
   .modal-body {
-    grid-template-columns: 400px 1fr;
+    grid-template-columns: 420px 1fr;
     gap: 24px;
     padding: 24px;
-    overflow: hidden;
-    align-items: start;
-    height: fit-content;
+    overflow-y: hidden;
+    max-height: 85vh;
+  }
+  .modal-content {
+    height: auto;
+    max-height: 88vh;
   }
   .modal-gallery {
-    width: 400px;
-    flex: none;
-    display: flex;
     flex-direction: column;
-    gap: 12px;
+    background: transparent;
+    align-self: start;
+    position: sticky;
+    top: 0;
   }
   .modal-thumbnails {
     flex-direction: row;
@@ -1456,8 +1442,8 @@ a[href*="elfsight.com"],
     padding: 0;
   }
   .modal-image-container {
-    width: 400px;
-    height: 400px;
+    width: 420px;
+    height: 420px;
     aspect-ratio: 1;
     flex: none;
     border-radius: 12px;
@@ -1470,16 +1456,12 @@ a[href*="elfsight.com"],
     object-position: center;
   }
   .modal-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: fit-content;
-    max-height: 468px;
     overflow-y: auto;
-    padding-right: 6px;
+    max-height: calc(85vh - 48px);
+    padding-right: 8px;
   }
   .modal-info::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
   }
   .modal-info::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.03);
