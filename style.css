@@ -1360,25 +1360,12 @@ a[href*="elfsight.com"],
 .modal-desc {
   font-size: var(--text-base);
   color: var(--text-secondary);
-  line-height: 1.65;
-}
-.modal-desc strong {
-  display: inline-block;
-  color: #25D366;
-  font-weight: 700;
-  font-size: 0.95rem;
-  margin-top: 8px;
+  line-height: 1.6;
 }
 .modal-actions {
   display: flex;
   gap: var(--space-md);
   margin-top: auto;
-  position: sticky;
-  bottom: 0;
-  background: rgba(20, 20, 20, 0.98);
-  padding-top: 12px;
-  padding-bottom: 4px;
-  z-index: 5;
 }
 .modal-btn-outline {
   flex: 1;
@@ -1422,19 +1409,16 @@ a[href*="elfsight.com"],
     grid-template-columns: 420px 1fr;
     gap: 24px;
     padding: 24px;
-    overflow-y: hidden;
+    overflow-y: auto;
     max-height: 85vh;
   }
   .modal-content {
     height: auto;
-    max-height: 88vh;
+    max-height: 90vh;
   }
   .modal-gallery {
     flex-direction: column;
     background: transparent;
-    align-self: start;
-    position: sticky;
-    top: 0;
   }
   .modal-thumbnails {
     flex-direction: row;
@@ -1457,19 +1441,6 @@ a[href*="elfsight.com"],
   }
   .modal-info {
     overflow-y: auto;
-    max-height: calc(85vh - 48px);
-    padding-right: 8px;
-  }
-  .modal-info::-webkit-scrollbar {
-    width: 5px;
-  }
-  .modal-info::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 4px;
-  }
-  .modal-info::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
   }
 }
 @keyframes orb-float {
