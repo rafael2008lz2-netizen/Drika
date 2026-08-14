@@ -111,6 +111,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!primaryImg) return;
         primaryImg.classList.add('img-primary');
 
+        // Create hover image for desktop
+        const hoverImg = document.createElement('img');
+        hoverImg.src = imageList[1];
+        hoverImg.alt = primaryImg.alt || '';
+        hoverImg.classList.add('img-hover');
+        if (primaryImg.getAttribute('style')) {
+          hoverImg.setAttribute('style', primaryImg.getAttribute('style'));
+        }
+        container.appendChild(hoverImg);
+
         // Create Previous Button
         const prevBtn = document.createElement('button');
         prevBtn.type = 'button';
