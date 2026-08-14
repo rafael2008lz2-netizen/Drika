@@ -1175,6 +1175,7 @@ a[href*="elfsight.com"],
 }
 
 /* Modal */
+/* Modal */
 .product-modal {
   position: fixed;
   top: 0;
@@ -1189,6 +1190,15 @@ a[href*="elfsight.com"],
   pointer-events: none;
   opacity: 0; /* AnimeJS vai controlar */
   padding: var(--space-md);
+}
+.product-modal *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.product-modal * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 .product-modal.active {
   pointer-events: auto;
@@ -1358,9 +1368,9 @@ a[href*="elfsight.com"],
   margin-bottom: var(--space-xl);
 }
 .modal-desc {
-  font-size: var(--text-base);
+  font-size: 0.88rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 .modal-actions {
   display: flex;
@@ -1440,7 +1450,7 @@ a[href*="elfsight.com"],
     object-position: center;
   }
   .modal-info {
-    overflow-y: auto;
+    overflow-y: visible;
   }
 }
 @keyframes orb-float {
