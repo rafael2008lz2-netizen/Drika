@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── Hover Image Swap (Secondary Image Preview) ───────────────
+  // ── Card Image Navigation (Mobile & Desktop Arrows + Swipe) ─────
   productCards.forEach(card => {
     const rawDataImages = card.getAttribute('data-images');
     if (!rawDataImages) return;
@@ -106,18 +106,79 @@ document.addEventListener('DOMContentLoaded', () => {
     if (imageList.length > 1) {
       const container = card.querySelector('.product-card-image');
       if (container) {
+        let currentIndex = 0;
         const primaryImg = container.querySelector('img');
-        if (primaryImg) {
-          primaryImg.classList.add('img-primary');
-          const hoverImg = document.createElement('img');
-          hoverImg.src = imageList[1];
-          hoverImg.alt = primaryImg.alt || '';
-          hoverImg.classList.add('img-hover');
-          if (primaryImg.getAttribute('style')) {
-            hoverImg.setAttribute('style', primaryImg.getAttribute('style'));
+        if (!primaryImg) return;
+        primaryImg.classList.add('img-primary');
+
+        // Create Previous Button
+        const prevBtn = document.createElement('button');
+        prevBtn.type = 'button';
+        prevBtn.className = 'card-nav-btn prev-btn';
+        prevBtn.setAttribute('aria-label', 'Imagem anterior');
+        prevBtn.innerHTML = '❮';
+
+        // Create Next Button
+        const nextBtn = document.createElement('button');
+        nextBtn.type = 'button';
+        nextBtn.className = 'card-nav-btn next-btn';
+        nextBtn.setAttribute('aria-label', 'Próxima imagem');
+        nextBtn.innerHTML = '❯';
+
+        // Create Dots Container
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'card-nav-dots';
+        imageList.forEach((_, idx) => {
+          const dot = document.createElement('span');
+          dot.className = 'dot' + (idx === 0 ? ' active' : '');
+          dotsContainer.appendChild(dot);
+        });
+
+        const updateImage = (newIndex) => {
+          currentIndex = newIndex;
+          primaryImg.src = imageList[currentIndex];
+          const dots = dotsContainer.querySelectorAll('.dot');
+          dots.forEach((d, i) => {
+            d.classList.toggle('active', i === currentIndex);
+          });
+        };
+
+        prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          const newIdx = (currentIndex - 1 + imageList.length) % imageList.length;
+          updateImage(newIdx);
+        });
+
+        nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          const newIdx = (currentIndex + 1) % imageList.length;
+          updateImage(newIdx);
+        });
+
+        // Touch swipe support on mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        container.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          const diffX = touchStartX - touchEndX;
+          if (Math.abs(diffX) > 35) {
+            if (diffX > 0) {
+              updateImage((currentIndex + 1) % imageList.length);
+            } else {
+              updateImage((currentIndex - 1 + imageList.length) % imageList.length);
+            }
           }
-          container.appendChild(hoverImg);
-        }
+        }, { passive: true });
+
+        container.appendChild(prevBtn);
+        container.appendChild(nextBtn);
+        container.appendChild(dotsContainer);
       }
     }
   });

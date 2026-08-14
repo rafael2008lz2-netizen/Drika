@@ -559,6 +559,75 @@ p{font-weight:300;color:var(--text-secondary)}
   }
 }
 
+/* Card Image Navigation Arrows for Mobile & Touch */
+.card-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(15, 15, 15, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.85;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-nav-btn:hover, .card-nav-btn:active {
+  background: rgba(37, 211, 102, 0.9);
+  border-color: #25D366;
+  color: #fff;
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.card-nav-btn.prev-btn {
+  left: 8px;
+}
+
+.card-nav-btn.next-btn {
+  right: 8px;
+}
+
+.card-nav-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 10;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3px 8px;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+
+.card-nav-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.card-nav-dots .dot.active {
+  background: #25D366;
+  width: 14px;
+  border-radius: 4px;
+}
+
 /* Placeholder (no image yet) */
 .product-placeholder{
   display:flex;align-items:center;justify-content:center;
