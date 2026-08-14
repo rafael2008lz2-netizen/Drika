@@ -559,73 +559,73 @@ p{font-weight:300;color:var(--text-secondary)}
   }
 }
 
-/* Card Image Navigation Arrows for Mobile & Touch */
+/* Card Image Navigation Arrows for Mobile & Touch (Ultra Subtle) */
 .card-nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: rgba(15, 15, 15, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  font-size: 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  opacity: 0.85;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0.45;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow: none;
 }
 
 .card-nav-btn:hover, .card-nav-btn:active {
-  background: rgba(37, 211, 102, 0.9);
+  background: rgba(37, 211, 102, 0.85);
   border-color: #25D366;
   color: #fff;
   opacity: 1;
-  transform: translateY(-50%) scale(1.1);
+  transform: translateY(-50%) scale(1.05);
 }
 
 .card-nav-btn.prev-btn {
-  left: 8px;
+  left: 4px;
 }
 
 .card-nav-btn.next-btn {
-  right: 8px;
+  right: 4px;
 }
 
 .card-nav-dots {
   position: absolute;
-  bottom: 8px;
+  bottom: 6px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 5px;
+  gap: 4px;
   z-index: 10;
   pointer-events: none;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 3px 8px;
-  border-radius: 10px;
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 6px;
+  border-radius: 8px;
+  backdrop-filter: blur(2px);
 }
 
 .card-nav-dots .dot {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.35);
+  transition: all 0.25s ease;
 }
 
 .card-nav-dots .dot.active {
   background: #25D366;
-  width: 14px;
-  border-radius: 4px;
+  width: 8px;
+  border-radius: 3px;
 }
 
 /* Placeholder (no image yet) */
