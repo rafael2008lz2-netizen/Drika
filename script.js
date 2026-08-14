@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let descText = "";
         const descEl = card.querySelector('.product-card-desc');
-        if (descEl) descText = descEl.textContent;
+        if (descEl) descText = descEl.innerHTML;
         
         const ctaHref = card.querySelector('.product-cta').href;
 
@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalImage.src = images[0];
         modalTitle.textContent = name;
         if(modalPrice) modalPrice.textContent = priceText;
-        modalDesc.textContent = descText;
+        modalDesc.innerHTML = descText;
         modalCta.href = ctaHref;
 
         const modalThumbnails = document.getElementById('modalThumbnails');
