@@ -530,7 +530,7 @@ p{font-weight:300;color:var(--text-secondary)}
 
 /* Product Image Area */
 .product-card-image{
-  position:relative;aspect-ratio:1;overflow:hidden;background:#fff !important;
+  position:relative;aspect-ratio:1;overflow:hidden;background:transparent;
 }
 .product-card-image img{
   position:absolute !important;
