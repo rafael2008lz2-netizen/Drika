@@ -395,7 +395,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2024 Drika Ateliê e Uniformes. Todos os direitos reservados.</p>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> Drika Ateliê e Uniformes. Todos os direitos reservados.</p>
         <p>Desenvolvido para alta performance e conversão.</p>
       </div>
     </div>
@@ -408,28 +408,72 @@
       <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.487-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
     </a>
   </div>
-  <!-- ==========================================
-       SMART QUOTE MODAL (Orçamento Inteligente)
-       ========================================== -->
-  <div class="modal-overlay" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-container">
-      <button class="modal-close" id="closeModal" aria-label="Fechar">&times;</button>
-      
-      <div class="modal-header">
-        <h2 id="modalTitle">Solicitar Orçamento</h2>
-        <p>Preencha os detalhes para um orçamento personalizado</p>
-      </div>
-
-      <div class="modal-progress">
-        <div class="progress-bar" id="progressBar"></div>
-        <div class="progress-steps">
-          <span class="step active" data-step="1">1</span>
-          <span class="step" data-step="2">2</span>
-          <span class="step" data-step="3">3</span>
+  <!-- Quote Modal -->
+  <div class="quote-modal-overlay" id="quoteModalOverlay">
+    <div class="quote-modal-box" style="position:relative;">
+      <button type="button" class="quote-modal-close" id="quoteModalClose">&times;</button>
+      <h2>Solicitar Orçamento</h2>
+      <form id="quoteFormSimple">
+        <div class="quote-form-row">
+          <div class="quote-form-group">
+            <label for="qName">Nome</label>
+            <input type="text" id="qName" placeholder="Seu nome">
+          </div>
+          <div class="quote-form-group">
+            <label for="qWhatsApp">WhatsApp</label>
+            <input type="tel" id="qWhatsApp" placeholder="(00) 00000-0000">
+          </div>
         </div>
-      </div>
+        <div class="quote-form-group">
+          <label for="qEmail">E-mail</label>
+          <input type="email" id="qEmail" placeholder="seu@email.com">
+        </div>
+        <div class="quote-form-row">
+          <div class="quote-form-group">
+            <label for="qType">Tipo de cliente</label>
+            <select id="qType">
+              <option value="">Selecione</option>
+              <option value="Pessoa Física">Pessoa Física</option>
+              <option value="Empresa">Empresa</option>
+              <option value="Escola">Escola</option>
+              <option value="Profissional">Profissional</option>
+              <option value="Evento">Evento</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+          <div class="quote-form-group">
+            <label for="qCompany">Empresa <small style="color:var(--text-muted);">(opcional)</small></label>
+            <input type="text" id="qCompany" placeholder="Nome da empresa">
+          </div>
+        </div>
+        <div class="quote-form-group">
+          <label for="qProduct">Produto de interesse</label>
+          <input type="text" id="qProduct" placeholder="Ex: Polo bordada, Jaleco, Kit Terceirão...">
+        </div>
+        <div class="quote-form-row">
+          <div class="quote-form-group">
+            <label for="qQty">Quantidade aproximada</label>
+            <input type="text" id="qQty" placeholder="Ex: 10 peças">
+          </div>
+          <div class="quote-form-group">
+            <label for="qCustom">Personalização</label>
+            <input type="text" id="qCustom" placeholder="Bordado, silk, sublimação...">
+          </div>
+        </div>
+        <div class="quote-form-group">
+          <label for="qMessage">Mensagem</label>
+          <textarea id="qMessage" placeholder="Conte mais detalhes sobre o que precisa..."></textarea>
+        </div>
+        <button type="submit" class="quote-form-submit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.487-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Enviar pelo WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
 
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="script.js?v=5"></script>
 </body>
 </html>

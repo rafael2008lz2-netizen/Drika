@@ -775,31 +775,115 @@ Gostaria de receber mais informações.`;
     quoteForm.addEventListener('change', saveFormState);
   }
 
+  // ==========================================
+  // SIMPLE QUOTE FORM (Orçamento)
+  // ==========================================
+  const quoteOverlay = document.getElementById('quoteModalOverlay');
+  const quoteCloseBtn = document.getElementById('quoteModalClose');
+  const quoteFormSimple = document.getElementById('quoteFormSimple');
+
+  // Open quote modal from any .open-smart-quote or .open-quote-modal button
+  document.querySelectorAll('.open-smart-quote, .open-quote-modal, .nav-cta').forEach(btn => {
+    // Only hijack nav-cta if it's the "Orçamento" button in navbar
+    if (btn.classList.contains('nav-cta') && !btn.textContent.includes('Orçamento')) return;
+    // Skip if it's a direct WhatsApp link
+    if (btn.href && btn.href.includes('wa.me') && !btn.classList.contains('open-smart-quote')) return;
+  });
+
+  function openQuoteModal(productName) {
+    if (!quoteOverlay) return;
+    quoteOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (productName) {
+      const prodInput = document.getElementById('qProduct');
+      if (prodInput) prodInput.value = productName;
+    }
+  }
+
+  function closeQuoteModal() {
+    if (!quoteOverlay) return;
+    quoteOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (quoteCloseBtn) {
+    quoteCloseBtn.addEventListener('click', closeQuoteModal);
+  }
+
+  if (quoteOverlay) {
+    quoteOverlay.addEventListener('click', function(e) {
+      if (e.target === quoteOverlay) closeQuoteModal();
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && quoteOverlay && quoteOverlay.classList.contains('active')) {
+      closeQuoteModal();
+    }
+  });
+
+  if (quoteFormSimple) {
+    quoteFormSimple.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('qName')?.value || '';
+      const whatsapp = document.getElementById('qWhatsApp')?.value || '';
+      const email = document.getElementById('qEmail')?.value || '';
+      const type = document.getElementById('qType')?.value || '';
+      const company = document.getElementById('qCompany')?.value || '';
+      const product = document.getElementById('qProduct')?.value || '';
+      const qty = document.getElementById('qQty')?.value || '';
+      const custom = document.getElementById('qCustom')?.value || '';
+      const message = document.getElementById('qMessage')?.value || '';
+
+      let msg = 'Olá, Drika! Gostaria de solicitar um orçamento.\n\n';
+      if (name) msg += '*Nome:* ' + name + '\n';
+      if (whatsapp) msg += '*WhatsApp:* ' + whatsapp + '\n';
+      if (email) msg += '*E-mail:* ' + email + '\n';
+      if (type) msg += '*Tipo de cliente:* ' + type + '\n';
+      if (company) msg += '*Empresa:* ' + company + '\n';
+      if (product) msg += '*Produto:* ' + product + '\n';
+      if (qty) msg += '*Quantidade:* ' + qty + '\n';
+      if (custom) msg += '*Personalização:* ' + custom + '\n';
+      if (message) msg += '*Mensagem:* ' + message + '\n';
+
+      const encoded = encodeURIComponent(msg);
+      window.open('https://wa.me/5516988336070?text=' + encoded, '_blank');
+      closeQuoteModal();
+    });
+  }
+
 });
 
 
 // ── Hide Elfsight Watermarks ───────────────────────────────────
-setInterval(() => {
-  // Hide standard links and toolbars
-  document.querySelectorAll('a[href*="elfsight.com"], .eapps-link, [class*="eapps-widget-toolbar"]').forEach(el => {
-    el.style.setProperty('display', 'none', 'important');
-    el.style.setProperty('opacity', '0', 'important');
-  });
-  
-  // Pierce shadow DOM if Elfsight uses it
-  document.querySelectorAll('[class*="elfsight-app"]').forEach(app => {
-    if (app.shadowRoot) {
-      const style = document.createElement('style');
-      style.innerHTML = 'a[href*="elfsight.com"], .eapps-link, [class*="eapps-widget-toolbar"] { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }';
-      // Append style only if it's not already there
-      if (!app.shadowRoot.querySelector('style[data-hide-elfsight]')) {
-        style.setAttribute('data-hide-elfsight', 'true');
-        app.shadowRoot.appendChild(style);
+  // ==========================================
+  // ELFSIGHT BRANDING REMOVAL (MutationObserver)
+  // ==========================================
+  function removeElfsightBranding() {
+    document.querySelectorAll('[class*="elfsight-app"]').forEach(widget => {
+      // Try main DOM
+      const links = widget.querySelectorAll('a[href*="elfsight.com"], .eapps-link');
+      links.forEach(el => el.style.display = 'none');
+      // Try shadow DOM
+      if (widget.shadowRoot) {
+        const shadowLinks = widget.shadowRoot.querySelectorAll('a[href*="elfsight.com"], .eapps-link');
+        shadowLinks.forEach(el => el.style.display = 'none');
+        // Inject hiding CSS into shadow root
+        if (!widget.shadowRoot.querySelector('#elfsight-hide-css')) {
+          const style = document.createElement('style');
+          style.id = 'elfsight-hide-css';
+          style.textContent = 'a[href*="elfsight.com"], .eapps-link { display: none !important; }';
+          widget.shadowRoot.appendChild(style);
+        }
       }
-      
-      app.shadowRoot.querySelectorAll('a[href*="elfsight.com"], .eapps-link, [class*="eapps-widget-toolbar"]').forEach(el => {
-        el.style.setProperty('display', 'none', 'important');
-      });
-    }
+    });
+  }
+
+  // Run once initially
+  removeElfsightBranding();
+
+  // Watch for DOM changes instead of polling
+  const elfsightObserver = new MutationObserver(function() {
+    removeElfsightBranding();
   });
-}, 500);
+  elfsightObserver.observe(document.body, { childList: true, subtree: true });
