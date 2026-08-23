@@ -2173,3 +2173,13 @@ a[href*="elfsight.com"],
  } 
   
  
+ / *   O c u l t a r   L o g o / B a d g e   d o   p l a n o   g r a t u i t o   d o   E l f s i g h t   * / 
+ . e l f s i g h t - w i d g e t - c o n t a i n e r   a [ h r e f * = " e l f s i g h t . c o m " ] , 
+ . e l f s i g h t - w i d g e t - c o n t a i n e r   . e a p p s - l i n k , 
+ [ c l a s s * = " e l f s i g h t - a p p " ]   a [ h r e f * = " e l f s i g h t . c o m " ] , 
+ d i v [ c l a s s * = " e a p p s - l i n k " ] , 
+ . e a p p s - l i n k   { 
+     d i s p l a y :   n o n e   ! i m p o r t a n t ; 
+ } 
+  
+ 
