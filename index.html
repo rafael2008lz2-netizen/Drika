@@ -1,6 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
+  <script>
+    // Interceptar Shadow DOM para garantir que podemos ocultar marcas d'água
+    (function() {
+      const origAttachShadow = Element.prototype.attachShadow;
+      Element.prototype.attachShadow = function(init) {
+        const shadow = origAttachShadow.call(this, { mode: 'open', delegatesFocus: init.delegatesFocus });
+        
+        // Injetar CSS de limpeza instantaneamente
+        const st = document.createElement('style');
+        st.textContent = 
+          a[href*="elfsight"], a[href*="apps.elfsight.com"], .eapps-link, [class*="eapps-link"], 
+          [class*="Badge__"], [class*="badge__"], [class*="FloatingBadge"], [class*="FreeLink"], 
+          [class*="free-link"], [class*="es-badge"],
+          [class*="WidgetTitle"], [class*="Header__Title"], [class*="Title__Container"], 
+          [class*="Title__TitleComponent"], [class*="Title-sc"], [class*="es-widget-title"], [class*="es-header-title"] {
+            display: none !important; opacity: 0 !important; visibility: hidden !important; 
+            height: 0 !important; max-height: 0 !important; overflow: hidden !important; 
+            margin: 0 !important; padding: 0 !important; pointer-events: none !important;
+          }
+        ;
+        shadow.appendChild(st);
+        
+        // Registrar shadowRoot na janela (opcional, para limpezas futuras)
+        window._allShadows = window._allShadows || [];
+        window._allShadows.push(shadow);
+        
+        return shadow;
+      };
+    })();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drika Ateliê e Uniformes | Uniformes Personalizados e Bordados em Ribeirão Preto</title>
@@ -622,26 +654,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ==========================================
-       DEPOIMENTOS
-       ========================================== -->
-  <section class="section testimonials-section" id="depoimentos">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="section-label">Clientes</span>
-        <h2 class="section-title">Quem veste aprova</h2>
-        <div class="gold-line"></div>
-      </div>
-
-      <div class="elfsight-widget-container" style="margin-top: 30px;">
-        <!-- Elfsight Google Reviews | Untitled Google Reviews -->
-        <script src="https://elfsightcdn.com/platform.js" async></script>
-        <div class="elfsight-app-a5fbc70a-14f3-4f63-be5e-82d772f58d6d" data-elfsight-app-lazy></div>
-      </div>
-    </div>
-  </section>
-
 
   <!-- ==========================================
        INSTAGRAM / SOCIAL
