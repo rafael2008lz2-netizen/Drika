@@ -2138,48 +2138,47 @@ a[href*="elfsight.com"],
 }
 
 
- / *   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
-       E L F S I G H T   W I D G E T   O V E R R I D E S 
-       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =   * / 
- / *   O c u l t a r   t i t u l o   p r i n c i p a l   " W h a t   O u r   C u s t o m e r s   S a y "   * / 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   [ c l a s s * = " W i d g e t T i t l e " ] , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   [ c l a s s * = " T i t l e _ _ C o n t a i n e r " ] , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   . e a p p s - w i d g e t - t i t l e , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   . e s - w i d g e t - t i t l e   { 
-     d i s p l a y :   n o n e   ! i m p o r t a n t ; 
- } 
- 
- / *   O c u l t a r   R e s u m o   d e   I A   ( A I   S u m m a r y )   * / 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   [ c l a s s * = " A I S u m m a r y " ] , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   [ c l a s s * = " a i - s u m m a r y " ] , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   . e s - a i - s u m m a r y - i n f o - c o n t a i n e r   { 
-     d i s p l a y :   n o n e   ! i m p o r t a n t ; 
- } 
- 
- / *   M u d a r   a   c o r   d e   f u n d o   e   t e x t o   d o s   c a r d s   p a r a   c o m b i n a r   c o m   o   s i t e   * / 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   [ c l a s s * = " I t e m _ _ C o n t a i n e r - s c " ] , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   [ c l a s s * = " R e v i e w C a r d " ] , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   . e s - r e v i e w - c a r d , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   . e a p p s - r e v i e w - c a r d   { 
-     b a c k g r o u n d - c o l o r :   # 0 a 0 a 0 a   ! i m p o r t a n t ; 
-     c o l o r :   # f f f f f f   ! i m p o r t a n t ; 
- } 
- 
- / *   F u n d o   d o   w i d g e t   t r a n s p a r e n t e   * / 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   [ c l a s s * = " W i d g e t B a c k g r o u n d " ] , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   . e s - w i d g e t - c o n t a i n e r , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   . e a p p s - w i d g e t - b a c k g r o u n d   { 
-     b a c k g r o u n d - c o l o r :   t r a n s p a r e n t   ! i m p o r t a n t ; 
- } 
-  
- 
- / *   O c u l t a r   L o g o / B a d g e   d o   p l a n o   g r a t u i t o   d o   E l f s i g h t   * / 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   a [ h r e f * = " e l f s i g h t . c o m " ] , 
- . e l f s i g h t - w i d g e t - c o n t a i n e r   . e a p p s - l i n k , 
- [ c l a s s * = " e l f s i g h t - a p p " ]   a [ h r e f * = " e l f s i g h t . c o m " ] , 
- d i v [ c l a s s * = " e a p p s - l i n k " ] , 
- . e a p p s - l i n k   { 
-     d i s p l a y :   n o n e   ! i m p o r t a n t ; 
- } 
-  
- 
+/* ==========================================
+   ELFSIGHT WIDGET OVERRIDES
+   ========================================== */
+/* Ocultar titulo principal "What Our Customers Say" */
+.elfsight-widget-container [class*="WidgetTitle"],
+.elfsight-widget-container [class*="Title__Container"],
+.elfsight-widget-container .eapps-widget-title,
+.elfsight-widget-container .es-widget-title {
+  display: none !important;
+}
+
+/* Ocultar Resumo de IA (AI Summary) */
+.elfsight-widget-container [class*="AISummary"],
+.elfsight-widget-container [class*="ai-summary"],
+.elfsight-widget-container .es-ai-summary-info-container {
+  display: none !important;
+}
+
+/* Mudar a cor de fundo e texto dos cards para combinar com o site */
+.elfsight-widget-container [class*="Item__Container-sc"],
+.elfsight-widget-container [class*="ReviewCard"],
+.elfsight-widget-container .es-review-card,
+.elfsight-widget-container .eapps-review-card {
+  background-color: #0a0a0a !important;
+  color: #ffffff !important;
+}
+
+/* Fundo do widget transparente */
+.elfsight-widget-container [class*="WidgetBackground"],
+.elfsight-widget-container .es-widget-container,
+.elfsight-widget-container .eapps-widget-background {
+  background-color: transparent !important;
+}
+
+
+/* Ocultar Logo/Badge do plano gratuito do Elfsight */
+.elfsight-widget-container a[href*="elfsight.com"],
+.elfsight-widget-container .eapps-link,
+[class*="elfsight-app"] a[href*="elfsight.com"],
+div[class*="eapps-link"],
+.eapps-link {
+  display: none !important;
+}
+
