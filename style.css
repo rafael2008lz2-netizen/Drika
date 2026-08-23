@@ -688,13 +688,13 @@ p{font-weight:300;color:var(--text-secondary)}
   display:flex;align-items:flex-end;justify-content:space-between;
   margin-bottom:var(--space-md);gap:var(--space-xs);
 }
-.product-price-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;display:block}
+.product-price-label{font-size:10px;color:#E0E0E0;text-transform:uppercase;letter-spacing:.05em;display:block}
 .product-price{
   font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;
-  background:var(--gold-text-gradient);-webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;background-clip:text;line-height:1;
+  color: #FFFFFF;
+  line-height:1;
 }
-.product-price-unit{font-size:10px;color:var(--text-muted)}
+.product-price-unit{font-size:10px;color:#E0E0E0}
 
 /* CTA WhatsApp */
 .product-cta{
