@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    DRIKA ATELIÃŠ â€” Virtual Store Design System v2
    Refined layout, placeholder product cards, text-only logo
    ============================================================ */
@@ -2787,7 +2787,13 @@ a[href*='elfsig.ht'],
 [class*='FloatingBadge'],
 [class*='FreeLink'],
 [class*='free-link'],
-[class*='es-badge'] {
+[class*='es-badge'],
+[class*='watermark'],
+[class*='widget-logo'],
+[class*='widget-badge'],
+[class*='free-badge'],
+[class*='logo-link'],
+[class*='eapps-instagram-feed-logo'] {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
