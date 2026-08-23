@@ -887,130 +887,70 @@ function cleanAllElfsight() {
     }
   `;
 
-  function cleanRoot(root) {
+  // Inject CSS into all shadow roots
+  function injectIntoShadows(root) {
     if (!root) return;
-
-    // If ShadowRoot, inject styling
-    if (root instanceof ShadowRoot || (root.nodeType === Node.DOCUMENT_FRAGMENT_NODE && root.host)) {
-      if (!root.querySelector('#elfsight-injected-cleaner')) {
+    if (root.shadowRoot) {
+      if (!root.shadowRoot.querySelector('#elfsight-safe-cleaner')) {
         const st = document.createElement('style');
-        st.id = 'elfsight-injected-cleaner';
+        st.id = 'elfsight-safe-cleaner';
         st.textContent = hideCSS;
-        root.appendChild(st);
+        root.shadowRoot.appendChild(st);
       }
+      injectIntoShadows(root.shadowRoot);
+    }
+    
+    // Also safely hide specific elements without touching parents
+    if (root.querySelectorAll) {
+      root.querySelectorAll('[class*="elfsight-app"]').forEach(widget => {
+         // Only search INSIDE the widget
+         const walker = document.createTreeWalker(widget, NodeFilter.SHOW_TEXT, null, false);
+         let n;
+         while(n = walker.nextNode()) {
+           if (n.nodeValue.includes("What Our Customers Say") || n.nodeValue.includes("Free Google Reviews") || n.nodeValue.includes("Reviews Widget")) {
+              if (n.parentElement && n.parentElement.tagName !== 'BODY') {
+                  n.parentElement.style.setProperty('display', 'none', 'important');
+              }
+           }
+         }
+         
+         // If widget has shadowRoot, search there too safely
+         if (widget.shadowRoot) {
+           const sWalker = document.createTreeWalker(widget.shadowRoot, NodeFilter.SHOW_TEXT, null, false);
+           let sn;
+           while(sn = sWalker.nextNode()) {
+             if (sn.nodeValue.includes("What Our Customers Say") || sn.nodeValue.includes("Free Google Reviews") || sn.nodeValue.includes("Reviews Widget")) {
+                if (sn.parentElement && sn.parentElement.tagName !== 'BODY') {
+                    sn.parentElement.style.setProperty('display', 'none', 'important');
+                }
+             }
+           }
+         }
+      });
     }
 
-    // 1. Selector-based cleanup in current root
-    try {
-      const badEls = root.querySelectorAll(
-        'a[href*="elfsight"], .eapps-link, [class*="Badge__"], [class*="WidgetTitle"], [class*="Title__Container"], [class*="Header__Title"], [class*="es-header-title"], [class*="es-widget-title"], [class*="es-badge"]'
-      );
-      badEls.forEach(el => {
-        el.style.setProperty('display', 'none', 'important');
-        el.style.setProperty('opacity', '0', 'important');
-        el.style.setProperty('visibility', 'hidden', 'important');
-        el.style.setProperty('height', '0', 'important');
-      });
-    } catch (e) {}
-
-    // 2. TreeWalker-based cleanup for exact text matching
-    try {
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
-      let node;
-      const toHide = [];
-      while ((node = walker.nextNode())) {
-        const val = node.nodeValue || '';
-        if (
-          val.includes('What Our Customers Say') ||
-          val.includes('Free Google Reviews') ||
-          val.includes('Reviews Widget') ||
-          val.includes('Free Instagram') ||
-          val.includes('Google Reviews Widget')
-        ) {
-          if (node.parentElement) {
-            toHide.push({ el: node.parentElement, text: val });
-          }
-        }
-      }
-
-      toHide.forEach(({ el, text }) => {
-        el.style.setProperty('display', 'none', 'important');
-        el.style.setProperty('opacity', '0', 'important');
-        el.style.setProperty('visibility', 'hidden', 'important');
-        el.style.setProperty('height', '0', 'important');
-        el.style.setProperty('margin', '0', 'important');
-
-        // Hide whole floating badge container
-        if (
-          text.includes('Free Google Reviews') ||
-          text.includes('Reviews Widget') ||
-          text.includes('Free Instagram') ||
-          text.includes('Google Reviews Widget')
-        ) {
-          let p = el.parentElement;
-          let depth = 0;
-          while (p && p !== root && p.tagName !== 'BODY' && p.tagName !== 'HTML' && depth < 6) {
-            p.style.setProperty('display', 'none', 'important');
-            p.style.setProperty('opacity', '0', 'important');
-            p.style.setProperty('visibility', 'hidden', 'important');
-            p.style.setProperty('height', '0', 'important');
-            if (
-              p.tagName === 'A' ||
-              (p.className && typeof p.className === 'string' && (p.className.includes('Badge') || p.className.includes('badge') || p.className.includes('link')))
-            ) {
-              break;
-            }
-            p = p.parentElement;
-            depth++;
-          }
-        }
-
-        // Hide parent title / header container
-        if (text.includes('What Our Customers Say')) {
-          let p = el.parentElement;
-          if (
-            p &&
-            p !== root &&
-            (p.tagName === 'H1' || p.tagName === 'H2' || p.tagName === 'H3' || (p.className && typeof p.className === 'string' && p.className.includes('Title')))
-          ) {
-            p.style.setProperty('display', 'none', 'important');
-            p.style.setProperty('height', '0', 'important');
-            p.style.setProperty('margin', '0', 'important');
-          }
-        }
-      });
-    } catch (e) {}
-
-    // 3. Search and clean all shadow roots inside this root
-    try {
-      const allEls = root.querySelectorAll('*');
-      allEls.forEach(el => {
-        if (el.shadowRoot) {
-          cleanRoot(el.shadowRoot);
-        }
-      });
-    } catch (e) {}
+    if (root.childNodes) {
+      root.childNodes.forEach(child => injectIntoShadows(child));
+    }
   }
 
-  cleanRoot(document.body || document.documentElement);
+  injectIntoShadows(document.body || document.documentElement);
 }
 
 // Run immediately
 cleanAllElfsight();
 
-// Run frequently during page lifecycle to catch dynamic / async loading
-const elfsightInterval = setInterval(cleanAllElfsight, 150);
+// Run frequently during page lifecycle
+const elfsightInterval = setInterval(cleanAllElfsight, 250);
 setTimeout(() => {
   clearInterval(elfsightInterval);
-  setInterval(cleanAllElfsight, 1000);
-}, 10000);
+  setInterval(cleanAllElfsight, 1500);
+}, 8000);
 
 // Observer for any new DOM insertions
 const elfsightObserver = new MutationObserver(function() {
   cleanAllElfsight();
 });
-elfsightObserver.observe(document.documentElement, { childList: true, subtree: true, attributes: true });
+elfsightObserver.observe(document.documentElement, { childList: true, subtree: true });
 
-window.addEventListener('load', cleanAllElfsight);
-window.addEventListener('scroll', cleanAllElfsight, { passive: true });
 
