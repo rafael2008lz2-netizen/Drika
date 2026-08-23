@@ -798,6 +798,39 @@ p{font-weight:300;color:var(--text-secondary)}
 }
 .insta-profile-info h3{font-family:var(--font-body);font-size:var(--text-sm);font-weight:600;color:var(--white)}
 .insta-profile-info p{font-size:var(--text-xs);color:var(--text-muted)}
+
+/* ============================================================
+   AGGRESSIVE WIDGET BADGE REMOVAL
+   ============================================================ */
+a[href*="elfsight.com"], 
+a[href*="apps.elfsight.com"], 
+a[href*="elfsig.ht"], 
+[class*="eapps-link"],
+[class*="Badge__"],
+[class*="badge__"],
+[class*="FloatingBadge"],
+[class*="FreeLink"],
+[class*="free-link"],
+[class*="es-badge"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    top: -9999px !important;
+    z-index: -9999 !important;
+}
+
+/* Specific to widget containers */
+[class*="elfsight-app"] > a,
+[class*="elfsight-app"] div > a,
+[id*="elfsight-app"] > a {
+    display: none !important;
+}
+
 .insta-follow-btn{
   display:inline-flex;align-items:center;gap:var(--space-xs);
   padding:10px 24px;background:linear-gradient(135deg,#833AB4,#E1306C,#F56040);
@@ -2754,3 +2787,10 @@ body > iframe[name*="elfsight"] {
   pointer-events: none !important;
 }
 
+/ *   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = W I D G E T   B A D G E   R E M O V A L = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =   * /  
+ a [ h r e f * = ' e l f s i g h t . c o m ' ] ,   a [ h r e f * = ' a p p s . e l f s i g h t . c o m ' ] ,   a [ h r e f * = ' e l f s i g . h t ' ] ,   [ c l a s s * = ' e a p p s - l i n k ' ] ,   [ c l a s s * = ' B a d g e _ _ ' ] ,   [ c l a s s * = ' b a d g e _ _ ' ] ,   [ c l a s s * = ' F l o a t i n g B a d g e ' ] ,   [ c l a s s * = ' F r e e L i n k ' ] ,   [ c l a s s * = ' f r e e - l i n k ' ] ,   [ c l a s s * = ' e s - b a d g e ' ]   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   o p a c i t y :   0   ! i m p o r t a n t ;   v i s i b i l i t y :   h i d d e n   ! i m p o r t a n t ;   p o i n t e r - e v e n t s :   n o n e   ! i m p o r t a n t ;   h e i g h t :   0   ! i m p o r t a n t ;   w i d t h :   0   ! i m p o r t a n t ;   o v e r f l o w :   h i d d e n   ! i m p o r t a n t ;   p o s i t i o n :   a b s o l u t e   ! i m p o r t a n t ;   t o p :   - 9 9 9 9 p x   ! i m p o r t a n t ;   z - i n d e x :   - 9 9 9 9   ! i m p o r t a n t ;   }  
+ [ c l a s s * = ' e l f s i g h t - a p p ' ]   >   a ,   [ c l a s s * = ' e l f s i g h t - a p p ' ]   d i v   >   a ,   [ i d * = ' e l f s i g h t - a p p ' ]   >   a   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   }  
+ 
+/* ============================================================WIDGET BADGE REMOVAL============================================================ */
+a[href*='elfsight.com'], a[href*='apps.elfsight.com'], a[href*='elfsig.ht'], [class*='eapps-link'], [class*='Badge__'], [class*='badge__'], [class*='FloatingBadge'], [class*='FreeLink'], [class*='free-link'], [class*='es-badge'] { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; height: 0 !important; width: 0 !important; overflow: hidden !important; position: absolute !important; top: -9999px !important; z-index: -9999 !important; }
+[class*='elfsight-app'] > a, [class*='elfsight-app'] div > a, [id*='elfsight-app'] > a { display: none !important; }

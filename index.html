@@ -12,7 +12,7 @@
         // Injetar CSS de limpeza instantaneamente
         const st = document.createElement('style');
         st.textContent = `
-          a[href*="elfsight"], a[href*="apps.elfsight.com"], .eapps-link, [class*="eapps-link"], 
+          a[href*="elfsight"], a[href*="apps.elfsight.com"], a[href*="elfsig.ht"], .eapps-link, [class*="eapps-link"], 
           [class*="Badge__"], [class*="badge__"], [class*="FloatingBadge"], [class*="FreeLink"], 
           [class*="free-link"], [class*="es-badge"],
           [class*="WidgetTitle"], [class*="Header__Title"], [class*="Title__Container"], 
@@ -23,6 +23,23 @@
           }
         `;
         shadow.appendChild(st);
+
+        // Ativamente observar e remover o elemento de marca d'água
+        const observer = new MutationObserver((mutations) => {
+          shadow.querySelectorAll('a, div').forEach(el => {
+            const text = (el.textContent || '').toLowerCase();
+            if ((text.includes('free google') || text.includes('reviews widget') || text.includes('free widget') || text.includes('elfsight') || text.includes('instagram feed')) && text.length < 100) {
+              el.style.setProperty('display', 'none', 'important');
+              el.style.setProperty('opacity', '0', 'important');
+              el.style.setProperty('visibility', 'hidden', 'important');
+              el.style.setProperty('pointer-events', 'none', 'important');
+              if (el.tagName.toLowerCase() === 'a') {
+                el.remove();
+              }
+            }
+          });
+        });
+        observer.observe(shadow, { childList: true, subtree: true, characterData: true });
         
         // Registrar shadowRoot na janela (opcional, para limpezas futuras)
         window._allShadows = window._allShadows || [];
@@ -989,5 +1006,46 @@
   <script src="ambient.js?v=3"></script>
   <script src="script.js?v=5"></script>
   <script src="pdf-generator.js?v=2"></script>
+  <script>
+    // Extreme Nuke for Elfsight "Free widget" badge
+    setInterval(() => {
+      // 1. Nuke by text content across all possible open shadow roots and regular DOM
+      const nukeText = (root) => {
+        if (!root) return;
+        root.querySelectorAll('a, div, span').forEach(el => {
+          const text = (el.textContent || '').toLowerCase();
+          if ((text.includes('free widget') || text.includes('create your widget') || text.includes('elfsight') || text.includes('free google') || text.includes('reviews widget') || text.includes('instagram feed')) && text.length < 100) {
+            const style = window.getComputedStyle(el);
+            if (style.position === 'fixed' || style.position === 'absolute') {
+              el.style.setProperty('display', 'none', 'important');
+              el.style.setProperty('opacity', '0', 'important');
+              el.style.setProperty('pointer-events', 'none', 'important');
+              el.remove();
+            }
+          }
+        });
+        // Recursively check all children for closed/open shadow roots
+        root.querySelectorAll('*').forEach(child => {
+          if (child.shadowRoot) nukeText(child.shadowRoot);
+        });
+      };
+      
+      nukeText(document);
+      
+      // 2. The Cover-up Strategy (if they use closed shadow DOM we can't pierce)
+      // Elfsight widgets usually append the warning as a fixed element inside the widget container's shadow DOM.
+      // We will apply a CSS cover to the specific known widget containers to block their bottom section
+      document.querySelectorAll('[class*="elfsight-app"]').forEach(widget => {
+         if (!widget.querySelector('.elfsight-cover-up')) {
+            const cover = document.createElement('div');
+            cover.className = 'elfsight-cover-up';
+            cover.style.cssText = 'position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: var(--bg-primary); z-index: 2147483647; pointer-events: none;';
+            // Append the cover to the widget's parent to overlay the widget
+            widget.parentElement.style.position = 'relative';
+            widget.parentElement.appendChild(cover);
+         }
+      });
+    }, 100);
+  </script>
 </body>
 </html>

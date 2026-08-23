@@ -861,7 +861,7 @@ Gostaria de receber mais informações.`;
     // 1. Find all Anchor tags (links) and hide them if they contain badge text
     document.querySelectorAll('a').forEach(a => {
       const text = (a.textContent || '').toLowerCase();
-      if (text.includes('free google') || text.includes('reviews widget') || text.includes('free instagram')) {
+      if ((text.includes('free google') || text.includes('reviews widget') || text.includes('free instagram') || text.includes('free widget') || text.includes('create your widget')) && text.length < 100) {
          a.style.setProperty('display', 'none', 'important');
          a.style.setProperty('opacity', '0', 'important');
          a.style.setProperty('pointer-events', 'none', 'important');
@@ -880,8 +880,8 @@ Gostaria de receber mais informações.`;
     let n;
     while (n = walker.nextNode()) {
       const val = (n.nodeValue || '').toLowerCase();
-      if (val.includes('free google') || val.includes('reviews widget') || val.includes('what our customers say')) {
-        let p = n.parentElement;
+      if (val.includes('free google') || val.includes('reviews widget') || val.includes('what our customers say') || val.includes('free widget') || val.includes('create your widget')) {
+         let p = n.parentElement;
         
         // Safety check: never hide structural elements
         if (p && !['BODY','MAIN','SECTION','HTML','HEAD'].includes(p.tagName)) {
@@ -911,7 +911,7 @@ Gostaria de receber mais informações.`;
         if (style.position === 'fixed' || style.position === 'absolute') {
           if (style.zIndex && parseInt(style.zIndex, 10) > 9999) {
             const html = el.innerHTML.toLowerCase();
-            if (html.includes('elfsight') || html.includes('free google') || html.includes('reviews widget')) {
+            if (html.includes('elfsight') || html.includes('free google') || html.includes('reviews widget') || html.includes('free widget') || html.includes('create your widget')) {
                 el.style.setProperty('display', 'none', 'important');
             }
           }
