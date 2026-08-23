@@ -2122,17 +2122,18 @@ a[href*="elfsight.com"],
 /* Mobile optimization for home hero image */
 @media (max-width: 768px) {
   .hero-section {
-    background-size: 160% auto;
+    background-size: 240% auto;
     background-position: center top;
     background-repeat: no-repeat;
     background-color: #0a0a0a;
     align-items: flex-end;
   }
   .hero-overlay {
-    background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.8) 35%, #0a0a0a 50%);
+    background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.4) 40%, #0a0a0a 75%);
   }
   .hero-content {
-    margin-top: 45vh;
-    padding-bottom: 3rem;
+    margin-top: 60vh;
+    padding-bottom: 4rem;
   }
 }
+
