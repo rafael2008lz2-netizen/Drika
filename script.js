@@ -855,53 +855,162 @@ Gostaria de receber mais informações.`;
 });
 
 
-// ── Hide Elfsight Watermarks ───────────────────────────────────
-  // ==========================================
-  // ELFSIGHT BRANDING REMOVAL (MutationObserver)
-  // ==========================================
-  function removeElfsightBranding() {
-    document.querySelectorAll('[class*="elfsight-app"]').forEach(widget => {
-      const styleContent = `
-        a[href*="elfsight.com"], 
-        a[href*="apps.elfsight.com"],
-        .eapps-link,
-        [class*="Badge__"],
-        [class*="WidgetTitle"],
-        [class*="Title__"],
-        [class*="Header__Container"],
-        .es-widget-title,
-        .eapps-widget-title { 
-          display: none !important; 
-        }
-      `;
-      if (widget.shadowRoot) {
-        if (!widget.shadowRoot.querySelector('#elfsight-hide-css')) {
-          const style = document.createElement('style');
-          style.id = 'elfsight-hide-css';
-          style.textContent = styleContent;
-          widget.shadowRoot.appendChild(style);
-        }
-        
-        // Remover pelo texto
-        const walk = document.createTreeWalker(widget.shadowRoot, NodeFilter.SHOW_TEXT, null, false);
-        let n;
-        while(n = walk.nextNode()) {
-          if (n.nodeValue.includes("What Our Customers Say") || n.nodeValue.includes("Free Google Reviews Widget")) {
-             if (n.parentElement) {
-                 n.parentElement.style.display = 'none';
-                 n.parentElement.style.opacity = '0';
-             }
+// ── Hide Elfsight Watermarks & Title Overrides ───────────────────────────────────
+function cleanAllElfsight() {
+  const hideCSS = `
+    a[href*="elfsight"],
+    a[href*="apps.elfsight.com"],
+    .eapps-link,
+    [class*="eapps-link"],
+    [class*="Badge__"],
+    [class*="badge__"],
+    [class*="FloatingBadge"],
+    [class*="FreeLink"],
+    [class*="free-link"],
+    [class*="WidgetTitle"],
+    [class*="Header__Title"],
+    [class*="Title__Container"],
+    [class*="Title__TitleComponent"],
+    [class*="Title-sc"],
+    [class*="es-widget-title"],
+    [class*="es-header-title"],
+    [class*="es-badge"] {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      height: 0 !important;
+      max-height: 0 !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      pointer-events: none !important;
+    }
+  `;
+
+  function cleanRoot(root) {
+    if (!root) return;
+
+    // If ShadowRoot, inject styling
+    if (root instanceof ShadowRoot || (root.nodeType === Node.DOCUMENT_FRAGMENT_NODE && root.host)) {
+      if (!root.querySelector('#elfsight-injected-cleaner')) {
+        const st = document.createElement('style');
+        st.id = 'elfsight-injected-cleaner';
+        st.textContent = hideCSS;
+        root.appendChild(st);
+      }
+    }
+
+    // 1. Selector-based cleanup in current root
+    try {
+      const badEls = root.querySelectorAll(
+        'a[href*="elfsight"], .eapps-link, [class*="Badge__"], [class*="WidgetTitle"], [class*="Title__Container"], [class*="Header__Title"], [class*="es-header-title"], [class*="es-widget-title"], [class*="es-badge"]'
+      );
+      badEls.forEach(el => {
+        el.style.setProperty('display', 'none', 'important');
+        el.style.setProperty('opacity', '0', 'important');
+        el.style.setProperty('visibility', 'hidden', 'important');
+        el.style.setProperty('height', '0', 'important');
+      });
+    } catch (e) {}
+
+    // 2. TreeWalker-based cleanup for exact text matching
+    try {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+      let node;
+      const toHide = [];
+      while ((node = walker.nextNode())) {
+        const val = node.nodeValue || '';
+        if (
+          val.includes('What Our Customers Say') ||
+          val.includes('Free Google Reviews') ||
+          val.includes('Reviews Widget') ||
+          val.includes('Free Instagram') ||
+          val.includes('Google Reviews Widget')
+        ) {
+          if (node.parentElement) {
+            toHide.push({ el: node.parentElement, text: val });
           }
         }
       }
-    });
+
+      toHide.forEach(({ el, text }) => {
+        el.style.setProperty('display', 'none', 'important');
+        el.style.setProperty('opacity', '0', 'important');
+        el.style.setProperty('visibility', 'hidden', 'important');
+        el.style.setProperty('height', '0', 'important');
+        el.style.setProperty('margin', '0', 'important');
+
+        // Hide whole floating badge container
+        if (
+          text.includes('Free Google Reviews') ||
+          text.includes('Reviews Widget') ||
+          text.includes('Free Instagram') ||
+          text.includes('Google Reviews Widget')
+        ) {
+          let p = el.parentElement;
+          let depth = 0;
+          while (p && p !== root && p.tagName !== 'BODY' && p.tagName !== 'HTML' && depth < 6) {
+            p.style.setProperty('display', 'none', 'important');
+            p.style.setProperty('opacity', '0', 'important');
+            p.style.setProperty('visibility', 'hidden', 'important');
+            p.style.setProperty('height', '0', 'important');
+            if (
+              p.tagName === 'A' ||
+              (p.className && typeof p.className === 'string' && (p.className.includes('Badge') || p.className.includes('badge') || p.className.includes('link')))
+            ) {
+              break;
+            }
+            p = p.parentElement;
+            depth++;
+          }
+        }
+
+        // Hide parent title / header container
+        if (text.includes('What Our Customers Say')) {
+          let p = el.parentElement;
+          if (
+            p &&
+            p !== root &&
+            (p.tagName === 'H1' || p.tagName === 'H2' || p.tagName === 'H3' || (p.className && typeof p.className === 'string' && p.className.includes('Title')))
+          ) {
+            p.style.setProperty('display', 'none', 'important');
+            p.style.setProperty('height', '0', 'important');
+            p.style.setProperty('margin', '0', 'important');
+          }
+        }
+      });
+    } catch (e) {}
+
+    // 3. Search and clean all shadow roots inside this root
+    try {
+      const allEls = root.querySelectorAll('*');
+      allEls.forEach(el => {
+        if (el.shadowRoot) {
+          cleanRoot(el.shadowRoot);
+        }
+      });
+    } catch (e) {}
   }
 
-  // Run once initially
-  removeElfsightBranding();
+  cleanRoot(document.body || document.documentElement);
+}
 
-  // Watch for DOM changes instead of polling
-  const elfsightObserver = new MutationObserver(function() {
-    removeElfsightBranding();
-  });
-  elfsightObserver.observe(document.body, { childList: true, subtree: true });
+// Run immediately
+cleanAllElfsight();
+
+// Run frequently during page lifecycle to catch dynamic / async loading
+const elfsightInterval = setInterval(cleanAllElfsight, 150);
+setTimeout(() => {
+  clearInterval(elfsightInterval);
+  setInterval(cleanAllElfsight, 1000);
+}, 10000);
+
+// Observer for any new DOM insertions
+const elfsightObserver = new MutationObserver(function() {
+  cleanAllElfsight();
+});
+elfsightObserver.observe(document.documentElement, { childList: true, subtree: true, attributes: true });
+
+window.addEventListener('load', cleanAllElfsight);
+window.addEventListener('scroll', cleanAllElfsight, { passive: true });
+

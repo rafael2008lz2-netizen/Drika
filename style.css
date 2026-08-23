@@ -2147,17 +2147,28 @@ a[href*="elfsight.com"],
    ELFSIGHT WIDGET OVERRIDES
    ========================================== */
 /* Ocultar titulo principal "What Our Customers Say" */
-.elfsight-widget-container [class*="WidgetTitle"],
-.elfsight-widget-container [class*="Title__Container"],
-.elfsight-widget-container .eapps-widget-title,
-.elfsight-widget-container .es-widget-title {
+[class*="WidgetTitle"],
+[class*="Title__Container"],
+[class*="Title__TitleComponent"],
+[class*="Header__Title"],
+[class*="Title-sc"],
+.eapps-widget-title,
+.es-widget-title,
+.es-header-title {
   display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Ocultar Resumo de IA (AI Summary) */
-.elfsight-widget-container [class*="AISummary"],
-.elfsight-widget-container [class*="ai-summary"],
-.elfsight-widget-container .es-ai-summary-info-container {
+[class*="AISummary"],
+[class*="ai-summary"],
+.es-ai-summary-info-container {
   display: none !important;
 }
 
@@ -2177,14 +2188,22 @@ a[href*="elfsight.com"],
   background-color: transparent !important;
 }
 
-
 /* Ocultar Logo/Badge do plano gratuito do Elfsight */
-.elfsight-widget-container a[href*="elfsight.com"],
-.elfsight-widget-container .eapps-link,
-[class*="elfsight-app"] a[href*="elfsight.com"],
+a[href*="elfsight"],
+a[href*="apps.elfsight.com"],
+.eapps-link,
 div[class*="eapps-link"],
-.eapps-link {
+[class*="Badge__"],
+[class*="badge__"],
+[class*="FloatingBadge"],
+[class*="FreeLink"],
+[class*="free-link"],
+[class*="es-badge"] {
   display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  pointer-events: none !important;
 }
 
 /* ==========================================
