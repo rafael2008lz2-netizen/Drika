@@ -24,17 +24,16 @@
         `;
         shadow.appendChild(st);
 
-        // Ativamente observar e remover o elemento de marca d'água
         const observer = new MutationObserver((mutations) => {
-          shadow.querySelectorAll('a, div').forEach(el => {
+          shadow.querySelectorAll('a, div, span').forEach(el => {
             const text = (el.textContent || '').toLowerCase();
             if ((text.includes('free google') || text.includes('reviews widget') || text.includes('free widget') || text.includes('elfsight') || text.includes('instagram feed')) && text.length < 100) {
-              el.style.setProperty('display', 'none', 'important');
-              el.style.setProperty('opacity', '0', 'important');
-              el.style.setProperty('visibility', 'hidden', 'important');
-              el.style.setProperty('pointer-events', 'none', 'important');
-              if (el.tagName.toLowerCase() === 'a') {
-                el.remove();
+              const style = window.getComputedStyle(el);
+              if (el.tagName.toLowerCase() === 'a' || style.position === 'fixed' || style.position === 'absolute') {
+                  el.style.setProperty('display', 'none', 'important');
+                  el.style.setProperty('opacity', '0', 'important');
+                  el.style.setProperty('visibility', 'hidden', 'important');
+                  el.style.setProperty('pointer-events', 'none', 'important');
               }
             }
           });

@@ -1,5 +1,5 @@
-/* ============================================================
-   DRIKA ATELIÊ — Virtual Store Design System v2
+﻿/* ============================================================
+   DRIKA ATELIÃŠ â€” Virtual Store Design System v2
    Refined layout, placeholder product cards, text-only logo
    ============================================================ */
 
@@ -78,7 +78,7 @@
   --text-color: #F5F0EB;
 }
 
-/* ── Reset ───────────────────────────────────────────────────── */
+/* â”€â”€ Reset â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden;width:100%;max-width:100vw}
 body{font-family:var(--font-body);font-weight:300;color:var(--text-primary);background:var(--bg-primary);line-height:1.7;overflow-x:hidden;width:100%;max-width:100vw;-webkit-font-smoothing:antialiased}
@@ -89,13 +89,13 @@ button{border:none;background:none;cursor:pointer;font-family:inherit;color:inhe
 h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:700;line-height:1.2}
 p{font-weight:300;color:var(--text-secondary)}
 
-/* ── Scrollbar ───────────────────────────────────────────────── */
+/* â”€â”€ Scrollbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:var(--bg-primary)}
 ::-webkit-scrollbar-thumb{background:var(--gray-dark);border-radius:var(--radius-full)}
 ::-webkit-scrollbar-thumb:hover{background:var(--gold)}
 
-/* ── Utilities ───────────────────────────────────────────────── */
+/* â”€â”€ Utilities â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .container{width:100%;max-width:var(--container-max);margin:0 auto;padding:0 var(--space-lg);position:relative;z-index:1}
 .container--narrow{max-width:var(--container-narrow)}
 .section{padding:var(--space-4xl) 0;position:relative;}
@@ -118,7 +118,7 @@ p{font-weight:300;color:var(--text-secondary)}
   animation:shimmerLine 3s infinite;
 }
 
-/* ── Seamless Flow Glows ─────────────────────────────────────── */
+/* â”€â”€ Seamless Flow Glows â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .section {
   padding: var(--space-4xl) 0;
   position: relative;
@@ -146,7 +146,7 @@ p{font-weight:300;color:var(--text-secondary)}
   pointer-events: none; z-index: 0;
 }
 
-/* ── Scroll Animations ───────────────────────────────────────── */
+/* â”€â”€ Scroll Animations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .fade-in{opacity:1;transform:none;}
 .fade-in.visible{opacity:1;transform:none;}
 .stagger-children .fade-in:nth-child(1){transition-delay:0s}
@@ -166,7 +166,7 @@ p{font-weight:300;color:var(--text-secondary)}
 .stagger-children .fade-in:nth-child(15){transition-delay:1.4s}
 
 /* ============================================================
-   NAVBAR — text-only logo
+   NAVBAR â€” text-only logo
    ============================================================ */
 .navbar{
   position:fixed;top:0;left:0;width:100%;z-index:1000;
@@ -222,7 +222,7 @@ p{font-weight:300;color:var(--text-secondary)}
 .nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
 /* ============================================================
-   HERO — 3D Interactive Premium Background (Three.js)
+   HERO â€” 3D Interactive Premium Background (Three.js)
    ============================================================ */
 .hero-section{
   min-height:100vh;display:flex;align-items:center;justify-content:center;
@@ -238,9 +238,9 @@ p{font-weight:300;color:var(--text-secondary)}
   display: none;
 }
 
-/* Three.js canvas is positioned via JS — z-index 1 */
+/* Three.js canvas is positioned via JS â€” z-index 1 */
 
-/* Overlay — gradient for text readability over 3D scene */
+/* Overlay â€” gradient for text readability over 3D scene */
 .hero-overlay{
   position:absolute;inset:0;z-index:2;
   background: linear-gradient(
@@ -253,12 +253,12 @@ p{font-weight:300;color:var(--text-secondary)}
   pointer-events:none;
 }
 
-/* ── Hero Content ────────────────────────────────────────────── */
+/* â”€â”€ Hero Content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .hero-content{
   position:relative;z-index:5;text-align:center;padding:var(--space-lg);
 }
 
-/* ── Premium Badge ───────────────────────────────────────────── */
+/* â”€â”€ Premium Badge â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -316,7 +316,7 @@ p{font-weight:300;color:var(--text-secondary)}
   50% { opacity: 0.5; transform: scale(0.7); box-shadow: 0 0 4px rgba(37, 211, 102, 0.2); }
 }
 
-/* ── Hero Title ──────────────────────────────────────────────── */
+/* â”€â”€ Hero Title â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .hero-title{
   font-size:var(--text-5xl);
   color:var(--white);
@@ -335,7 +335,7 @@ p{font-weight:300;color:var(--text-secondary)}
   color: #c8c8d0;
 }
 
-/* ── Shimmer overlay on .gold-text ── */
+/* â”€â”€ Shimmer overlay on .gold-text â”€â”€ */
 .hero-title .gold-text::after {
   content: attr(data-text);
   position: absolute;
@@ -366,7 +366,7 @@ p{font-weight:300;color:var(--text-secondary)}
   100% { background-position: -200% center; }
 }
 
-/* ── Hero Subtitle ───────────────────────────────────────────── */
+/* â”€â”€ Hero Subtitle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .hero-subtitle{
   font-size:var(--text-lg);color:rgba(180,180,200,0.8);
   max-width:540px;margin:0 auto var(--space-xl);font-weight:300;line-height:1.8;
@@ -375,7 +375,7 @@ p{font-weight:300;color:var(--text-secondary)}
   opacity: 0;
 }
 
-/* ── CTA Group ───────────────────────────────────────────────── */
+/* â”€â”€ CTA Group â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .hero-cta-group{
   display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;
   animation: heroFadeUp 1.2s var(--ease-out) forwards;
@@ -389,7 +389,7 @@ p{font-weight:300;color:var(--text-secondary)}
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Buttons ─────────────────────────────────────────────────── */
+/* â”€â”€ Buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .btn-primary{
   display:inline-flex;align-items:center;gap:var(--space-xs);
   padding:16px 36px;background:#FFFFFF;color:#000000;
@@ -433,7 +433,7 @@ p{font-weight:300;color:var(--text-secondary)}
 }
 .btn-secondary:hover::before { transform: scaleX(1); }
 
-/* ── Scroll Mouse Indicator ──────────────────────────────────── */
+/* â”€â”€ Scroll Mouse Indicator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .hero-scroll{
   position:absolute;bottom:var(--space-xl);left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:10px;z-index:5;
@@ -472,7 +472,7 @@ p{font-weight:300;color:var(--text-secondary)}
   color:rgba(200,200,220,0.4);
 }
 
-/* Hero brand — keep for backwards compat */
+/* Hero brand â€” keep for backwards compat */
 .hero-brand{margin-bottom:var(--space-xl)}
 .hero-brand-letter{
   font-family:var(--font-display);font-size:7rem;font-weight:900;
@@ -800,12 +800,9 @@ p{font-weight:300;color:var(--text-secondary)}
 .insta-profile-info p{font-size:var(--text-xs);color:var(--text-muted)}
 
 /* ============================================================
-   AGGRESSIVE WIDGET BADGE REMOVAL
    ============================================================ */
 a[href*="elfsight.com"], 
 a[href*="apps.elfsight.com"], 
-a[href*="elfsig.ht"], 
-[class*="eapps-link"],
 [class*="Badge__"],
 [class*="badge__"],
 [class*="FloatingBadge"],
@@ -825,9 +822,6 @@ a[href*="elfsig.ht"],
 }
 
 /* Specific to widget containers */
-[class*="elfsight-app"] > a,
-[class*="elfsight-app"] div > a,
-[id*="elfsight-app"] > a {
     display: none !important;
 }
 
@@ -1049,7 +1043,7 @@ a[href*="elfsig.ht"],
 @keyframes fadeInHero{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
 /* ============================================================
-   RESPONSIVE — TABLET
+   RESPONSIVE â€” TABLET
    ============================================================ */
 @media(max-width:1024px){
   :root{--text-5xl:2.5rem;--text-4xl:2rem;--text-6xl:3.5rem}
@@ -1072,7 +1066,7 @@ a[href*="elfsig.ht"],
 }
 
 /* ============================================================
-   RESPONSIVE — MOBILE
+   RESPONSIVE â€” MOBILE
    ============================================================ */
 @media(max-width:640px){
   :root{--text-5xl:2rem;--text-4xl:1.6rem;--space-4xl:5rem}
@@ -1229,18 +1223,16 @@ a[href*="elfsig.ht"],
    HIDE ELFSIGHT WATERMARK
    ============================================================ */
 a[href*="elfsight.com"], 
-.eapps-link,
-[class*="elfsight-app"] > a,
 .eapps-widget-toolbar {
   display: none !important;
   opacity: 0 !important;
   pointer-events: none !important;
 }
 
-/* Tampa forçada para iframe (caso o Elfsight bloqueie o JS) */
+/* Tampa forÃ§ada para iframe (caso o Elfsight bloqueie o JS) */
 .insta-feed-widget {
   position: relative;
-  padding-bottom: 20px; /* Espaço para não cortar as fotos */
+  padding-bottom: 20px; /* EspaÃ§o para nÃ£o cortar as fotos */
 }
 
 .insta-feed-widget::after {
@@ -1255,7 +1247,7 @@ a[href*="elfsight.com"],
   pointer-events: auto;
 }
 
-/* ── Ambient Glows (Orbs) ────────────────────────────────────── */
+/* â”€â”€ Ambient Glows (Orbs) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .ambient-orb {
   position: absolute;
   border-radius: 50%;
@@ -1330,7 +1322,7 @@ a[href*="elfsight.com"],
   opacity: 0; 
   transform: translateY(60px) scale(0.95);
 }
-/* Removida a transição CSS, o AnimeJS assume o controle */
+/* Removida a transiÃ§Ã£o CSS, o AnimeJS assume o controle */
 .modal-close {
   position: absolute;
   top: var(--space-sm);
@@ -1569,7 +1561,7 @@ a[href*="elfsight.com"],
   100% { transform: translate(60px, 80px) scale(1.1); }
 }
 
-/* ── Background Watermark Typography ─────────────────────────── */
+/* â”€â”€ Background Watermark Typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .bg-watermark {
   position: absolute;
   top: 50%;
@@ -1593,7 +1585,7 @@ a[href*="elfsight.com"],
   transform: translateY(-50%) rotate(90deg);
 }
 
-/* ── Global Particles ────────────────────────────────────────── */
+/* â”€â”€ Global Particles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .global-particles {
   position: fixed;
   top: 0;
@@ -1618,7 +1610,7 @@ a[href*="elfsight.com"],
   100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
 }
 
-/* ── Infinite Marquee ────────────────────────────────────────── */
+/* â”€â”€ Infinite Marquee â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .marquee-section {
   width: 100%;
   padding: 1.5rem 0;
@@ -1651,7 +1643,7 @@ a[href*="elfsight.com"],
   100% { transform: translateX(-50%); }
 }
 
-/* ── Parallax Background Typography ──────────────────────────── */
+/* â”€â”€ Parallax Background Typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .parallax-text {
   display: none;
 }
@@ -1677,7 +1669,7 @@ a[href*="elfsight.com"],
   .parallax-text.right { right: -5%; }
 }
 
-/* ── Premium Micro-Interactions ──────────────────────────────── */
+/* â”€â”€ Premium Micro-Interactions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .ripple {
   position: absolute;
@@ -1700,7 +1692,7 @@ a[href*="elfsight.com"],
   will-change: transform;
 }
 
-/* ── QS Custom Sections ─────────────────────────────────────── */
+/* â”€â”€ QS Custom Sections â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .page-quem-somos .section { padding: var(--space-2xl) 0; }
 
@@ -2224,8 +2216,6 @@ a[href*="elfsight.com"],
 /* Ocultar Logo/Badge do plano gratuito do Elfsight */
 a[href*="elfsight"],
 a[href*="apps.elfsight.com"],
-.eapps-link,
-div[class*="eapps-link"],
 [class*="Badge__"],
 [class*="badge__"],
 [class*="FloatingBadge"],
@@ -2453,7 +2443,7 @@ div[class*="eapps-link"],
 }
 
 /* ==========================================
-   PERSONALIZAÇÃO SECTION
+   PERSONALIZAÃ‡ÃƒO SECTION
    ========================================== */
 .personalization-section {
   padding: var(--space-3xl) 0;
@@ -2605,7 +2595,7 @@ div[class*="eapps-link"],
 }
 
 .faq-item[open] summary::after {
-  content: '−';
+  content: 'âˆ’';
 }
 
 .faq-item summary::-webkit-details-marker {
@@ -2631,7 +2621,7 @@ div[class*="eapps-link"],
 }
 
 /* ==========================================
-   QUOTE MODAL (ORÇAMENTO)
+   QUOTE MODAL (ORÃ‡AMENTO)
    ========================================== */
 .quote-modal-overlay {
   position: fixed;
@@ -2777,20 +2767,35 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
-/* Force hide any elfsight iframes that might contain the badge */
 
-body > iframe[src*="elfsight"],
-body > iframe[title*="elfsight"],
-body > iframe[name*="elfsight"] {
+
+/* Force hide any elfsight iframes that might contain the badge */
+body > iframe[src*='elfsight'],
+body > iframe[title*='elfsight'],
+body > iframe[name*='elfsight'] {
   display: none !important;
   opacity: 0 !important;
   pointer-events: none !important;
 }
 
-/ *   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = W I D G E T   B A D G E   R E M O V A L = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =   * /  
- a [ h r e f * = ' e l f s i g h t . c o m ' ] ,   a [ h r e f * = ' a p p s . e l f s i g h t . c o m ' ] ,   a [ h r e f * = ' e l f s i g . h t ' ] ,   [ c l a s s * = ' e a p p s - l i n k ' ] ,   [ c l a s s * = ' B a d g e _ _ ' ] ,   [ c l a s s * = ' b a d g e _ _ ' ] ,   [ c l a s s * = ' F l o a t i n g B a d g e ' ] ,   [ c l a s s * = ' F r e e L i n k ' ] ,   [ c l a s s * = ' f r e e - l i n k ' ] ,   [ c l a s s * = ' e s - b a d g e ' ]   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   o p a c i t y :   0   ! i m p o r t a n t ;   v i s i b i l i t y :   h i d d e n   ! i m p o r t a n t ;   p o i n t e r - e v e n t s :   n o n e   ! i m p o r t a n t ;   h e i g h t :   0   ! i m p o r t a n t ;   w i d t h :   0   ! i m p o r t a n t ;   o v e r f l o w :   h i d d e n   ! i m p o r t a n t ;   p o s i t i o n :   a b s o l u t e   ! i m p o r t a n t ;   t o p :   - 9 9 9 9 p x   ! i m p o r t a n t ;   z - i n d e x :   - 9 9 9 9   ! i m p o r t a n t ;   }  
- [ c l a s s * = ' e l f s i g h t - a p p ' ]   >   a ,   [ c l a s s * = ' e l f s i g h t - a p p ' ]   d i v   >   a ,   [ i d * = ' e l f s i g h t - a p p ' ]   >   a   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   }  
- 
-/* ============================================================WIDGET BADGE REMOVAL============================================================ */
-a[href*='elfsight.com'], a[href*='apps.elfsight.com'], a[href*='elfsig.ht'], [class*='eapps-link'], [class*='Badge__'], [class*='badge__'], [class*='FloatingBadge'], [class*='FreeLink'], [class*='free-link'], [class*='es-badge'] { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; height: 0 !important; width: 0 !important; overflow: hidden !important; position: absolute !important; top: -9999px !important; z-index: -9999 !important; }
-[class*='elfsight-app'] > a, [class*='elfsight-app'] div > a, [id*='elfsight-app'] > a { display: none !important; }
+/* WIDGET BADGE REMOVAL */
+a[href*='elfsight.com'], 
+a[href*='apps.elfsight.com'], 
+a[href*='elfsig.ht'], 
+[class*='Badge__'],
+[class*='badge__'],
+[class*='FloatingBadge'],
+[class*='FreeLink'],
+[class*='free-link'],
+[class*='es-badge'] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    top: -9999px !important;
+    z-index: -9999 !important;
+}
