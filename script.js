@@ -562,7 +562,221 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Smart Quote Modal Logic ──────────────────────────────────
+  const quoteModal = document.getElementById('quoteModal');
+  const openQuoteBtns = document.querySelectorAll('.open-smart-quote');
+  const closeQuoteBtn = document.getElementById('closeModal');
+  const quoteForm = document.getElementById('quoteForm');
+  const steps = Array.from(document.querySelectorAll('.modal-step'));
+  const stepIndicators = Array.from(document.querySelectorAll('.progress-steps .step'));
+  const nextBtns = document.querySelectorAll('.next-step');
+  const prevBtns = document.querySelectorAll('.prev-step');
+  const quoteProductSelect = document.getElementById('quoteProduct');
+  const fallbackContainer = document.getElementById('quoteFallback');
+  const copyQuoteBtn = document.getElementById('copyQuoteBtn');
+  
+  let currentStep = 0;
+
+  // Function to open modal
+  const openSmartModal = (e) => {
+    if(e) e.preventDefault();
+    if(quoteModal) {
+      quoteModal.classList.add('active');
+      quoteModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      
+      // Check if opened from a specific product
+      if (e && e.currentTarget && e.currentTarget.hasAttribute('data-product')) {
+        const prodName = e.currentTarget.getAttribute('data-product');
+        
+        // We try to match the product name to an option, or select "Outro"
+        let found = false;
+        if(quoteProductSelect) {
+            Array.from(quoteProductSelect.options).forEach(opt => {
+              if(prodName.toLowerCase().includes(opt.value.toLowerCase()) && opt.value !== "") {
+                quoteProductSelect.value = opt.value;
+                found = true;
+              }
+            });
+            if(!found && prodName) {
+              quoteProductSelect.value = "Outro";
+            }
+        }
+      }
+      
+      // Restore session storage state if available
+      restoreFormState();
+      
+      // Focus Trap setup
+      const focusableElements = quoteModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if(focusableElements.length) {
+        focusableElements[0].focus();
+      }
+    }
+  };
+
+  // Function to close modal
+  const closeSmartModalFn = () => {
+    if(quoteModal) {
+      quoteModal.classList.remove('active');
+      quoteModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  };
+
+  openQuoteBtns.forEach(btn => btn.addEventListener('click', openSmartModal));
+  if(closeQuoteBtn) closeQuoteBtn.addEventListener('click', closeSmartModalFn);
+  
+  // Close on outside click
+  window.addEventListener('click', (e) => {
+    if (e.target === quoteModal) {
+      closeSmartModalFn();
+    }
+  });
+
+  // Close on Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && quoteModal && quoteModal.classList.contains('active')) {
+      closeSmartModalFn();
+    }
+  });
+
+  // Step navigation
+  const updateSteps = () => {
+    steps.forEach((step, index) => {
+      step.classList.toggle('active', index === currentStep);
+    });
+    
+    stepIndicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentStep);
+      indicator.classList.toggle('completed', index < currentStep);
+    });
+  };
+
+  const validateStep = (stepIndex) => {
+    if(!steps[stepIndex]) return true;
+    const currentStepEl = steps[stepIndex];
+    const requiredInputs = currentStepEl.querySelectorAll('[required]');
+    let isValid = true;
+    
+    requiredInputs.forEach(input => {
+      if (!input.value) {
+        isValid = false;
+        input.style.borderColor = 'red';
+        input.addEventListener('change', () => {
+          if(input.value) input.style.borderColor = '';
+        }, { once: true });
+      }
+    });
+    
+    return isValid;
+  };
+
+  nextBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (validateStep(currentStep)) {
+        saveFormState();
+        currentStep++;
+        updateSteps();
+      }
+    });
+  });
+
+  prevBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      saveFormState();
+      currentStep--;
+      updateSteps();
+      if(fallbackContainer) fallbackContainer.style.display = 'none'; // hide fallback if user goes back
+    });
+  });
+
+  // Form Submission
+  if(quoteForm) {
+    quoteForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validateStep(currentStep)) return;
+      
+      saveFormState();
+      
+      // Gather data
+      const formData = new FormData(quoteForm);
+      const msg = `Olá, Drika! Gostaria de solicitar um orçamento.
+
+*Detalhes do Pedido*
+- Produto: ${formData.get('produto')}
+- Quantidade: ${formData.get('quantidade')}
+- Personalização: ${formData.get('personalizacao')}
+- Já possui logo?: ${formData.get('logo')}
+- Prazo desejado: ${formData.get('prazo')}
+
+*Contato*
+- Nome: ${formData.get('nome')}
+${formData.get('empresa') ? '- Empresa: ' + formData.get('empresa') : ''}
+
+Gostaria de receber mais informações.`;
+
+      const encodedMsg = encodeURIComponent(msg);
+      const waUrl = `https://wa.me/5516988336070?text=${encodedMsg}`;
+      
+      // Store final message in a data attribute for the copy button
+      if(copyQuoteBtn) copyQuoteBtn.setAttribute('data-msg', msg);
+      
+      // Show fallback
+      if(fallbackContainer) fallbackContainer.style.display = 'block';
+      
+      // Attempt to open WA
+      window.open(waUrl, '_blank');
+    });
+  }
+
+  if(copyQuoteBtn) {
+    copyQuoteBtn.addEventListener('click', () => {
+      const msg = copyQuoteBtn.getAttribute('data-msg');
+      if(navigator.clipboard && msg) {
+        navigator.clipboard.writeText(msg).then(() => {
+          const originalText = copyQuoteBtn.innerText;
+          copyQuoteBtn.innerText = 'Copiado!';
+          setTimeout(() => copyQuoteBtn.innerText = originalText, 2000);
+        });
+      }
+    });
+  }
+
+  // Session Storage handling
+  const saveFormState = () => {
+    if(!quoteForm) return;
+    const formData = new FormData(quoteForm);
+    const data = Object.fromEntries(formData.entries());
+    sessionStorage.setItem('quoteDraft', JSON.stringify({ data, step: currentStep }));
+  };
+
+  const restoreFormState = () => {
+    const draftStr = sessionStorage.getItem('quoteDraft');
+    if (draftStr && quoteForm) {
+      try {
+        const draft = JSON.parse(draftStr);
+        if (draft.data) {
+          Object.keys(draft.data).forEach(key => {
+            const input = quoteForm.elements[key];
+            if (input) {
+              input.value = draft.data[key];
+            }
+          });
+        }
+      } catch(e) {
+        console.error('Error restoring draft', e);
+      }
+    }
+  };
+  
+  // Save state on any change
+  if(quoteForm) {
+    quoteForm.addEventListener('change', saveFormState);
+  }
+
 });
+
 
 // ── Hide Elfsight Watermarks ───────────────────────────────────
 setInterval(() => {

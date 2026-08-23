@@ -3,22 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia de Tecidos | Drika Ateliê</title>
+  <title>Tecidos e Personalização | Drika Ateliê</title>
   
-  <meta name="description" content="Conheça a história e o Padrão de Qualidade Drika Ateliê. Especialistas em uniformes premium e bordados de precisão em Ribeirão Preto.">
+  <meta name="description" content="Conheça os nossos tecidos e as formas de personalização para o seu uniforme corporativo, escolar ou jaleco.">
   
-  <!-- Fonts: Playfair Display (Serif) & Outfit (Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=15">
+  <link rel="stylesheet" href="style.css?v=16">
+  <style>
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--gray-border);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold-main);
+    }
+    .feature-card h3 {
+      color: var(--gold-main);
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+    .feature-card p {
+      color: var(--text-color);
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+    
+    .size-table-container {
+      overflow-x: auto;
+      margin-bottom: 30px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 8px;
+      border: 1px solid var(--gray-border);
+    }
+    .size-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 400px;
+    }
+    .size-table th, .size-table td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .size-table th {
+      color: var(--gold-main);
+      font-weight: 600;
+      background: rgba(0,0,0,0.2);
+    }
+    .size-table tr:last-child td {
+      border-bottom: none;
+    }
+  </style>
 </head>
 <body class="page-quem-somos">
 
-  <!-- ==========================================
-       NAVBAR
-       ========================================== -->
+  <!-- NAVBAR -->
   <nav class="navbar" id="navbar" style="background: rgba(10, 10, 12, 0.95);">
     <div class="container">
       <a href="index.html" class="nav-logo" aria-label="Página Inicial Drika Ateliê">
@@ -31,38 +78,266 @@
 
       <div class="nav-links" id="navMenu">
         <a href="index.html#catalogo">Catálogo</a>
-        <a href="guia-de-tecidos.html" class="active">Guia de Tecidos</a>
+        <a href="guia-de-tecidos.html" class="active">Tecidos e Personalização</a>
         <a href="quem-somos.html">Quem Somos</a>
         <a href="index.html#depoimentos">Depoimentos</a>
         <a href="#contato">Contato</a>
-        <a href="https://wa.me/5516988336070?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento!" target="_blank" class="nav-cta">Orçamento</a>
+        <button type="button" class="nav-cta open-smart-quote" aria-label="Abrir Orçamento Inteligente">Orçamento</button>
       </div>
     </div>
   </nav>
 
-  <!-- ==========================================
-       PAGE HEADER
-       ========================================== -->
+  <!-- PAGE HEADER -->
   <header class="page-header" style="padding-top: 180px; padding-bottom: 80px; text-align: center; position: relative;">
     <div class="hero-bg-gradient" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
     <div class="container">
-      <h1 class="hero-title" style="font-size: 3.5rem; margin-bottom: 20px;">Guia de <span class="gold-text" data-text="Tecidos">Tecidos</span></h1>
-      <p class="hero-subtitle" style="max-width: 600px; margin: 0 auto; font-size: 1.2rem;">Conheça os nossos tecidos e escolha o ideal para o seu uniforme.</p>
+      <h1 class="hero-title" style="font-size: 3.5rem; margin-bottom: 20px;">Tecidos e <span class="gold-text" data-text="Personalização">Personalização</span></h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 0 auto; font-size: 1.2rem;">Entenda as opções disponíveis e escolha a configuração ideal para o seu projeto.</p>
     </div>
   </header>
 
-  <!-- ==========================================
-       QUEM SOMOS CONTENT
-       ========================================== -->
-  <section class="section" style="padding-top: 40px; padding-bottom: 100px; text-align: center;">
+  <!-- TECIDOS -->
+  <section class="section" style="padding-top: 60px; padding-bottom: 40px;">
     <div class="container">
-      <img src="images/guia-de-tecidos.png" alt="Guia de Tecidos Drika Ateliê" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <div class="section-header fade-in">
+        <span class="section-label">Materiais</span>
+        <h2 class="section-title">Principais Tecidos</h2>
+        <div class="gold-line"></div>
+      </div>
+      
+      <!-- Imagem Interativa dos Tecidos -->
+      <div class="interactive-image-container fade-in" style="text-align: center; margin-bottom: 40px; cursor: zoom-in;" onclick="openLightbox('images/guia-de-tecidos.png')">
+        <img src="images/guia-de-tecidos.png" alt="Catálogo de Tecidos Drika Ateliê" style="max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Clique na imagem para ampliar</p>
+      </div>
+
+      <!-- Fabric Details Modal -->
+      <div id="fabricDetailsModal" class="lightbox-modal" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: var(--bg-card); max-width: 800px; width: 100%; border-radius: 12px; display: flex; flex-direction: column; md:flex-row; overflow: hidden; position: relative;">
+          <span style="position: absolute; top: 15px; right: 20px; color: var(--text-color); font-size: 30px; cursor: pointer; z-index: 10;" onclick="closeFabricDetails()">&times;</span>
+          <div style="display: flex; flex-wrap: wrap;">
+            <div style="flex: 1 1 300px;">
+              <img id="fabricModalImg" src="images/piquet.jpg" alt="Detalhe do Tecido" style="width: 100%; height: 100%; object-fit: cover; min-height: 300px;">
+            </div>
+            <div style="flex: 1 1 300px; padding: 40px;">
+              <h3 id="fabricModalTitle" style="color: var(--gold-main); font-size: 2rem; margin-bottom: 15px;">Piquet</h3>
+              <p id="fabricModalDesc" style="color: var(--text-color); line-height: 1.6; margin-bottom: 15px;">
+                O Piquet é um tecido de toque macio e muito confortável, conhecido por sua textura em relevo que forma pequenos losangos ou casas de abelha.
+              </p>
+              <ul id="fabricModalList" style="color: var(--text-color); margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+                <li><strong>Composição:</strong> Algodão e Poliéster (proporcionando frescor e durabilidade).</li>
+                <li><strong>Indicação:</strong> Muito utilizado em camisas polo e uniformes corporativos.</li>
+                <li><strong>Vantagens:</strong> Ótima transpiração, não amassa com facilidade e possui um caimento elegante.</li>
+              </ul>
+              <button id="fabricModalBtn" class="btn open-smart-quote" style="background: var(--gold-main); color: var(--bg-dark); border-radius: 30px; font-weight: bold; padding: 10px 20px; width: 100%;" data-product="Uniformes em Piquet" onclick="closeFabricDetails()">Solicitar Orçamento</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lightbox Modal -->
+      <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox()" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center;">
+        <span style="position: absolute; top: 20px; right: 40px; color: #fff; font-size: 40px; cursor: pointer;">&times;</span>
+        <img id="lightboxImg" src="" style="max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.1);">
+      </div>
+
+      <script>
+        const fabricData = {
+          'gabardine': {
+            title: 'Gabardine',
+            desc: 'Opção utilizada em peças que buscam uma apresentação estruturada e profissional. É um tecido resistente, com trama evidente e aspecto elegante.',
+            img: 'images/gabardine.jpg', // Placeholder for upcoming image
+            list: `
+              <li><strong>Composição:</strong> Normalmente poliéster com elastano, garantindo durabilidade e flexibilidade.</li>
+              <li><strong>Indicação:</strong> Jalecos, calças sociais e uniformes corporativos estruturados.</li>
+              <li><strong>Vantagens:</strong> Excelente durabilidade, secagem rápida e aspecto sofisticado.</li>
+            `,
+            product: 'Uniformes em Gabardine'
+          },
+          'piquet': {
+            title: 'Piquê',
+            desc: 'O Piquê (ou Piquet) é um tecido de toque macio e muito confortável, conhecido por sua textura em relevo que forma pequenos losangos ou casas de abelha.',
+            img: 'images/piquet.jpg',
+            list: `
+              <li><strong>Composição:</strong> Algodão e Poliéster (proporcionando frescor e durabilidade).</li>
+              <li><strong>Indicação:</strong> Muito utilizado em camisas polo, uniformes corporativos e eventos.</li>
+              <li><strong>Vantagens:</strong> Ótima transpiração, não amassa com facilidade e possui um caimento elegante.</li>
+            `,
+            product: 'Uniformes em Piquet'
+          },
+          'malha': {
+            title: 'Malha',
+            desc: 'Opção versátil para camisetas e outras peças destinadas ao uso cotidiano. É um tecido leve e adaptável ao corpo.',
+            img: 'images/malha.jpg', // Placeholder for upcoming image
+            list: `
+              <li><strong>Composição:</strong> Pode ser 100% algodão, poliviscose (PV) ou mistas.</li>
+              <li><strong>Indicação:</strong> Camisetas escolares, turmas, eventos e uso diário.</li>
+              <li><strong>Vantagens:</strong> Muito confortável, maleável, não limita os movimentos e tem ótimo custo-benefício.</li>
+            `,
+            product: 'Uniformes em Malha'
+          }
+        };
+
+        function openFabricDetails(id) {
+          if (id && fabricData[id]) {
+            const data = fabricData[id];
+            document.getElementById('fabricModalImg').src = data.img;
+            document.getElementById('fabricModalTitle').innerText = data.title;
+            document.getElementById('fabricModalDesc').innerText = data.desc;
+            document.getElementById('fabricModalList').innerHTML = data.list;
+            document.getElementById('fabricModalBtn').setAttribute('data-product', data.product);
+          }
+          document.getElementById('fabricDetailsModal').style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+        function closeFabricDetails() {
+          document.getElementById('fabricDetailsModal').style.display = 'none';
+          document.body.style.overflow = '';
+        }
+
+        function openLightbox(src) {
+          const lightbox = document.getElementById('lightboxModal');
+          const img = document.getElementById('lightboxImg');
+          img.src = src;
+          lightbox.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+          const lightbox = document.getElementById('lightboxModal');
+          lightbox.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+        // Close on Escape key
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+             closeLightbox();
+             closeFabricDetails();
+          }
+        });
+      </script>
+      
+      <div class="product-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('gabardine')">
+          <h3>Gabardine</h3>
+          <p>Opção utilizada em peças que buscam uma apresentação estruturada e profissional.</p>
+          <p><strong>Indicado para:</strong> Jalecos e uniformes corporativos estruturados.</p>
+        </div>
+        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('piquet')">
+          <h3>Piquê</h3>
+          <p>Alternativa frequentemente utilizada em polos, combinando aparência profissional e conforto.</p>
+          <p><strong>Indicado para:</strong> Camisas Polo para atendimento e eventos.</p>
+        </div>
+        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('malha')">
+          <h3>Malha</h3>
+          <p>Opção versátil para camisetas e outras peças destinadas ao uso cotidiano.</p>
+          <p><strong>Indicado para:</strong> Camisetas escolares, turmas e uso diário.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ==========================================
-       FOOTER
-       ========================================== -->
+  <!-- FORMAS DE PERSONALIZAÇÃO -->
+  <section class="section" style="padding-top: 40px; padding-bottom: 60px; background: rgba(255,255,255,0.01);">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Aplicação</span>
+        <h2 class="section-title">Formas de Personalização</h2>
+        <div class="gold-line"></div>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 20px auto 0;">A escolha da técnica ideal depende da peça, do tecido, da arte e da quantidade do seu projeto.</p>
+      </div>
+      
+      <div class="product-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card fade-in" style="text-align: center;">
+          <h3>Bordado</h3>
+          <p>Aplicação de identidade visual diretamente na peça, indicada para logotipos, nomes e elementos institucionais.</p>
+        </div>
+        <div class="feature-card fade-in" style="text-align: center;">
+          <h3>Silk</h3>
+          <p>Processo de estamparia indicado para diferentes artes e aplicações em peças personalizadas.</p>
+        </div>
+        <div class="feature-card fade-in" style="text-align: center;">
+          <h3>DTF</h3>
+          <p>Alternativa para aplicações com artes detalhadas e diferentes possibilidades visuais.</p>
+        </div>
+        <div class="feature-card fade-in" style="text-align: center;">
+          <h3>Sublimação</h3>
+          <p>Processo indicado para determinadas peças e projetos que exigem reprodução de elementos gráficos.</p>
+        </div>
+      </div>
+      
+      <div class="text-center fade-in" style="margin-top: 40px; text-align: center;">
+        <p style="margin-bottom: 20px; color: var(--text-color);">Não sabe qual escolher?</p>
+        <a href="https://wa.me/5516988336070?text=Olá,%20tenho%20dúvidas%20sobre%20qual%20tecido%20ou%20personalização%20escolher%20para%20meu%20uniforme." target="_blank" class="btn-primary">Falar com um especialista</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIA DE TAMANHOS -->
+  <section class="section" style="padding-top: 60px; padding-bottom: 80px;">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Medidas</span>
+        <h2 class="section-title">Guia de Tamanhos</h2>
+        <div class="gold-line"></div>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 20px auto 0;">As medidas podem variar conforme a modelagem da peça. Consulte nossa equipe para confirmar o tamanho mais adequado.</p>
+      </div>
+      
+      <div class="product-grid" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto;">
+        
+        <div class="fade-in">
+          <h3 style="color: var(--gold-main); margin-bottom: 15px;">Camisetas e Polos</h3>
+          <div class="size-table-container">
+            <table class="size-table">
+              <thead>
+                <tr>
+                  <th scope="col">Tamanho</th>
+                  <th scope="col">Largura</th>
+                  <th scope="col">Comprimento</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>P</td><td>A definir</td><td>A definir</td></tr>
+                <tr><td>M</td><td>A definir</td><td>A definir</td></tr>
+                <tr><td>G</td><td>A definir</td><td>A definir</td></tr>
+                <tr><td>GG</td><td>A definir</td><td>A definir</td></tr>
+                <tr><td>XGG</td><td>A definir</td><td>A definir</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <h3 style="color: var(--gold-main); margin-bottom: 15px;">Jalecos</h3>
+          <div class="size-table-container">
+            <table class="size-table">
+              <thead>
+                <tr>
+                  <th scope="col">Tamanho</th>
+                  <th scope="col">Ombro a Ombro</th>
+                  <th scope="col">Comprimento</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>P</td><td>A definir</td><td>A definir</td></tr>
+                <tr><td>M</td><td>A definir</td><td>A definir</td></tr>
+                <tr><td>G</td><td>A definir</td><td>A definir</td></tr>
+                <tr><td>GG</td><td>A definir</td><td>A definir</td></tr>
+                <tr><td>XGG</td><td>A definir</td><td>A definir</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center fade-in" style="margin-top: 20px; text-align: center;">
+        <a href="https://wa.me/5516988336070?text=Olá,%20preciso%20de%20ajuda%20para%20confirmar%20os%20tamanhos." target="_blank" class="btn-secondary">Precisa de ajuda com o tamanho?</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="footer" id="contato">
     <div class="container">
       <div class="footer-top">
@@ -93,7 +368,6 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2024 Drika Ateliê e Uniformes. Todos os direitos reservados.</p>
-        <p>Desenvolvido para alta performance e conversão.</p>
       </div>
     </div>
   </footer>
@@ -106,6 +380,27 @@
     </a>
   </div>
 
-  <script src="script.js?v=4"></script>
+  <!-- ==========================================
+       SMART QUOTE MODAL (Orçamento Inteligente)
+       ========================================== -->
+  <div class="modal-overlay" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-container">
+      <button class="modal-close" id="closeModal" aria-label="Fechar">&times;</button>
+      
+      <div class="modal-header">
+        <h2 id="modalTitle">Solicitar Orçamento</h2>
+        <p>Preencha os detalhes para um orçamento personalizado</p>
+      </div>
+
+      <div class="modal-progress">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-steps">
+          <span class="step active" data-step="1">1</span>
+          <span class="step" data-step="2">2</span>
+          <span class="step" data-step="3">3</span>
+        </div>
+      </div>
+
+  <script src="script.js?v=5"></script>
 </body>
 </html>
