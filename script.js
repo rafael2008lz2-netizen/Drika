@@ -861,19 +861,37 @@ Gostaria de receber mais informações.`;
   // ==========================================
   function removeElfsightBranding() {
     document.querySelectorAll('[class*="elfsight-app"]').forEach(widget => {
-      // Try main DOM
-      const links = widget.querySelectorAll('a[href*="elfsight.com"], .eapps-link');
-      links.forEach(el => el.style.display = 'none');
-      // Try shadow DOM
+      const styleContent = 
+        a[href*="elfsight.com"], 
+        a[href*="apps.elfsight.com"],
+        .eapps-link,
+        [class*="Badge__"],
+        [class*="WidgetTitle"],
+        [class*="Title__"],
+        [class*="Header__Container"],
+        .es-widget-title,
+        .eapps-widget-title { 
+          display: none !important; 
+        }
+      ;
       if (widget.shadowRoot) {
-        const shadowLinks = widget.shadowRoot.querySelectorAll('a[href*="elfsight.com"], .eapps-link');
-        shadowLinks.forEach(el => el.style.display = 'none');
-        // Inject hiding CSS into shadow root
         if (!widget.shadowRoot.querySelector('#elfsight-hide-css')) {
           const style = document.createElement('style');
           style.id = 'elfsight-hide-css';
-          style.textContent = 'a[href*="elfsight.com"], .eapps-link { display: none !important; }';
+          style.textContent = styleContent;
           widget.shadowRoot.appendChild(style);
+        }
+        
+        // Remover pelo texto
+        const walk = document.createTreeWalker(widget.shadowRoot, NodeFilter.SHOW_TEXT, null, false);
+        let n;
+        while(n = walk.nextNode()) {
+          if (n.nodeValue.includes("What Our Customers Say") || n.nodeValue.includes("Free Google Reviews Widget")) {
+             if (n.parentElement) {
+                 n.parentElement.style.display = 'none';
+                 n.parentElement.style.opacity = '0';
+             }
+          }
         }
       }
     });
