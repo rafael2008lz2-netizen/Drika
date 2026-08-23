@@ -35,6 +35,21 @@
                   el.style.setProperty('visibility', 'hidden', 'important');
                   el.style.setProperty('pointer-events', 'none', 'important');
               }
+            } else if (text.includes('avalie-nos no google') || text.includes('write a review')) {
+              let btn = el;
+              if (btn.tagName.toLowerCase() !== 'a' && btn.tagName.toLowerCase() !== 'button') {
+                  btn = btn.closest('a') || btn.closest('button') || el;
+              }
+              if (btn) {
+                  btn.style.setProperty('background-color', '#FFFFFF', 'important');
+                  btn.style.setProperty('color', '#000000', 'important');
+                  btn.style.setProperty('border', '1px solid #FFFFFF', 'important');
+                  btn.style.setProperty('font-weight', '600', 'important');
+                  // Also target children text colors
+                  btn.querySelectorAll('*').forEach(child => {
+                      child.style.setProperty('color', '#000000', 'important');
+                  });
+              }
             }
           });
         });
@@ -1020,6 +1035,20 @@
               el.style.setProperty('opacity', '0', 'important');
               el.style.setProperty('pointer-events', 'none', 'important');
               el.remove();
+            }
+          } else if (text.includes('avalie-nos no google') || text.includes('write a review')) {
+            let btn = el;
+            if (btn.tagName.toLowerCase() !== 'a' && btn.tagName.toLowerCase() !== 'button') {
+                btn = btn.closest('a') || btn.closest('button') || el;
+            }
+            if (btn) {
+                btn.style.setProperty('background-color', '#FFFFFF', 'important');
+                btn.style.setProperty('color', '#000000', 'important');
+                btn.style.setProperty('border', '1px solid #FFFFFF', 'important');
+                btn.style.setProperty('font-weight', '600', 'important');
+                btn.querySelectorAll('*').forEach(child => {
+                    child.style.setProperty('color', '#000000', 'important');
+                });
             }
           }
         });
