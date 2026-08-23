@@ -11,7 +11,7 @@
         
         // Injetar CSS de limpeza instantaneamente
         const st = document.createElement('style');
-        st.textContent = 
+        st.textContent = `
           a[href*="elfsight"], a[href*="apps.elfsight.com"], .eapps-link, [class*="eapps-link"], 
           [class*="Badge__"], [class*="badge__"], [class*="FloatingBadge"], [class*="FreeLink"], 
           [class*="free-link"], [class*="es-badge"],
@@ -21,7 +21,7 @@
             height: 0 !important; max-height: 0 !important; overflow: hidden !important; 
             margin: 0 !important; padding: 0 !important; pointer-events: none !important;
           }
-        ;
+        `;
         shadow.appendChild(st);
         
         // Registrar shadowRoot na janela (opcional, para limpezas futuras)
@@ -558,6 +558,27 @@
     </div>
   </div>
 
+  <!-- ==========================================
+       DEPOIMENTOS
+       ========================================== -->
+  <section class="section testimonials-section" id="depoimentos">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Clientes</span>
+        <h2 class="section-title">Quem veste aprova</h2>
+        <div class="gold-line"></div>
+      </div>
+
+      <div class="elfsight-widget-container" style="margin-top: 30px;">
+        <!-- Elfsight Google Reviews | Untitled Google Reviews -->
+        <script src="https://elfsightcdn.com/platform.js" async></script>
+        <div class="elfsight-app-a5fbc70a-14f3-4f63-be5e-82d772f58d6d" data-elfsight-app-lazy></div>
+      </div>
+    </div>
+  </section>
+
+
+  
   <!-- ==========================================
        DIFERENCIAIS
        ========================================== -->
