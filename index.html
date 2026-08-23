@@ -1030,20 +1030,6 @@
       };
       
       nukeText(document);
-      
-      // 2. The Cover-up Strategy (if they use closed shadow DOM we can't pierce)
-      // Elfsight widgets usually append the warning as a fixed element inside the widget container's shadow DOM.
-      // We will apply a CSS cover to the specific known widget containers to block their bottom section
-      document.querySelectorAll('[class*="elfsight-app"]').forEach(widget => {
-         if (!widget.querySelector('.elfsight-cover-up')) {
-            const cover = document.createElement('div');
-            cover.className = 'elfsight-cover-up';
-            cover.style.cssText = 'position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: var(--bg-primary); z-index: 2147483647; pointer-events: none;';
-            // Append the cover to the widget's parent to overlay the widget
-            widget.parentElement.style.position = 'relative';
-            widget.parentElement.appendChild(cover);
-         }
-      });
     }, 100);
   </script>
 </body>
