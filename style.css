@@ -2743,3 +2743,14 @@ button:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
 }
+
+/* Force hide any elfsight iframes that might contain the badge */
+
+body > iframe[src*="elfsight"],
+body > iframe[title*="elfsight"],
+body > iframe[name*="elfsight"] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
