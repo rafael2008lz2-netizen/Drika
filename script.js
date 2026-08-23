@@ -861,7 +861,7 @@ Gostaria de receber mais informações.`;
   // ==========================================
   function removeElfsightBranding() {
     document.querySelectorAll('[class*="elfsight-app"]').forEach(widget => {
-      const styleContent = 
+      const styleContent = `
         a[href*="elfsight.com"], 
         a[href*="apps.elfsight.com"],
         .eapps-link,
@@ -873,7 +873,7 @@ Gostaria de receber mais informações.`;
         .eapps-widget-title { 
           display: none !important; 
         }
-      ;
+      `;
       if (widget.shadowRoot) {
         if (!widget.shadowRoot.querySelector('#elfsight-hide-css')) {
           const style = document.createElement('style');
