@@ -856,176 +856,73 @@ Gostaria de receber mais informações.`;
 
 
 // ── Hide Elfsight Watermarks & Title Overrides ───────────────────────────────────
-function cleanAllElfsight() {
-  const hideCSS = `
-    a[href*="elfsight"],
-    a[href*="apps.elfsight.com"],
-    .eapps-link,
-    [class*="eapps-link"],
-    [class*="Badge__"],
-    [class*="badge__"],
-    [class*="FloatingBadge"],
-    [class*="FreeLink"],
-    [class*="free-link"],
-    [class*="WidgetTitle"],
-    [class*="Header__Title"],
-    [class*="Title__Container"],
-    [class*="Title__TitleComponent"],
-    [class*="Title-sc"],
-    [class*="es-widget-title"],
-    [class*="es-header-title"],
-    [class*="es-badge"] {
-      display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-      height: 0 !important;
-      max-height: 0 !important;
-      overflow: hidden !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      pointer-events: none !important;
-    }
-  `;
-
-  // Inject CSS into all shadow roots
-  function injectIntoShadows(root) {
-    if (!root) return;
-    if (root.shadowRoot) {
-      if (!root.shadowRoot.querySelector('#elfsight-safe-cleaner')) {
-        const st = document.createElement('style');
-        st.id = 'elfsight-safe-cleaner';
-        st.textContent = hideCSS;
-        root.shadowRoot.appendChild(st);
+(function() {
+  function removeElfsight() {
+    // 1. Find all Anchor tags (links) and hide them if they contain badge text
+    document.querySelectorAll('a').forEach(a => {
+      const text = (a.textContent || '').toLowerCase();
+      if (text.includes('free google') || text.includes('reviews widget') || text.includes('free instagram')) {
+         a.style.setProperty('display', 'none', 'important');
+         a.style.setProperty('opacity', '0', 'important');
+         a.style.setProperty('pointer-events', 'none', 'important');
+         a.remove(); // safe to remove an A tag
       }
-      injectIntoShadows(root.shadowRoot);
-    }
-    
-    // Also safely hide specific elements without touching parents
-    if (root.querySelectorAll) {
-      root.querySelectorAll('[class*="elfsight-app"]').forEach(widget => {
-                  // Only search INSIDE the widget
-         const walker = document.createTreeWalker(widget, NodeFilter.SHOW_TEXT, null, false);
-         let n;
-         while(n = walker.nextNode()) {
-           if (n.nodeValue.includes("What Our Customers Say") || n.nodeValue.includes("Free Google Reviews") || n.nodeValue.includes("Reviews Widget")) {
-              let p = n.parentElement;
-              while(p && p.tagName !== 'BODY' && p.tagName !== 'HTML') {
-                  p.style.setProperty('display', 'none', 'important');
-                  p.style.setProperty('opacity', '0', 'important');
-                  
-                  // Stop going up if we hit the widget container to avoid hiding the whole site
-                  if (p.classList && (p.classList.contains('elfsight-app-a5fbc70a-14f3-4f63-be5e-82d772f58d6d') || p.classList.contains('elfsight-widget-container'))) {
-                      break;
-                  }
-                  
-                  // For the badge, stop when we hit the fixed positioned wrapper or link
-                  if (n.nodeValue.includes("Free Google") || n.nodeValue.includes("Reviews Widget")) {
-                      if (p.tagName === 'A' || p.tagName === 'IFRAME') break;
-                      const style = window.getComputedStyle(p);
-                      if (style.position === 'fixed' || style.position === 'absolute') break;
-                  } else {
-                      // For title, stop if it's a heading container
-                      if (p.tagName === 'H1' || p.tagName === 'H2' || p.tagName === 'H3' || p.tagName === 'H4' || p.tagName === 'H5' || p.tagName === 'H6') break;
-                      if (p.className && typeof p.className === 'string' && (p.className.includes('Header') || p.className.includes('Title'))) break;
-                  }
-                  
-                  p = p.parentElement;
-              }
-           }
-         }
-         }
-         
-                  // If widget has shadowRoot, search there too safely
-         const sWalker = document.createTreeWalker(widget.shadowRoot, NodeFilter.SHOW_TEXT, null, false);
-         let n;
-         while(n = sWalker.nextNode()) {
-           if (n.nodeValue.includes("What Our Customers Say") || n.nodeValue.includes("Free Google Reviews") || n.nodeValue.includes("Reviews Widget")) {
-              let p = n.parentElement;
-              while(p && p.tagName !== 'BODY' && p.tagName !== 'HTML') {
-                  p.style.setProperty('display', 'none', 'important');
-                  p.style.setProperty('opacity', '0', 'important');
-                  
-                  // Stop going up if we hit the widget container to avoid hiding the whole site
-                  if (p.classList && (p.classList.contains('elfsight-app-a5fbc70a-14f3-4f63-be5e-82d772f58d6d') || p.classList.contains('elfsight-widget-container'))) {
-                      break;
-                  }
-                  
-                  // For the badge, stop when we hit the fixed positioned wrapper or link
-                  if (n.nodeValue.includes("Free Google") || n.nodeValue.includes("Reviews Widget")) {
-                      if (p.tagName === 'A' || p.tagName === 'IFRAME') break;
-                      const style = window.getComputedStyle(p);
-                      if (style.position === 'fixed' || style.position === 'absolute') break;
-                  } else {
-                      // For title, stop if it's a heading container
-                      if (p.tagName === 'H1' || p.tagName === 'H2' || p.tagName === 'H3' || p.tagName === 'H4' || p.tagName === 'H5' || p.tagName === 'H6') break;
-                      if (p.className && typeof p.className === 'string' && (p.className.includes('Header') || p.className.includes('Title'))) break;
-                  }
-                  
-                  p = p.parentElement;
-              }
-           }
-         }
-           }
-         }
-      });
-    }
-
-    
-    
-    // ALSO scan globally for the floating badge which might be appended directly to BODY
-    const allLinks = document.querySelectorAll('a, div, span');
-    allLinks.forEach(el => {
-        if (!el.textContent) return;
-        const text = el.textContent.toLowerCase();
-        if (text.includes('free google') || text.includes('reviews widget') || text.includes('free instagram')) {
-            const style = window.getComputedStyle(el);
-            // Floating badges usually have fixed/absolute positioning and high z-index
-            if (el.tagName === 'A' || style.position === 'fixed' || style.position === 'absolute' || (el.className && typeof el.className === 'string' && (el.className.toLowerCase().includes('badge') || el.className.toLowerCase().includes('watermark')))) {
-                el.style.setProperty('display', 'none', 'important');
-                el.style.setProperty('opacity', '0', 'important');
-                el.style.setProperty('visibility', 'hidden', 'important');
-                el.style.setProperty('pointer-events', 'none', 'important');
-                el.style.setProperty('z-index', '-9999', 'important');
-            }
-        }
     });
 
-    // Nuclear option for any div that looks like the widget badge based on inline styles
-    document.querySelectorAll('div, a').forEach(el => {
+    // 2. Hide titles and inner badges safely
+    const walker = document.createTreeWalker(
+      document.body || document.documentElement, 
+      NodeFilter.SHOW_TEXT, 
+      null, 
+      false
+    );
+    
+    let n;
+    while (n = walker.nextNode()) {
+      const val = (n.nodeValue || '').toLowerCase();
+      if (val.includes('free google') || val.includes('reviews widget') || val.includes('what our customers say')) {
+        let p = n.parentElement;
+        
+        // Safety check: never hide structural elements
+        if (p && !['BODY','MAIN','SECTION','HTML','HEAD'].includes(p.tagName)) {
+           // Hide immediate parent text container
+           p.style.setProperty('display', 'none', 'important');
+           
+           // Look up exactly 1-3 levels to find the floating wrapper and kill it
+           let wrapper = p;
+           let depth = 0;
+           while (wrapper && !['BODY','MAIN','SECTION'].includes(wrapper.tagName) && depth < 4) {
+               const style = window.getComputedStyle(wrapper);
+               if (wrapper.tagName === 'A' || style.position === 'fixed' || style.position === 'absolute') {
+                   wrapper.style.setProperty('display', 'none', 'important');
+                   break;
+               }
+               wrapper = wrapper.parentElement;
+               depth++;
+           }
+        }
+      }
+    }
+    
+    // 3. Remove by fixed z-index heuristics
+    document.querySelectorAll('div, a, span').forEach(el => {
+      try {
         const style = window.getComputedStyle(el);
         if (style.position === 'fixed' || style.position === 'absolute') {
-            if (style.zIndex && parseInt(style.zIndex, 10) > 9999) {
-                // If it's a fixed element with huge z-index and contains an SVG or Elfsight link, kill it
-                if (el.innerHTML.includes('elfsight') || (el.textContent && el.textContent.toLowerCase().includes('free '))) {
-                    el.style.setProperty('display', 'none', 'important');
-                }
+          if (style.zIndex && parseInt(style.zIndex, 10) > 9999) {
+            const html = el.innerHTML.toLowerCase();
+            if (html.includes('elfsight') || html.includes('free google') || html.includes('reviews widget')) {
+                el.style.setProperty('display', 'none', 'important');
             }
+          }
         }
+      } catch (e) {}
     });
-
-
-    if (root.childNodes) {
-      root.childNodes.forEach(child => injectIntoShadows(child));
-    }
   }
 
-  injectIntoShadows(document.body || document.documentElement);
-}
+  removeElfsight();
+  setInterval(removeElfsight, 500); // Check every half second
 
-// Run immediately
-cleanAllElfsight();
-
-// Run frequently during page lifecycle
-const elfsightInterval = setInterval(cleanAllElfsight, 250);
-setTimeout(() => {
-  clearInterval(elfsightInterval);
-  setInterval(cleanAllElfsight, 1500);
-}, 8000);
-
-// Observer for any new DOM insertions
-const elfsightObserver = new MutationObserver(function() {
-  cleanAllElfsight();
-});
-elfsightObserver.observe(document.documentElement, { childList: true, subtree: true });
-
-
+  const observer = new MutationObserver(removeElfsight);
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+})();
