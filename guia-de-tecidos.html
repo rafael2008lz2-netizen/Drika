@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -8,8 +8,8 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://drika-six.vercel.app/guia-de-tecidos.html">
   <!-- Open Graph / Social -->
-  <meta property="og:title" content="Guia de Tecidos | Drika Ateli� e Uniformes">
-  <meta property="og:description" content="Conhe�a nossos materiais premium: Gabardine, Piquet, Malha e mais.">
+  <meta property="og:title" content="Guia de Tecidos | Drika Ateli� e Uniformes">
+  <meta property="og:description" content="Conhe�a nossos materiais premium: Gabardine, Piquet, Malha e mais.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://drika-six.vercel.app/guia-de-tecidos.html">
   <meta property="og:image" content="https://drika-six.vercel.app/images/logo-drika-transparent.png">
@@ -151,61 +151,62 @@
       </div>
 
       <script>
-        const fabricData = {
-          'gabardine': {
-            title: 'Gabardine',
-            desc: 'Opção utilizada em peças que buscam uma apresentação estruturada e profissional. É um tecido resistente, com trama evidente e aspecto elegante.',
-            img: 'images/guia-de-tecidos.png', // Fallback until we get Gabardine
-            list: `
-              <li><strong>Composição:</strong> Normalmente poliéster com elastano, garantindo durabilidade e flexibilidade.</li>
-              <li><strong>Indicação:</strong> Jalecos, calças sociais e uniformes corporativos estruturados.</li>
-              <li><strong>Vantagens:</strong> Excelente durabilidade, secagem rápida e aspecto sofisticado.</li>
-            `,
-            product: 'Uniformes em Gabardine'
-          },
+                const fabricData = {
           'piquet': {
-            title: 'Piquê',
-            desc: 'O Piquê (ou Piquet) é um tecido de toque macio e muito confortável, conhecido por sua textura em relevo que forma pequenos losangos ou casas de abelha.',
-            img: 'images/piquet.jpg',
-            list: `
-              <li><strong>Composição:</strong> Algodão e Poliéster (proporcionando frescor e durabilidade).</li>
-              <li><strong>Indicação:</strong> Muito utilizado em camisas polo, uniformes corporativos e eventos.</li>
-              <li><strong>Vantagens:</strong> Ótima transpiração, não amassa com facilidade e possui um caimento elegante.</li>
-            `,
+            title: 'Piquet',
+            desc: 'Malha estruturada com textura em relevo, ventilada e resistente, indicada para polos e uniformes corporativos.',
+            img: 'images/guia-de-tecidos.png',
+            list: <li><strong>Composi��o:</strong> 50% algod�o / 50% poli�ster</li>,
             product: 'Uniformes em Piquet'
           },
-          'malha': {
-            title: 'Malha',
-            desc: 'Opção versátil para camisetas e outras peças destinadas ao uso cotidiano. É um tecido leve e adaptável ao corpo.',
-            img: 'images/guia-de-tecidos.png', // Placeholder
-            list: `
-              <li><strong>Composição:</strong> Pode ser 100% algodão, poliviscose (PV) ou mistas.</li>
-              <li><strong>Indicação:</strong> Camisetas escolares, turmas, eventos e uso diário.</li>
-              <li><strong>Vantagens:</strong> Muito confortável, maleável, não limita os movimentos e tem ótimo custo-benefício.</li>
-            `,
-            product: 'Uniformes em Malha'
+          'pv': {
+            title: 'PV (Poli�ster + Viscose)',
+            desc: 'Malha lisa, leve e confort�vel, com �timo caimento e f�cil manuten��o para uso di�rio.',
+            img: 'images/guia-de-tecidos.png',
+            list: <li><strong>Composi��o:</strong> 67% poli�ster / 33% viscose</li>,
+            product: 'Uniformes em PV'
           },
           'moletom': {
             title: 'Moletom',
-            desc: 'Tecido felpado e macio, ideal para climas frios e uniformes de inverno, oferecendo conforto térmico superior.',
-            img: 'images/moletom.jpg',
-            list: `
-              <li><strong>Composição:</strong> Geralmente mescla de algodão com poliéster (para não encolher).</li>
-              <li><strong>Indicação:</strong> Agasalhos, blusas de frio, calças e uniformes escolares de inverno.</li>
-              <li><strong>Vantagens:</strong> Alto aquecimento, conforto extremo, resistência e toque agradável.</li>
-            `,
+            desc: 'Malha encorpada, macia e t�rmica, com toque confort�vel e boa reten��o de calor.',
+            img: 'images/guia-de-tecidos.png',
+            list: <li><strong>Composi��o:</strong> 50% algod�o / 50% poli�ster</li>,
             product: 'Uniformes em Moletom'
+          },
+          'brim': {
+            title: 'Brim',
+            desc: 'Tecido plano encorpado, resistente � abras�o, indicado para uniformes de uso intenso.',
+            img: 'images/guia-de-tecidos.png',
+            list: <li><strong>Composi��o:</strong> 100% algod�o</li>,
+            product: 'Uniformes em Brim'
           },
           'tactel': {
             title: 'Tactel',
-            desc: 'Tecido sintético muito leve, de secagem rápida e fácil lavagem, com textura levemente amassada ou lisa.',
-            img: 'images/tactel.jpg',
-            list: `
-              <li><strong>Composição:</strong> 100% Poliamida ou Poliéster.</li>
-              <li><strong>Indicação:</strong> Uniformes esportivos, bermudas, jaquetas corta-vento e calças leves.</li>
-              <li><strong>Vantagens:</strong> Extremamente leve, não retém suor, seca rápido e não precisa passar.</li>
-            `,
+            desc: 'Tecido plano sint�tico, leve e de secagem r�pida, muito usado em pe�as esportivas e operacionais.',
+            img: 'images/guia-de-tecidos.png',
+            list: <li><strong>Composi��o:</strong> 100% poliamida</li>,
             product: 'Uniformes em Tactel'
+          },
+          'microfibra': {
+            title: 'Microfibra',
+            desc: 'Tecido sint�tico de filamentos ultrafinos, leve, respir�vel e de toque suave.',
+            img: 'images/guia-de-tecidos.png',
+            list: <li><strong>Composi��o:</strong> 100% poli�ster</li>,
+            product: 'Uniformes em Microfibra'
+          },
+          'gabardine': {
+            title: 'Gabardine',
+            desc: 'Tecido plano de trama fechada, apar�ncia lisa e elegante, alta resist�ncia e excelente acabamento para uniformes profissionais.',
+            img: 'images/guia-de-tecidos.png',
+            list: <li><strong>Composi��o:</strong> 100% poli�ster</li>,
+            product: 'Uniformes em Gabardine'
+          },
+          'tricoline': {
+            title: 'Tricoline',
+            desc: 'Tecido plano leve e respir�vel, com trama fina e toque macio, muito utilizado em camisas e jalecos profissionais por oferecer conforto e apar�ncia sofisticada.',
+            img: 'images/guia-de-tecidos.png',
+            list: <li><strong>Composi��o:</strong> 16% poli�ster / 84% algod�o</li>,
+            product: 'Uniformes em Tricoline'
           }
         };
 
@@ -248,30 +249,45 @@
       </script>
       
       <div class="product-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('gabardine')">
-          <h3>Gabardine</h3>
-          <p>Opção utilizada em peças que buscam uma apresentação estruturada e profissional.</p>
-          <p><strong>Indicado para:</strong> Jalecos e uniformes corporativos estruturados.</p>
-        </div>
         <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('piquet')">
-          <h3>Piquê</h3>
-          <p>Alternativa frequentemente utilizada em polos, combinando aparência profissional e conforto.</p>
-          <p><strong>Indicado para:</strong> Camisas Polo para atendimento e eventos.</p>
+          <h3>Piquet</h3>
+          <p>Malha estruturada com textura em relevo, ventilada e resistente.</p>
+          <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;"><strong>Composição:</strong> 50% algodão / 50% poliéster</p>
         </div>
-        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('malha')">
-          <h3>Malha</h3>
-          <p>Opção versátil para camisetas e outras peças destinadas ao uso cotidiano.</p>
-          <p><strong>Indicado para:</strong> Camisetas escolares, turmas e uso diário.</p>
+        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('pv')">
+          <h3>PV (Poliéster + Viscose)</h3>
+          <p>Malha lisa, leve e confortável, com ótimo caimento e fácil manutenção.</p>
+          <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;"><strong>Composição:</strong> 67% poliéster / 33% viscose</p>
         </div>
         <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('moletom')">
           <h3>Moletom</h3>
-          <p>Tecido felpado e macio, ideal para climas frios, oferecendo conforto térmico superior.</p>
-          <p><strong>Indicado para:</strong> Agasalhos, blusas de frio e uniformes de inverno.</p>
+          <p>Malha encorpada, macia e térmica, com toque confortável.</p>
+          <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;"><strong>Composição:</strong> 50% algodão / 50% poliéster</p>
+        </div>
+        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('brim')">
+          <h3>Brim</h3>
+          <p>Tecido plano encorpado, resistente à abrasão, para uso intenso.</p>
+          <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;"><strong>Composição:</strong> 100% algodão</p>
         </div>
         <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('tactel')">
           <h3>Tactel</h3>
-          <p>Tecido sintético muito leve e de secagem rápida, excelente para peças esportivas.</p>
-          <p><strong>Indicado para:</strong> Uniformes esportivos, bermudas e corta-ventos.</p>
+          <p>Tecido plano sintético, leve e de secagem rápida.</p>
+          <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;"><strong>Composição:</strong> 100% poliamida</p>
+        </div>
+        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('microfibra')">
+          <h3>Microfibra</h3>
+          <p>Tecido sintético de filamentos ultrafinos, leve, respirável.</p>
+          <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;"><strong>Composição:</strong> 100% poliéster</p>
+        </div>
+        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('gabardine')">
+          <h3>Gabardine</h3>
+          <p>Tecido plano de trama fechada, aparência lisa e elegante.</p>
+          <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;"><strong>Composição:</strong> 100% poliéster</p>
+        </div>
+        <div class="feature-card fade-in" style="cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--gold-main)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 255, 255, 0.05)';" onclick="openFabricDetails('tricoline')">
+          <h3>Tricoline</h3>
+          <p>Tecido plano leve e respirável, com trama fina e toque macio.</p>
+          <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;"><strong>Composição:</strong> 16% poliéster / 84% algodão</p>
         </div>
       </div>
     </div>
@@ -489,3 +505,5 @@
   <script src="script.js?v=5"></script>
 </body>
 </html>
+
+
