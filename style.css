@@ -327,6 +327,11 @@ p{font-weight:300;color:var(--text-secondary)}
   animation-delay: 0.4s;
   opacity: 0;
   position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  text-shadow: 0 0 1px rgba(255,255,255,0.1);
+  will-change: transform, opacity;
 }
 
 .hero-title .gold-text{
@@ -480,6 +485,9 @@ p{font-weight:300;color:var(--text-secondary)}
   background:var(--gold-text-gradient);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text;
   line-height:.85;display:block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 .hero-brand-name{
   font-family:var(--font-body);font-size:1.1rem;font-weight:300;
@@ -2870,6 +2878,7 @@ a[href*='elfsig.ht'],
     top: -9999px !important;
     z-index: -9999 !important;
 }
+
 
 
 
