@@ -12,6 +12,11 @@
         // Injetar CSS de limpeza instantaneamente
         const st = document.createElement('style');
         st.textContent = `
+          [class*='more'], [class*='More'], [class*='text-more'], [class*='Text__More'] {
+            color: #c8a064 !important;
+            text-decoration: underline !important;
+            font-weight: 600 !important;
+          }
           a[href*="elfsight"], a[href*="apps.elfsight.com"], a[href*="elfsig.ht"], .eapps-link, [class*="eapps-link"], 
           [class*="Badge__"], [class*="badge__"], [class*="FloatingBadge"], [class*="FreeLink"], 
           [class*="free-link"], [class*="es-badge"], [class*="watermark"], [class*="widget-logo"], 
@@ -1057,6 +1062,7 @@
   </script>
 </body>
 </html>
+
 
 
 

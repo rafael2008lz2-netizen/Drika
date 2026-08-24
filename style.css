@@ -2213,6 +2213,16 @@ a[href*="elfsight.com"],
   color: #ffffff !important;
 }
 
+/* Correcao para o botao Leia Mais ficar visivel */
+.elfsight-widget-container [class*='more'],
+.elfsight-widget-container [class*='More'],
+.elfsight-widget-container [class*='text-more'],
+.elfsight-widget-container [class*='Text__More'] {
+  color: #c8a064 !important; /* Dourado da marca */
+  text-decoration: underline !important;
+  font-weight: 600 !important;
+}
+
 /* Fundo do widget transparente */
 .elfsight-widget-container [class*="WidgetBackground"],
 .elfsight-widget-container .es-widget-container,
@@ -2894,6 +2904,7 @@ a[href*='elfsig.ht'],
     top: -9999px !important;
     z-index: -9999 !important;
 }
+
 
 
 
