@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    DRIKA ATELIÊ — Premium Virtual Store Interactions
    ============================================================ */
 
@@ -215,6 +215,15 @@ document.addEventListener('DOMContentLoaded', () => {
           card.classList.add('hidden');
         }
       });
+
+      const searchFeedbackMsg = document.getElementById('searchFeedbackMsg');
+      if (searchFeedbackMsg) {
+        if (searchTerm.length > 0) {
+          searchFeedbackMsg.style.display = 'block';
+        } else {
+          searchFeedbackMsg.style.display = 'none';
+        }
+      }
     });
   }
 
@@ -926,3 +935,4 @@ Gostaria de receber mais informações.`;
   const observer = new MutationObserver(removeElfsight);
   observer.observe(document.documentElement, { childList: true, subtree: true });
 })();
+
