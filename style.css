@@ -975,8 +975,8 @@ a[href*="apps.elfsight.com"],
    FOOTER
    ============================================================ */
 .site-footer{background:var(--bg-primary);padding:var(--space-3xl) 0 var(--space-lg);}
-.footer-content{display:grid;grid-template-columns:1fr 1.5fr 1fr 1fr;gap:var(--space-2xl);margin-bottom:var(--space-2xl)}
-.footer-brand p{font-size:var(--text-sm);color:var(--text-muted);max-width:280px;line-height:1.7;margin-top:var(--space-sm)}
+.footer-content{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--space-3xl);margin-bottom:var(--space-2xl)}
+.footer-about p{font-size:var(--text-sm);color:var(--text-muted);max-width:280px;line-height:1.7;margin-top:var(--space-sm)}
 .footer-links h4,.footer-social h4{
   font-family:var(--font-body);font-size:var(--text-xs);font-weight:600;
   letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:var(--space-md);
@@ -1061,7 +1061,7 @@ a[href*="apps.elfsight.com"],
   .diff-grid{grid-template-columns:repeat(2,1fr)}
   .testimonial-grid{grid-template-columns:1fr 1fr}
   .contact-grid{grid-template-columns:1fr}
-  .footer-content{grid-template-columns:1fr 1fr}
+  .footer-content{display:grid;grid-template-columns:1fr 1fr}
   .insta-grid{grid-template-columns:repeat(3,1fr)}
   .hero-brand-letter{font-size:5rem}
 }
@@ -1212,7 +1212,7 @@ a[href*="apps.elfsight.com"],
   /* Smaller Insta Grid on mobile */
   .insta-grid{grid-template-columns:repeat(4,1fr); gap: 4px;}
   .insta-header{flex-direction:column;align-items:flex-start}
-  .footer-content{grid-template-columns:1fr}
+  .footer-content{display:grid;grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;text-align:center}
   .whatsapp-tooltip{display:none}
   .whatsapp-float{bottom:var(--space-md);right:var(--space-md)}
@@ -2870,6 +2870,9 @@ a[href*='elfsig.ht'],
     top: -9999px !important;
     z-index: -9999 !important;
 }
+
+
+
 
 
 
