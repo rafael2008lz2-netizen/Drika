@@ -2501,6 +2501,9 @@ a[href*="apps.elfsight.com"],
 }
 
 .step-card p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
 
 @media (max-width: 1024px) {
   .steps-grid {
@@ -2878,6 +2881,7 @@ a[href*='elfsig.ht'],
     top: -9999px !important;
     z-index: -9999 !important;
 }
+
 
 
 
