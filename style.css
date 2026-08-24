@@ -911,8 +911,8 @@ a[href*="apps.elfsight.com"],
 .contact-item-info a{color:var(--text-secondary);transition:color var(--transition-fast)}
 .contact-item-info a:hover{color:var(--gold)}
 .contact-map{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--gray-border);height:100%;min-height:380px}
-.contact-map iframe{width:100%;height:100%;min-height:380px;border:none;filter:grayscale(80%) brightness(.7) contrast(1.1);transition:filter var(--transition-base)}
-.contact-map:hover iframe{filter:grayscale(30%) brightness(.85) contrast(1.05)}
+.contact-map iframe{width:100%;height:100%;min-height:380px;border:none;}
+
 
 /* ============================================================
    INSTAGRAM
