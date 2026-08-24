@@ -830,9 +830,7 @@ a[href*="apps.elfsight.com"],
     z-index: -9999 !important;
 }
 
-/* Specific to widget containers */
-    display: none !important;
-}
+
 
 .insta-follow-btn{
   display:inline-flex;align-items:center;gap:var(--space-xs);
@@ -2742,32 +2740,43 @@ a[href*="apps.elfsight.com"],
 
 .quote-form-group label {
   display: block;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .quote-form-group input,
 .quote-form-group select,
 .quote-form-group textarea {
   width: 100%;
-  padding: 12px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--gray-border);
-  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: var(--text-base);
-  transition: border-color var(--transition-fast);
+  font-size: var(--text-sm);
+  transition: all 0.3s ease;
   box-sizing: border-box;
+}
+
+.quote-form-group input:hover,
+.quote-form-group select:hover,
+.quote-form-group textarea:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .quote-form-group input:focus,
 .quote-form-group select:focus,
 .quote-form-group textarea:focus {
   outline: none;
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(200, 160, 100, 0.15);
 }
 
 .quote-form-group textarea {
@@ -2816,6 +2825,10 @@ a[href*="apps.elfsight.com"],
   cursor: pointer;
   padding: 8px;
   line-height: 1;
+  transition: color 0.3s ease;
+}
+.quote-modal-close:hover {
+  color: var(--gold);
 }
 
 @media (max-width: 640px) {
@@ -2881,6 +2894,7 @@ a[href*='elfsig.ht'],
     top: -9999px !important;
     z-index: -9999 !important;
 }
+
 
 
 
