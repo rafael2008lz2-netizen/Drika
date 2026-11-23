@@ -1,0 +1,6 @@
+# Local backups
+images_backup/
+
+# OS metadata
+.DS_Store
+Thumbs.db

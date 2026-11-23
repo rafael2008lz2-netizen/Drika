@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    DRIKA ATELIÊ — Premium Virtual Store Interactions
    ============================================================ */
 
@@ -115,6 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const hoverImg = document.createElement('img');
         hoverImg.src = imageList[1];
         hoverImg.alt = primaryImg.alt || '';
+        hoverImg.loading = 'lazy';
+        hoverImg.decoding = 'async';
         hoverImg.classList.add('img-hover');
         if (primaryImg.getAttribute('style')) {
           hoverImg.setAttribute('style', primaryImg.getAttribute('style'));
