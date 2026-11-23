@@ -1239,7 +1239,27 @@ a[href*="elfsight.com"],
 /* Tampa forÃ§ada para iframe (caso o Elfsight bloqueie o JS) */
 .insta-feed-widget {
   position: relative;
-  padding-bottom: 20px; /* EspaÃ§o para nÃ£o cortar as fotos */
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .insta-feed-widget {
+    max-width: min(290px, 78vw) !important;
+    margin: 0 auto !important;
+  }
+  .insta-feed-widget [class*="posts-item"],
+  .insta-feed-widget [class*="posts-slider-item"],
+  .insta-feed-widget [class*="posts-view"] {
+    border-radius: 14px !important;
+    overflow: hidden !important;
+  }
+  .insta-feed-widget [class*="posts-item"] {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
 }
 
 .insta-feed-widget::after {
